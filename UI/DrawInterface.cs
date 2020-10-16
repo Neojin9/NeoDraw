@@ -76,13 +76,10 @@ namespace NeoDraw.UI {
         private static bool _scrolling;
         private static bool _showGPS;
         private static bool _subScrolling;
-
-        private static byte _brushShape = BrushShape.Square;
         private static byte CurrentTab = Tabs.Tiles;
         private static byte DayNightOption;
         private static byte GridStyle = 0;
         private static byte LeftClickHoldTime;
-        private static byte _paintMode = PaintMode.Paint;
         private static byte RightClickHoldTime;
         private static byte SelectionFrameCounter = SelectionFrameCounterMax;
         private static byte SelectionFrameCurrent;
@@ -97,7 +94,6 @@ namespace NeoDraw.UI {
         private static int _currentSubStructure = -1;
         private static int _currentSubTile = -1;
         private static int _floodFillCounter;
-        private static int _lastSelectedHotbar;
         private static int _oldScreenHeight = -1;
         private static int _oldScreenWidth = -1;
         private static int _otherScroll;
@@ -120,20 +116,27 @@ namespace NeoDraw.UI {
         public static UndoStep _undo;
         private static UndoStep CurrentSelection;
 
-        private static readonly int[] bigBrushCompatible = new int[] { TileID.CorruptThorns, TileID.Cobweb, TileID.JungleThorns, TileID.InactiveStoneBlock, TileID.MetalBars, TileID.CopperCoinPile, TileID.SilverCoinPile,
-            TileID.GoldCoinPile, TileID.PlatinumCoinPile, TileID.LivingFire, TileID.LivingCursedFire, TileID.LivingDemonFire, TileID.LivingFrostFire, TileID.LivingIchor, TileID.LivingUltrabrightFire, TileID.ChimneySmoke,
-            TileID.CrimtaneThorns, TileID.PixelBox };
+        private static readonly int[] bigBrushCompatible = new int[] {
+            TileID.CorruptThorns,         TileID.Cobweb,           TileID.JungleThorns,   TileID.InactiveStoneBlock, TileID.MetalBars,       TileID.CopperCoinPile,  TileID.SilverCoinPile,
+            TileID.GoldCoinPile,          TileID.PlatinumCoinPile, TileID.LivingFire,     TileID.LivingCursedFire,   TileID.LivingDemonFire, TileID.LivingFrostFire, TileID.LivingIchor,
+            TileID.LivingUltrabrightFire, TileID.ChimneySmoke,     TileID.CrimtaneThorns, TileID.PixelBox
+        };
 
-        private static readonly int[] lineCompatible = new int[] { TileID.MinecartTrack, 427, 435, 436, 437, 438, 439, 445 };
+        private static readonly int[] lineCompatible = new int[] {
+            TileID.MinecartTrack, 427, 435, 436, 437, 438, 439, 445
+        };
 
         private static readonly int[] wideLineCompatible = new int[] { TileID.PixelBox };
 
-        private static readonly int[] superCover = new int[] { TileID.Chain, TileID.Rope, TileID.SilkRope, TileID.VineRope, TileID.WebRope, TileID.ConveyorBeltLeft, TileID.ConveyorBeltRight, TileID.MinecartTrack };
+        private static readonly int[] superCover = new int[] {
+            TileID.Chain, TileID.Rope, TileID.SilkRope, TileID.VineRope, TileID.WebRope, TileID.ConveyorBeltLeft, TileID.ConveyorBeltRight, TileID.MinecartTrack
+        };
 
         private static readonly int[] styleDown = new int[] {
-            TileID.Torches, TileID.ClosedDoor, TileID.OpenDoor, TileID.Chairs, TileID.Platforms, TileID.Pots, TileID.Candles, TileID.Chandeliers, TileID.Jackolanterns, TileID.HangingLanterns, TileID.Beds,
-            TileID.Bathtubs, TileID.Lamps, TileID.Candelabras, TileID.PressurePlates, TileID.Traps, TileID.MusicBoxes, TileID.Sinks, TileID.Firework, TileID.Painting6X4, TileID.Painting3X2,
-            TileID.PlanterBox, TileID.LogicGate, TileID.LogicSensor, TileID.WeightedPressurePlate, TileID.Painting4X3 };
+            TileID.Torches,         TileID.ClosedDoor,  TileID.OpenDoor,    TileID.Chairs,     TileID.Platforms,   TileID.Pots,           TileID.Candles,               TileID.Chandeliers, TileID.Jackolanterns,
+            TileID.HangingLanterns, TileID.Beds,        TileID.Bathtubs,    TileID.Lamps,      TileID.Candelabras, TileID.PressurePlates, TileID.Traps,                 TileID.MusicBoxes,  TileID.Sinks,
+            TileID.Firework,        TileID.Painting6X4, TileID.Painting3X2, TileID.PlanterBox, TileID.LogicGate,   TileID.LogicSensor,    TileID.WeightedPressurePlate, TileID.Painting4X3
+        };
 
         private static readonly List<TopButton> TopButtons = new List<TopButton>();
         private static readonly List<Point> SelectedPoints = new List<Point>();
@@ -197,8 +200,6 @@ namespace NeoDraw.UI {
             {OtherNames.Converter, new List<string> { "Corruption", "Crimson", "Hallow", "Jungle", "Mushroom", "Purity" } }
         };
 
-        private static int HellLayer { get { return Main.maxTilesY - 200; } }
-
         private static VerticalSlider _middleVerticalSlider;
         private static VerticalSlider _bottomVerticalSlider;
 
@@ -210,7 +211,6 @@ namespace NeoDraw.UI {
         private static bool ReverseSortList = false;
         private static List<ListItem> ListFiltered;
 
-        private static bool _resetInterface = true;
         private static string SearchBoxText;
         private static string SearchString;
 
@@ -219,10 +219,14 @@ namespace NeoDraw.UI {
 
         #endregion SearchBar Stuff
 
+        #region Sort Stuff
+
         private static readonly ListSorter<ListItem> SortByName = new ListSorter<ListItem>("Name", (i1, i2) => i1.Name.CompareTo(i2.Name), item => true);
         private static readonly ListSorter<ListItem> SortByID = new ListSorter<ListItem>("ID", (i1, i2) => i1.ID.CompareTo(i2.ID), item => true);
 
         private static readonly ListSorter<ListItem>[] ListSorters = new[] { SortByID, SortByName };
+
+        #endregion
 
         #endregion Private Variables
 
@@ -280,19 +284,6 @@ namespace NeoDraw.UI {
         public static Texture2D Square;
         public static Texture2D UIButtonTextures;
 
-        public static ref UndoStep Undo {
-
-            get {
-
-                if (_undo == null)
-                    _undo = new UndoStep();
-
-                return ref _undo;
-
-            }
-
-        }
-
         #endregion Public Variables
 
         #endregion Variables
@@ -308,8 +299,6 @@ namespace NeoDraw.UI {
         private static int MiddleListItemsCount => (int)Math.Floor(MiddleListLength / (float)ListItemHeight - 1);
 
         private static int TileScrollMax => Math.Max((int)Math.Ceiling((double)TileNames.TileCount - MiddleListItemsCount), 0);
-
-        private static bool MouseXoverToolbar { get { return ((!AtLeftEdgeOfWorld && Main.mouseX <= ListWidth) || (AtLeftEdgeOfWorld && Main.mouseX >= Main.screenWidth - ListWidth)) && !MouseOffScreen; } }
 
         private static int TileScroll {
             get { return _tileScroll; }
@@ -419,7 +408,7 @@ namespace NeoDraw.UI {
                         if (type != null && ((!Main.tileFrameImportant[(int)type] && Main.tileSolid[(int)type]) || bigBrushCompatible.Contains((int)type)))
                             return _brushSize;
 
-                        if (_brushShape == BrushShape.Line && type != null && wideLineCompatible.Contains((int)type))
+                        if (CurrentBrushShape == BrushShape.Line && type != null && wideLineCompatible.Contains((int)type))
                             return _brushSize;
 
                         if (CurrentPaintMode == PaintMode.Erase)
@@ -464,17 +453,36 @@ namespace NeoDraw.UI {
 
         #endregion UI Alpha Value Fields
 
-        #endregion Fields
-
-        public static byte CurrentPaintMode { get { return _paintMode; } set { _paintMode = value; } }
-
-        public static byte CurrentBrushShape { get { return _brushShape; } set { _brushShape = value; } }
+        #region Various Fields
 
         public static bool AtBottomEdgeOfWorld { get { return Main.screenPosition.Y > Main.bottomWorld - Main.screenHeight - StatusBarHeight - 650; } }
 
         public static bool AtLeftEdgeOfWorld { get { return Main.screenPosition.X < 900; } }
 
         public static bool AtRightEdgeOfWorld { get { return Main.screenPosition.X > Main.rightWorld - Main.screenWidth - 900; } }
+
+        public static byte CurrentBrushShape { get; set; } = BrushShape.Square;
+
+        public static byte CurrentPaintMode { get; set; } = PaintMode.Paint;
+
+        public static string CurrentTabName {
+
+            get {
+
+                switch (CurrentTab) {
+
+                    case 0: return "Tiles";
+                    case 1: return "Walls";
+                    case 2: return "Structures";
+                    default: return "Other";
+
+                }
+
+            }
+
+        }
+
+        private static int HellLayer { get { return Main.maxTilesY - 200; } }
 
         public static bool MouseOffScreen {
             
@@ -498,22 +506,30 @@ namespace NeoDraw.UI {
 
         }
 
-        public static bool MouseYoverStatusbar { get { return (AtBottomEdgeOfWorld && Main.mouseY < StatusBarHeight) || (!AtBottomEdgeOfWorld && Main.mouseY > ((AtBottomEdgeOfWorld && !Main.mapFullscreen) ? 0 : Main.screenHeight - StatusBarHeight)); } }
+        private static bool MouseXoverToolbar { get { return ((!AtLeftEdgeOfWorld && Main.mouseX <= ListWidth) || (AtLeftEdgeOfWorld && Main.mouseX >= Main.screenWidth - ListWidth)) && !MouseOffScreen; } }
 
-        public static string CurrentTabName {
-            get {
-                switch (CurrentTab) {
-                    case  0: return "Tiles";
-                    case  1: return "Walls";
-                    case  2: return "Structures";
-                    default: return "Other";
-                }
-            }
-        }
+        public static bool MouseYoverStatusbar { get { return (AtBottomEdgeOfWorld && Main.mouseY < StatusBarHeight) || (!AtBottomEdgeOfWorld && Main.mouseY > ((AtBottomEdgeOfWorld && !Main.mapFullscreen) ? 0 : Main.screenHeight - StatusBarHeight)); } }
 
         public static string OtherToCreateName { get { return NeoDraw.OtherToCreate == null ? "" : OthersList[(int)NeoDraw.OtherToCreate].Name; } }
 
         public static string SpecialToCreateName { get { return NeoDraw.StructureToCreate == null ? "" : StructuresList[(int)NeoDraw.StructureToCreate].Name; } }
+
+        public static ref UndoStep Undo {
+
+            get {
+
+                if (_undo == null)
+                    _undo = new UndoStep();
+
+                return ref _undo;
+
+            }
+
+        }
+
+        #endregion
+
+        #endregion Fields
 
         public override void OnInitialize() {
 
@@ -640,8 +656,6 @@ namespace NeoDraw.UI {
             if (_hoverText != null)
                 MouseText(sb, _hoverText);
 
-            _lastSelectedHotbar = Main.LocalPlayer.selectedItem;
-
             if (!toolbarHovered && !Main.keyState.PressingCtrl()) { // TODO: Maybe make this not happen when QuickSwitching to Eyedropper?
 
                 int sizeScrollBy = PlayerInput.ScrollWheelDelta / 120;
@@ -653,7 +667,7 @@ namespace NeoDraw.UI {
 
                         if (CurrentPaintMode == PaintMode.Paint) {
 
-                            if (_brushShape == BrushShape.Square || _brushShape == BrushShape.Circle) {
+                            if (CurrentBrushShape == BrushShape.Square || CurrentBrushShape == BrushShape.Circle) {
 
                                 if (NeoDraw.StructureToCreate != null && NeoDraw.StructureToCreate < StructuresList.Count) { // Updated this to protect from accessing array out of bounds
 
@@ -2239,7 +2253,7 @@ namespace NeoDraw.UI {
                     string lengthX = BrushSize.ToString();
                     string lengthY = BrushSize.ToString();
 
-                    if (_brushShape == BrushShape.Line) {
+                    if (CurrentBrushShape == BrushShape.Line) {
 
                         if (StartPoint == default) {
                             lengthX = lengthY = "-";
@@ -2252,7 +2266,7 @@ namespace NeoDraw.UI {
 
                     statusBarText += lengthX + ", " + lengthY + ")";
 
-                    if (_brushShape == BrushShape.Line && StartPoint != default) {
+                    if (CurrentBrushShape == BrushShape.Line && StartPoint != default) {
 
                         float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X)) * -1;
                         statusBarText += " " + angle.ToString("F1") + "° - Hold CTRL to snap angle in 45° increments.";
@@ -2345,7 +2359,7 @@ DrawMessage:;
 
                                 SwitchToGameZoom();
 
-                                if (_brushShape == BrushShape.Square || _brushShape == BrushShape.Circle) {
+                                if (CurrentBrushShape == BrushShape.Square || CurrentBrushShape == BrushShape.Circle) {
 
                                     if (NeoDraw.StructureToCreate != null && NeoDraw.StructureToCreate < StructuresList.Count) { // Added protection to keep from accessing array out of bounds
 
@@ -2623,7 +2637,7 @@ DoneTesting:;
 
                         ShowSelectedTileInfo(sb);
 
-                        if (_brushShape == BrushShape.Square) {
+                        if (CurrentBrushShape == BrushShape.Square) {
 
                             if (CurrentPaintMode == PaintMode.Paint && BrushSize == 1 && (CurrentTab == Tabs.Tiles || CurrentTab == Tabs.Walls)) {
 
@@ -2645,7 +2659,7 @@ DoneTesting:;
                             }
 
                         }
-                        else if (_brushShape == BrushShape.Circle) {
+                        else if (CurrentBrushShape == BrushShape.Circle) {
 
                             Vector2 centerTarget = new Vector2(Neo.TileTargetX * 16 + 8, Neo.TileTargetY * 16 + 8);
 
@@ -2670,7 +2684,7 @@ DoneTesting:;
                             }
 
                         }
-                        else if (_brushShape == BrushShape.Fill) {
+                        else if (CurrentBrushShape == BrushShape.Fill) {
 
                             SwitchToUIZoom();
 
@@ -2679,7 +2693,7 @@ DoneTesting:;
                             SwitchToGameZoom();
 
                         }
-                        else if (_brushShape == BrushShape.Line) {
+                        else if (CurrentBrushShape == BrushShape.Line) {
 
                             SwitchToUIZoom();
 
@@ -2817,7 +2831,7 @@ DoneTesting:;
                 if (_undo == null)
                     _undo = new UndoStep();
 
-                if (_brushShape == BrushShape.Square) {
+                if (CurrentBrushShape == BrushShape.Square) {
 
                     for (int y = Neo.TileTargetY - (int)Math.Floor(BrushSize / 2f); y < Neo.TileTargetY + (int)Math.Ceiling(BrushSize / 2f); y++) {
 
@@ -2929,7 +2943,7 @@ DoneTesting:;
                     }
 
                 }
-                else if (_brushShape == BrushShape.Circle) {
+                else if (CurrentBrushShape == BrushShape.Circle) {
 
                     Vector2 centerTarget = new Vector2(Neo.TileTargetX * 16 + 8, Neo.TileTargetY * 16 + 8);
 
@@ -2945,8 +2959,8 @@ DoneTesting:;
 
                                         case Tabs.Tiles:
 
-                                            if (Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].active() ||
-                                                Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].liquid > 0) {
+                                            if (Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].active() ||
+                                                Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].liquid > 0) {
 
                                                 EraseTile(x, y, true);
 
@@ -2956,7 +2970,7 @@ DoneTesting:;
 
                                         case Tabs.Walls:
 
-                                            if (Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].wall > 0)
+                                            if (Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].wall > 0)
                                                 DrawWall(x, y, ref _undo, 0, true);
 
                                             break;
@@ -2979,7 +2993,7 @@ DoneTesting:;
 
                                         case Tabs.Tiles:
 
-                                            if (!Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].active() || Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].type != NeoDraw.TileToCreate) {
+                                            if (!Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].active() || Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].type != NeoDraw.TileToCreate) {
 
                                                 DrawTile(x, y, -1, true);
 
@@ -2989,7 +3003,7 @@ DoneTesting:;
 
                                         case Tabs.Walls:
 
-                                            if (Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].wall != NeoDraw.WallToCreate)
+                                            if (Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].wall != NeoDraw.WallToCreate)
                                                 DrawWall(x, y, ref _undo, -1, true);
 
                                             break;
@@ -3016,8 +3030,8 @@ DoneTesting:;
 
                         for (int x = Neo.TileTargetX * 16 + 8 - BrushSize * 8; x < Neo.TileTargetX * 16 + 8 + BrushSize * 8; x += 16) {
 
-                            int curX = (x - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
-                            int curY = (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
+                            int curX = (x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
+                            int curY = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
 
                             switch (CurrentTab) {
 
@@ -3043,7 +3057,7 @@ DoneTesting:;
                     }
 
                 }
-                else if (_brushShape == BrushShape.Line) {
+                else if (CurrentBrushShape == BrushShape.Line) {
 
                     if (!Main.mouseLeftRelease)
                         return;
@@ -3127,7 +3141,7 @@ DoneTesting:;
                     }
 
                 }
-                else if (_brushShape == BrushShape.Fill) {
+                else if (CurrentBrushShape == BrushShape.Fill) {
 
                     if (!Main.mouseLeftRelease)
                         return;
@@ -3434,7 +3448,7 @@ DoneTesting:;
                     if (_undo == null)
                         _undo = new UndoStep();
 
-                    if (_brushShape == BrushShape.Square) {
+                    if (CurrentBrushShape == BrushShape.Square) {
 
                         for (int y = Neo.TileTargetY - (int)Math.Floor(BrushSize / 2f); y < Neo.TileTargetY + (int)Math.Ceiling(BrushSize / 2f); y++) {
 
@@ -3500,7 +3514,7 @@ DoneTesting:;
                         }
 
                     }
-                    else if (_brushShape == BrushShape.Circle) {
+                    else if (CurrentBrushShape == BrushShape.Circle) {
 
                         Vector2 centerTarget = new Vector2(Neo.TileTargetX * 16 + 8, Neo.TileTargetY * 16 + 8);
 
@@ -3514,8 +3528,8 @@ DoneTesting:;
 
                                         case Tabs.Tiles:
 
-                                            if (Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].active() ||
-                                                Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].liquid > 0) {
+                                            if (Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].active() ||
+                                                Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].liquid > 0) {
 
                                                 EraseTile(x, y, true);
 
@@ -3525,7 +3539,7 @@ DoneTesting:;
 
                                         case Tabs.Walls:
 
-                                            if (Main.tile[(x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16].wall > 0)
+                                            if (Main.tile[(x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16].wall > 0)
                                                 DrawWall(x, y, ref _undo, 0, true);
 
                                             break;
@@ -3552,18 +3566,18 @@ DoneTesting:;
                                 switch (CurrentTab) {
 
                                     case Tabs.Tiles:
-                                        WorldGen.SquareTileFrame((x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16);
+                                        WorldGen.SquareTileFrame((x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16);
                                         break;
 
                                     case Tabs.Walls:
-                                        WorldGen.SquareWallFrame((x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16);
+                                        WorldGen.SquareWallFrame((x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16);
                                         break;
 
                                     case Tabs.Structures:
                                         break;
 
                                     case Tabs.Other:
-                                        WorldGen.SquareTileFrame((x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16);
+                                        WorldGen.SquareTileFrame((x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16, (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16);
                                         break;
 
                                 }
@@ -3573,7 +3587,7 @@ DoneTesting:;
                         }
 
                     }
-                    else if (_brushShape == BrushShape.Fill && Main.mouseLeftRelease) {
+                    else if (CurrentBrushShape == BrushShape.Fill && Main.mouseLeftRelease) {
 
                         switch (CurrentTab) {
 
@@ -3806,8 +3820,8 @@ DoneTesting:;
                 return;
 
             if (circle) {
-                x = (x - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
-                y = (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
+                x = (x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
+                y = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
             }
 
             switch (OthersList[(int)NeoDraw.OtherToCreate].Name) {
@@ -4458,8 +4472,8 @@ DoneTesting:;
             }
 
             if (circle) {
-                x = (x - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
-                y = (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
+                x = (x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
+                y = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
             }
 
             PlaceTile(x, y, tileType, ref _undo, true, true, -1, _placeStyle);
@@ -4478,8 +4492,8 @@ DoneTesting:;
             }
 
             if (circle) {
-                x = (x - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
-                y = (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
+                x = (x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
+                y = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
             }
 
             if (x <= 1 || y <= 1 || x >= Main.maxTilesX - 2 || y >= Main.maxTilesY - 2)
@@ -4515,8 +4529,8 @@ DoneTesting:;
                 return;
 
             if (circle) {
-                x = (x - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
-                y = (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
+                x = (x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
+                y = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
             }
 
             switch (OtherToCreateName) {
@@ -4778,8 +4792,8 @@ DoneTesting:;
         private static void EraseTile(int x, int y, bool circle = false) {
 
             if (circle) {
-                x = (x - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
-                y = (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16;
+                x = (x - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
+                y = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
             }
 
             WorldGen.destroyObject = true;
@@ -6234,7 +6248,7 @@ DoneTesting:;
                 bgActiveTexture: ButtonActive,
                 bgInactiveTexture: ButtonInactive,
                 bgHoveredTexture: ButtonHover,
-                isActive: () => _brushShape == BrushShape.Square,
+                isActive: () => CurrentBrushShape == BrushShape.Square,
                 onClick: t => {
 
                     if (_buttonClicked)
@@ -6242,7 +6256,7 @@ DoneTesting:;
 
                     _buttonClicked = true;
 
-                    _brushShape = BrushShape.Square;
+                    CurrentBrushShape = BrushShape.Square;
 
                 },
                 getAlpha: () => BoxAlpha,
@@ -6266,7 +6280,7 @@ DoneTesting:;
                 bgActiveTexture: ButtonActive,
                 bgInactiveTexture: ButtonInactive,
                 bgHoveredTexture: ButtonHover,
-                isActive: () => _brushShape == BrushShape.Circle,
+                isActive: () => CurrentBrushShape == BrushShape.Circle,
                 onClick: t => {
 
                     if (_buttonClicked)
@@ -6274,7 +6288,7 @@ DoneTesting:;
 
                     _buttonClicked = true;
 
-                    _brushShape = BrushShape.Circle;
+                    CurrentBrushShape = BrushShape.Circle;
 
                 },
                 getAlpha: () => BoxAlpha,
@@ -6298,7 +6312,7 @@ DoneTesting:;
                 bgActiveTexture: ButtonActive,
                 bgInactiveTexture: ButtonInactive,
                 bgHoveredTexture: ButtonHover,
-                isActive: () => _brushShape == BrushShape.Line,
+                isActive: () => CurrentBrushShape == BrushShape.Line,
                 onClick: t => {
 
                     if (_buttonClicked)
@@ -6306,7 +6320,7 @@ DoneTesting:;
 
                     _buttonClicked = true;
 
-                    _brushShape = BrushShape.Line;
+                    CurrentBrushShape = BrushShape.Line;
 
                 },
                 getAlpha: () => BoxAlpha,
@@ -6330,7 +6344,7 @@ DoneTesting:;
                 bgActiveTexture: ButtonActive,
                 bgInactiveTexture: ButtonInactive,
                 bgHoveredTexture: ButtonHover,
-                isActive: () => _brushShape == BrushShape.Fill,
+                isActive: () => CurrentBrushShape == BrushShape.Fill,
                 onClick: t => {
 
                     if (_buttonClicked)
@@ -6338,7 +6352,7 @@ DoneTesting:;
 
                     _buttonClicked = true;
 
-                    _brushShape = BrushShape.Fill;
+                    CurrentBrushShape = BrushShape.Fill;
 
                 },
                 getAlpha: () => BoxAlpha,
