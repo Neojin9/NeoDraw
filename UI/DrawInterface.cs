@@ -2699,40 +2699,7 @@ DoneTesting:;
 
                             if (StartPoint != default) {
 
-                                float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X));
-
-                                List<Point> points = new List<Point>();
-
-                                for (int j = 0; j < Math.Ceiling((BrushSize + 1) / 2f); j++) {
-
-                                    if (angle >= -45 && angle < 45) {
-                                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                                    }
-                                    else if (angle <= -135 || angle >= 135) {
-                                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                                    }
-                                    else {
-                                        points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, Neo.TileTargetX + j, Neo.TileTargetY));
-                                    }
-
-                                }
-
-                                for (int k = 0; k < Math.Floor((BrushSize + 1) / 2f); k++) {
-
-                                    if (k == 0)
-                                        continue;
-
-                                    if (angle >= -45 && angle < 45) {
-                                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                                    }
-                                    else if (angle <= -135 || angle >= 135) {
-                                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                                    }
-                                    else {
-                                        points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, Neo.TileTargetX - k, Neo.TileTargetY));
-                                    }
-
-                                }
+                                List<Point> points = GetLinePoints();
 
                                 Texture2D value = GetTexture("Terraria/Extra_68");
 
@@ -2767,8 +2734,7 @@ DoneTesting:;
                         SwitchToUIZoom();
 
                         sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11 * Main.GameZoomTarget, Main.mouseY - 11 * Main.GameZoomTarget), null, Color.White, 0f, default, Main.GameZoomTarget, SpriteEffects.None, 1f);
-                        //sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11, Main.mouseY - 11), Color.White);
-
+                        
                         SwitchToGameZoom();
 
                         if (StartPoint != default) {
@@ -2825,8 +2791,7 @@ DoneTesting:;
                         SwitchToUIZoom();
 
                         sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11 * Main.GameZoomTarget, Main.mouseY - 11 * Main.GameZoomTarget), null, Color.White, 0f, default, Main.GameZoomTarget, SpriteEffects.None, 1f);
-                        //sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11, Main.mouseY - 11), Color.White);
-
+                        
                         SwitchToGameZoom();
 
                         break;
@@ -3764,40 +3729,7 @@ DoneTesting:;
 
         private static void DrawLine() {
 
-            float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X));
-
-            List<Point> points = new List<Point>();
-
-            for (int j = 0; j < Math.Ceiling((BrushSize + 1) / 2f); j++) {
-
-                if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                }
-                else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                }
-                else {
-                    points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, Neo.TileTargetX + j, Neo.TileTargetY));
-                }
-
-            }
-
-            for (int k = 0; k < Math.Floor((BrushSize + 1) / 2f); k++) {
-
-                if (k == 0)
-                    continue;
-
-                if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                }
-                else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                }
-                else {
-                    points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, Neo.TileTargetX - k, Neo.TileTargetY));
-                }
-
-            }
+            List<Point> points = GetLinePoints();
 
             if (CurrentPaintMode == PaintMode.Paint && NeoDraw.TileToCreate == TileID.Platforms) {
 
@@ -3919,36 +3851,7 @@ DoneTesting:;
 
         private static void DrawLineOther() {
 
-            float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X));
-
-            List<Point> points = new List<Point>();
-
-            for (int j = 0; j < Math.Ceiling((BrushSize + 1) / 2f); j++) {
-
-                if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                } else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                } else {
-                    points.AddRange(BresenhamLineSuperCover((int)StartPoint.X + j, (int)StartPoint.Y, Neo.TileTargetX + j, Neo.TileTargetY));
-                }
-
-            }
-
-            for (int k = 0; k < Math.Floor((BrushSize + 1) / 2f); k++) {
-
-                if (k == 0)
-                    continue;
-
-                if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                } else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                } else {
-                    points.AddRange(BresenhamLineSuperCover((int)StartPoint.X - k, (int)StartPoint.Y, Neo.TileTargetX - k, Neo.TileTargetY));
-                }
-
-            }
+            List<Point> points = GetLinePoints();
 
             for (int i = 0; i < points.Count; i++) {
 
@@ -3984,37 +3887,7 @@ DoneTesting:;
 
         private static void DrawLineWall() {
 
-            float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X));
-
-            List<Point> points = new List<Point>();
-
-            for (int j = 0; j < Math.Ceiling((BrushSize + 1) / 2f); j++) {
-
-                if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                }
-                else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, Neo.TileTargetX, Neo.TileTargetY + j));
-                }
-                else {
-                    points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, Neo.TileTargetX + j, Neo.TileTargetY));
-                }
-
-            }
-
-            for (int k = 1; k < Math.Floor((BrushSize + 1) / 2f); k++) {
-
-                if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                }
-                else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, Neo.TileTargetX, Neo.TileTargetY - k));
-                }
-                else {
-                    points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, Neo.TileTargetX - k, Neo.TileTargetY));
-                }
-
-            }
+            List<Point> points = GetLinePoints();
 
             for (int i = 0; i < points.Count; i++) {
 
@@ -9253,6 +9126,138 @@ DoneTesting:;
         private static int GetHash(Point point) {
 
             return GetHash(point.X, point.Y);
+
+        }
+
+        private static List<Point> GetLinePoints() {
+
+            Point target = new Point(Neo.TileTargetX, Neo.TileTargetY);
+
+            float angle = MathHelper.ToDegrees((float)Math.Atan2(target.Y - StartPoint.Y, target.X - StartPoint.X));
+
+            if (Main.keyState.PressingCtrl()) {
+
+                if (angle > -22.5 && angle < 22.5) {
+
+                    angle = 0;
+                    target.Y = (int)StartPoint.Y;
+
+                }
+                else if (angle <= -22.5 && angle >= -67.5) {
+
+                    angle = -45;
+
+                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X += (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y -= (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle >= 22.5 && angle <= 67.5) {
+
+                    angle = 45;
+
+                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X += (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y += (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle > 67.5 && angle < 112.5) {
+
+                    angle = 90;
+                    target.X = (int)StartPoint.X;
+
+                }
+                else if (angle < -67.5 && angle > -112.5) {
+
+                    angle = -90;
+                    target.X = (int)StartPoint.X;
+
+                }
+                else if (angle >= 112.5 && angle <= 157.5) {
+
+                    angle = 135;
+
+                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X -= (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y += (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle <= -112.5 && angle >= -157.5) {
+
+                    angle = -135;
+
+                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X -= (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y -= (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle > 157.5 || angle < -157.5) {
+
+                    angle = -180;
+                    target.Y = (int)StartPoint.Y;
+
+                }
+
+            }
+
+            List<Point> points = new List<Point>();
+
+            for (int j = 0; j < Math.Ceiling((BrushSize + 1) / 2f); j++) {
+
+                if (angle >= -45 && angle < 45) {
+                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                }
+                else if (angle <= -135 || angle >= 135) {
+                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                }
+                else {
+                    points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, target.X + j, target.Y));
+                }
+
+            }
+
+            for (int k = 0; k < Math.Floor((BrushSize + 1) / 2f); k++) {
+
+                if (k == 0)
+                    continue;
+
+                if (angle >= -45 && angle < 45) {
+                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                }
+                else if (angle <= -135 || angle >= 135) {
+                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                }
+                else {
+                    points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, target.X - k, target.Y));
+                }
+
+            }
+
+            return points;
 
         }
 
