@@ -53,11 +53,6 @@ namespace NeoDraw {
             if (!NeoDraw.DrawMode || !CaptureTileChanges)
                 return;
 
-            WorldGen.destroyObject = true;
-
-            if (Main.autoPause)
-                WorldGen.noTileActions = true;
-
             CaptureTileFrames = true;
 
             fail       = false;
@@ -109,10 +104,7 @@ namespace NeoDraw {
             if (!NeoDraw.DrawMode || (!CaptureTileChanges && !CaptureTileFrames))
                 return true;
 
-            WorldGen.destroyObject = true;
-
             if (Main.autoPause) {
-                WorldGen.noTileActions = true;
                 return false;
             }
 

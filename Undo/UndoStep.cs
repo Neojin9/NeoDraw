@@ -97,9 +97,6 @@ namespace NeoDraw.Undo {
             if (Count <= 0)
                 return;
             
-            WorldGen.noTileActions = true;
-            WorldGen.destroyObject = true;
-
             for (int i = 0; i < _changedTiles.Count; i++) {
 
                WorldGen.SquareTileFrame(_changedTiles[i].Location.X, _changedTiles[i].Location.Y);
@@ -109,9 +106,6 @@ namespace NeoDraw.Undo {
 
             }
             
-            WorldGen.noTileActions = false;
-            WorldGen.destroyObject = false;
-
         }
 
         public void Undo() {

@@ -10,7 +10,7 @@ namespace NeoDraw.WldGen.Place {
 
 		public static bool Place2x2(int x, int y, ushort type, int style, ref UndoStep undo) {
 
-			if (type == TileID.ChineseLanterns || type == TileID.DiscoBall)
+			if (type == TileID.ChineseLanterns || type == TileID.DiscoBall || type == TileID.BeeHive)
 				y++;
 
 			if (!WorldGen.InWorld(x, y, 5))
@@ -36,6 +36,7 @@ namespace NeoDraw.WldGen.Place {
 
 					switch (type) {
 
+						case TileID.BeeHive:
 						case TileID.ChineseLanterns:
 						case TileID.DiscoBall: {
 

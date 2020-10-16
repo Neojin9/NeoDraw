@@ -583,19 +583,6 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                         break;
 
                     }
-                case TileID.Platforms: case TileID.Traps: case TileID.PlanterBox: {
-
-                        undo.Add(new ChangedTile(i, j));
-
-                        tile.active(active: true);
-                        tile.type = (ushort)type;
-                        tile.frameY = (short)(18 * style);
-
-                        result = true;
-
-                        break;
-
-                    }
                 case TileID.Bookcases: case TileID.Thrones: case TileID.DefendersForge: {
 
                         result = Place3x4(i, j, (ushort)type, style, ref undo);
@@ -709,6 +696,22 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                         break;
 
                     }
+
+                case TileID.Platforms: case TileID.Traps: case TileID.PlanterBox: case TileID.TeamBlockBluePlatform: case TileID.TeamBlockGreenPlatform: case TileID.TeamBlockPinkPlatform:
+                case TileID.TeamBlockRedPlatform: case TileID.TeamBlockWhitePlatform: case TileID.TeamBlockYellowPlatform: {
+
+                        undo.Add(new ChangedTile(i, j));
+
+                        tile.active(active: true);
+                        tile.type = (ushort)type;
+                        tile.frameY = (short)(18 * style);
+
+                        result = true;
+
+                        break;
+
+                    }
+
                 case TileID.Presents: case TileID.PressurePlates: case TileID.Explosives: case TileID.Timers: case TileID.LandMine: case TileID.MetalBars: case TileID.BeachPiles: 
                 case TileID.HoneyDrip: case TileID.LavaDrip: case TileID.SandDrip: case TileID.WaterDrip: {
 

@@ -584,6 +584,7 @@ namespace NeoDraw.UI {
             Main.chatRelease = false;
             FrameCounterUpdated = false;
             NeoTile.CaptureTileFrames = false;
+            WorldGen.noTileActions = true;
 
             ToolbarXoffset = AtLeftEdgeOfWorld ? Main.screenWidth - ListWidth : 0;
             ToolbarYoffset = AtBottomEdgeOfWorld ? StatusBarHeight : 0;
@@ -3638,7 +3639,7 @@ DoneTesting:;
 
             List<Point> points = GetLinePoints();
 
-            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.TileToCreate == TileID.Platforms) {
+            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.TileToCreate != null && TileID.Sets.Platforms[(int)NeoDraw.TileToCreate]) { // NeoDraw.TileToCreate == TileID.Platforms) {
 
                 bool wasDownRight = false;
 
@@ -4796,8 +4797,7 @@ DoneTesting:;
                 y = (y - (CurrentBrushShape % 2 == 0 ? 7 : 0)) / 16;
             }
 
-            WorldGen.destroyObject = true;
-            WorldGen.noTileActions = true;
+            WorldGen.gen = true;
 
             if (Main.tile[x, y].type == TileID.Pots) {
                 ErasePot(x, y);
@@ -4806,8 +4806,7 @@ DoneTesting:;
                 WorldGen.KillTile(x, y, false, false, true);
             }
 
-            WorldGen.noTileActions = false;
-            WorldGen.destroyObject = false;
+            WorldGen.gen = false;
 
         }
 
