@@ -2244,48 +2244,6 @@ namespace NeoDraw.UI {
                 }
                 else {
 
-                    if (CurrentTab == Tabs.Other) {
-
-                        switch (OtherToCreateName) {
-
-                            case OtherNames.RoomCheck: {
-
-                                    statusBarText = "Click a location to test if it is a valid room.";
-                                    goto DrawMessage;
-
-                                }
-                            case OtherNames.Spawn: {
-
-                                    if (_otherStyle == 0) {
-                                        statusBarText = "Click a location to set the Player's spawn point.";
-                                    }
-                                    else if (_otherStyle == 1) {
-                                        statusBarText = "Click a location to set the World's spawn point.";
-                                    }
-                                    else {
-                                        statusBarText = "Select whether to place the Player or World spawn point.";
-                                    }
-                                    
-                                    goto DrawMessage;
-
-                                }
-
-                        }
-
-                    }
-                    else if (CurrentTab == Tabs.Structures) {
-
-                        switch (SpecialToCreateName) {
-
-                            default: {
-                                    statusBarText = "Click a location to place the structure.";
-                                    goto DrawMessage;
-                                }
-
-                        }
-
-                    }
-
                     statusBarText += "Brush Size: (";
 
                     string lengthX = BrushSize.ToString();
@@ -2308,6 +2266,54 @@ namespace NeoDraw.UI {
 
                         float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X)) * -1;
                         statusBarText += " " + angle.ToString("F1") + "°";
+
+                    }
+
+                    if (CurrentTab == Tabs.Other) {
+
+                        switch (OtherToCreateName) {
+
+                            case OtherNames.RoomCheck: {
+
+                                    statusBarText = "Click a location to test if it is a valid room.";
+                                    break;
+
+                                }
+                            case OtherNames.Slope: {
+
+                                    statusBarText += " (Hold ALT to also apply to interior tiles)";
+                                    break;
+
+                                }
+                            case OtherNames.Spawn: {
+
+                                    if (_otherStyle == 0) {
+                                        statusBarText = "Click a location to set the Player's spawn point.";
+                                    }
+                                    else if (_otherStyle == 1) {
+                                        statusBarText = "Click a location to set the World's spawn point.";
+                                    }
+                                    else {
+                                        statusBarText = "Select whether to place the Player or World spawn point.";
+                                    }
+
+                                    break;
+
+                                }
+
+                        }
+
+                    }
+                    else if (CurrentTab == Tabs.Structures) {
+
+                        switch (SpecialToCreateName) {
+
+                            default: {
+                                    statusBarText = "Click a location to place the structure.";
+                                    break;
+                                }
+
+                        }
 
                     }
 
@@ -3793,23 +3799,103 @@ DoneTesting:;
 
             }
 
-            if (NeoDraw.TileToCreate == TileID.Platforms) {
+            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.TileToCreate == TileID.Platforms) {
 
-                Point startPoint = new Point((int)StartPoint.X, (int)StartPoint.Y);
-                Point endPoint = new Point(Neo.TileTargetX, Neo.TileTargetY);
+                bool wasDownRight = false;
 
-                int direction = (endPoint.X > startPoint.X) ? 1 : (-1);
+                for (int i = 0; i < points.Count; i++) {
 
-                ShapeData shapeData = new ShapeData();
+                    int curX = points[i].X;
+                    int curY = points[i].Y;
 
-                for (int m = 0; m < points.Count; m++)
-                    shapeData.Add(points[m].X, points[m].Y);
+                    DrawTile(curX, curY);
 
-                WorldGen.gen = true;
+                    if (i == 0)
+                        continue;
 
-                Gen(default, new ModShapes.All(shapeData), Actions.Chain(new Actions.PlaceTile(19, _placeStyle), new Actions.SetSlope((direction == 1) ? 1 : 2), new Actions.SetFrames(frameNeighbors: true)));
+                    byte slope = 0;
 
-                WorldGen.gen = false;
+                    int prevX = points[i - 1].X;
+                    int prevY = points[i - 1].Y;
+
+                    bool headingRight = false;
+                    bool headingLeft = false;
+                    bool headingUp = false;
+                    bool headingDown = false;
+
+                    if (curY > prevY) {
+                        headingDown = true;
+                    }
+                    else if (curY < prevY) {
+                        headingUp = true;
+                    }
+
+                    if (curX > prevX) {
+                        headingRight = true;
+                    }
+                    else if (curX < prevX) {
+                        headingLeft = true;
+                    }
+
+                    if (headingDown) {
+
+                        if (headingLeft) {
+                            slope = 2;
+                        }
+                        else if (headingRight) {
+                            slope = 1;
+                        }
+
+                    }
+                    else if (headingUp) {
+
+                        if (headingLeft) {
+                            slope = 1;
+                        }
+                        else if (headingRight) {
+                            slope = 2;
+                        }
+
+                    }
+
+                    if (slope == 0) {
+
+                        if (wasDownRight) {
+
+                            Main.tile[prevX, prevY].halfBrick(false);
+                            Main.tile[prevX, prevY].slope(0);
+
+                        }
+
+                        Main.tile[curX, curY].halfBrick(false);
+                        Main.tile[curX, curY].slope(0);
+
+                    }
+                    else {
+
+                        if ((headingUp && headingLeft) || (headingDown && headingRight)) {
+                        
+                            Main.tile[prevX, prevY].halfBrick(false);
+                            Main.tile[prevX, prevY].slope(slope);
+                        
+                        }
+
+                        Main.tile[curX, curY].halfBrick(false);
+                        Main.tile[curX, curY].slope(slope);
+
+                    }
+
+                    if ((headingUp && headingLeft) || (headingDown && headingRight)) {
+                        wasDownRight = true;
+                    }
+                    else {
+                        wasDownRight = false;
+                    }
+
+                }
+
+                for (int i = 0; i < points.Count; i++)
+                    SquareTileFrame(points[i].X, points[i].Y, ref _undo);
 
                 return;
 
