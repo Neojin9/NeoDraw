@@ -1921,23 +1921,13 @@ namespace NeoDraw.UI {
 
                 string listItem;
 
-                if (CurrentTab == Tabs.Tiles) {
-                    //index = (int)MathHelper.Clamp(index, 0, SubTileNames.Count - 1);
-                    //listItem = index >= SubTileNames.Count ? "" : SubTileNames[index];
-                    listItem = SubTileNames.Get(index);
-                }
-                else if (CurrentTab == Tabs.Structures) {
-                    //index = (int)MathHelper.Clamp(index, 0, SubSpecialNames.Count - 1);
-                    //listItem = index >= SubSpecialNames.Count ? "" : SubSpecialNames[index];
-                    listItem = SubSpecialNames.Get(index);
-                }
-                else if (CurrentTab == Tabs.Other) {
-                    //index = (int)MathHelper.Clamp(index, 0, SubOtherNames.Count - 1);
-                    //listItem = index >= SubOtherNames.Count ? "" : SubOtherNames[index];
-                    listItem = SubOtherNames.Get(index);
-                }
-                else {
-                    listItem = "";
+                switch (CurrentTab) {
+
+                    case Tabs.Tiles:      listItem = SubTileNames.Get(index);    break;
+                    case Tabs.Structures: listItem = SubSpecialNames.Get(index); break;
+                    case Tabs.Other:      listItem = SubOtherNames.Get(index);   break;
+                    default:              listItem = "";                         break;
+
                 }
 
                 if (listItem.Length > 25)
@@ -2859,7 +2849,7 @@ DoneTesting:;
                                             break;
                                         }
                                     case Tabs.Other: {
-                                            //_undo.Add(new ChangedTile(x, y));
+                                            
                                             EraseOther(x, y);
                                             break;
                                         }
@@ -2898,7 +2888,6 @@ DoneTesting:;
                                         }
                                     case Tabs.Other: {
 
-                                            //_undo.Add(new ChangedTile(x, y));
                                             DrawOther(x, y);
                                             break;
 
@@ -2934,51 +2923,6 @@ DoneTesting:;
                                     break;
 
                             }
-
-                            /*if (CurrentPaintMode == PaintMode.Erase) {
-
-                                switch (CurrentTab) {
-
-                                    case Tabs.Tiles:
-                                        WorldGen.SquareTileFrame(x, y);
-                                        break;
-
-                                    case Tabs.Walls:
-                                        WorldGen.SquareWallFrame(x, y);
-                                        break;
-
-                                    case Tabs.Structures:
-                                        break;
-
-                                    case Tabs.Other:
-                                        WorldGen.SquareTileFrame(x, y);
-                                        break;
-
-                                }
-
-                            }
-                            else {
-
-                                switch (CurrentTab) {
-
-                                    case Tabs.Tiles:
-                                        WorldGen.SquareTileFrame(x, y);
-                                        break;
-
-                                    case Tabs.Walls:
-                                        WorldGen.SquareWallFrame(x, y);
-                                        break;
-
-                                    case Tabs.Structures:
-                                        break;
-
-                                    case Tabs.Other:
-                                        WorldGen.SquareTileFrame(x, y);
-                                        break;
-
-                                }
-
-                            }*/
 
                         }
 
@@ -3021,7 +2965,6 @@ DoneTesting:;
                                             break;
 
                                         case Tabs.Other:
-                                            //_undo.Add(new ChangedTile(x, y));
                                             EraseOther(x, y, true);
                                             break;
 
@@ -3056,7 +2999,6 @@ DoneTesting:;
                                             break;
 
                                         case Tabs.Other:
-                                            //_undo.Add(new ChangedTile((x - (_brushShape % 2 == 0 ? 7 : 0)) / 16, (y - (_brushShape % 2 == 0 ? 7 : 0)) / 16));
                                             DrawOther(x, y, true);
                                             break;
 
@@ -3095,55 +3037,6 @@ DoneTesting:;
                                     break;
 
                             }
-
-                            /*if (CurrentPaintMode == PaintMode.Erase) {
-
-                                switch (CurrentTab) {
-
-                                    case Tabs.Tiles:
-                                        WorldGen.SquareTileFrame(curX, curY); // EDITED 7/25/2020 5:08PM, to test my cumtom SquareTileFrame is unneeded.
-                                        //SquareTileFrame(curX, curY, ref _undo);
-                                        break;
-
-                                    case Tabs.Walls:
-                                        WorldGen.SquareWallFrame(curX, curY);
-                                        break;
-
-                                    case Tabs.Structures:
-                                        break;
-
-                                    case Tabs.Other:
-                                        WorldGen.SquareTileFrame(curX, curY); // EDITED 7/25/2020 5:08PM, to test my cumtom SquareTileFrame is unneeded.
-                                        //SquareTileFrame(curX, curY, ref _undo);
-                                        break;
-
-                                }
-
-                            }
-                            else {
-
-                                switch (CurrentTab) {
-
-                                    case Tabs.Tiles:
-                                        WorldGen.SquareTileFrame(curX, curY); // EDITED 7/25/2020 5:08PM, to test my cumtom SquareTileFrame is unneeded.
-                                        //SquareTileFrame(curX, curY, ref _undo);
-                                        break;
-
-                                    case Tabs.Walls:
-                                        WorldGen.SquareWallFrame(curX, curY);
-                                        break;
-
-                                    case Tabs.Structures:
-                                        break;
-
-                                    case Tabs.Other:
-                                        WorldGen.SquareTileFrame(curX, curY); // EDITED 7/25/2020 5:08PM, to test my cumtom SquareTileFrame is unneeded.
-                                        //SquareTileFrame(curX, curY, ref _undo);
-                                        break;
-
-                                }
-
-                            }*/
 
                         }
 
@@ -4213,12 +4106,6 @@ DoneTesting:;
                         break;
 
                     }
-                /*case StrucNames.CorruptionPit: {
-
-                        Biomes<CorruptionPit>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
-                        break;
-
-                    }*/
                 case StrucNames.CorruptionStart: {
 
                         Biomes<CorruptionStart>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
@@ -4301,12 +4188,6 @@ DoneTesting:;
                         break;
 
                     }
-                /*case StrucNames.FloatingIsland: { // TODO: Add this
-
-                        FloatingIsland(Neo.TileTargetX, Neo.TileTargetY);
-                        break;
-
-                    }*/
                 case StrucNames.GemCave: {
 
                         GemCave(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle - 1);
@@ -4393,7 +4274,7 @@ DoneTesting:;
                         makeTemple(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         templePart2(ref _undo);
                         _undo.ResetFrames();
-                        //Biomes<makeTemple>.Place(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
+                        //Biomes<makeTemple>.Place(Neo.TileTargetX, Neo.TileTargetY, ref _undo); // TODO: Update this to be a Biome
                         break;
 
                     }
@@ -4473,7 +4354,7 @@ DoneTesting:;
                 case StrucNames.MossCave: {
 
                         MossCave(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle - 2);
-                        //Biomes<NeonMoss>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
+                        //Biomes<NeonMoss>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo); // TODO: Update this to be a biome
                         break;
 
                     }
