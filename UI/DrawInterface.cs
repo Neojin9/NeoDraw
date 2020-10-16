@@ -2265,7 +2265,7 @@ namespace NeoDraw.UI {
                     if (_brushShape == BrushShape.Line && StartPoint != default) {
 
                         float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X)) * -1;
-                        statusBarText += " " + angle.ToString("F1") + "°";
+                        statusBarText += " " + angle.ToString("F1") + "° - Hold CTRL to snap angle in 45° increments.";
 
                     }
 
