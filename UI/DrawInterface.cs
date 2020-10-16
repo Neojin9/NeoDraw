@@ -256,7 +256,7 @@ namespace NeoDraw.UI {
         public static List<int> MakeDirectional;
 
         public static List<string> SubOtherNames;
-        public static List<string> SubSpecialNames;
+        public static List<string> SubStructureNames;
         public static List<string> SubTileNames;
 
         public static List<Tuple<Point, int>> InvalidTiles;
@@ -358,7 +358,7 @@ namespace NeoDraw.UI {
                     count = SubTileNames.Count;
                 }
                 else if (CurrentTab == Tabs.Structures) {
-                    count = SubSpecialNames.Count;
+                    count = SubStructureNames.Count;
                 }
                 else if (CurrentTab == Tabs.Other) {
                     count = SubOtherNames.Count;
@@ -381,7 +381,7 @@ namespace NeoDraw.UI {
                     count = SubTileNames.Count;
                 }
                 else if (CurrentTab == Tabs.Structures) {
-                    count = SubSpecialNames.Count;
+                    count = SubStructureNames.Count;
                 }
                 else if (CurrentTab == Tabs.Other) {
                     count = SubOtherNames.Count;
@@ -513,14 +513,14 @@ namespace NeoDraw.UI {
 
         public static string OtherToCreateName { get { return NeoDraw.OtherToCreate == null ? "" : OthersList[(int)NeoDraw.OtherToCreate].Name; } }
 
-        public static string SpecialToCreateName { get { return NeoDraw.SpecialToCreate == null ? "" : StructuresList[(int)NeoDraw.SpecialToCreate].Name; } }
+        public static string SpecialToCreateName { get { return NeoDraw.StructureToCreate == null ? "" : StructuresList[(int)NeoDraw.StructureToCreate].Name; } }
 
         public override void OnInitialize() {
 
             MakeDirectional = new List<int>();
 
             SubTileNames = new List<string>();
-            SubSpecialNames = new List<string>();
+            SubStructureNames = new List<string>();
             SubOtherNames = new List<string>();
 
             InvalidTiles = new List<Tuple<Point, int>>();
@@ -655,9 +655,9 @@ namespace NeoDraw.UI {
 
                             if (_brushShape == BrushShape.Square || _brushShape == BrushShape.Circle) {
 
-                                if (NeoDraw.SpecialToCreate != null && NeoDraw.SpecialToCreate < StructuresList.Count) { // Updated this to protect from accessing array out of bounds
+                                if (NeoDraw.StructureToCreate != null && NeoDraw.StructureToCreate < StructuresList.Count) { // Updated this to protect from accessing array out of bounds
 
-                                    switch (StructuresList[(int)NeoDraw.SpecialToCreate].Name) { // TODO: Protect this read from accessing out of bounds
+                                    switch (StructuresList[(int)NeoDraw.StructureToCreate].Name) { // TODO: Protect this read from accessing out of bounds
 
                                         //case StrucNames.UndergroundHouse: WldGen.WldGen.GetMineHouseSize(); break;
                                         //case StrucNames.JungleShrine: WldGen.WldGen.GetJungleShrineSize(); break;
@@ -758,7 +758,7 @@ namespace NeoDraw.UI {
 
                 case Tabs.Structures:
 
-                    if (NeoDraw.SpecialToCreate == null)
+                    if (NeoDraw.StructureToCreate == null)
                         drawOutline = false;
 
                     break;
@@ -1578,7 +1578,7 @@ namespace NeoDraw.UI {
                 case Tabs.Structures:
                     min = StructureScroll;
                     max = StructureScroll + StructureListItemsLength;
-                    selectedListItem = NeoDraw.SpecialToCreate;
+                    selectedListItem = NeoDraw.StructureToCreate;
                     listSource = StructuresList;
                     break;
 
@@ -1635,14 +1635,14 @@ namespace NeoDraw.UI {
                                 break;
 
                             case Tabs.Structures:
-                                NeoDraw.SpecialToCreate = listSource[index].ID;
+                                NeoDraw.StructureToCreate = listSource[index].ID;
                                 _specialStyle = 0;
                                 SubScroll = 0;
                                 StartPoint = default;
 
-                                if (NeoDraw.SpecialToCreate < StructuresList.Count) {
+                                if (NeoDraw.StructureToCreate < StructuresList.Count) {
 
-                                    switch (StructuresList[(int)NeoDraw.SpecialToCreate].Name) {
+                                    switch (StructuresList[(int)NeoDraw.StructureToCreate].Name) {
 
                                         //case StrucNames.UndergroundHouse: WorldGen.GetMineHouseSize(); break;
                                         //case StrucNames.JungleShrine: WorldGen.GetJungleShrineSize(); break;
@@ -1924,7 +1924,7 @@ namespace NeoDraw.UI {
                 switch (CurrentTab) {
 
                     case Tabs.Tiles:      listItem = SubTileNames.Get(index);    break;
-                    case Tabs.Structures: listItem = SubSpecialNames.Get(index); break;
+                    case Tabs.Structures: listItem = SubStructureNames.Get(index); break;
                     case Tabs.Other:      listItem = SubOtherNames.Get(index);   break;
                     default:              listItem = "";                         break;
 
@@ -2347,9 +2347,9 @@ DrawMessage:;
 
                                 if (_brushShape == BrushShape.Square || _brushShape == BrushShape.Circle) {
 
-                                    if (NeoDraw.SpecialToCreate != null && NeoDraw.SpecialToCreate < StructuresList.Count) { // Added protection to keep from accessing array out of bounds
+                                    if (NeoDraw.StructureToCreate != null && NeoDraw.StructureToCreate < StructuresList.Count) { // Added protection to keep from accessing array out of bounds
 
-                                        switch (StructuresList[(int)NeoDraw.SpecialToCreate].Name) {
+                                        switch (StructuresList[(int)NeoDraw.StructureToCreate].Name) {
 
                                             case StrucNames.LavaTrap: {
 
@@ -4041,7 +4041,7 @@ DoneTesting:;
 
         private static void DrawStructure() {
 
-            if (NeoDraw.SpecialToCreate == null || NeoDraw.SpecialToCreate >= StructuresList.Count || !Main.mouseLeftRelease)
+            if (NeoDraw.StructureToCreate == null || NeoDraw.StructureToCreate >= StructuresList.Count || !Main.mouseLeftRelease)
                 return;
 
             switch (SpecialToCreateName) {
@@ -5823,14 +5823,7 @@ DoneTesting:;
 
                     if (StartPoint == default) {
 
-                        NeoDraw.TileToCreate = null;
-                        NeoDraw.WallToCreate = null;
-                        NeoDraw.SpecialToCreate = null;
-                        NeoDraw.OtherToCreate = null;
-                        _currentSubTile = -1;
-                        _currentSubStructure = -1;
-                        _currentSubOther = -1;
-                        Pasting = false;
+                        ClearSelectedListItem();
 
                     }
                     else {
@@ -5852,14 +5845,7 @@ DoneTesting:;
                         }
                         else {
 
-                            NeoDraw.TileToCreate = null;
-                            NeoDraw.WallToCreate = null;
-                            NeoDraw.SpecialToCreate = null;
-                            NeoDraw.OtherToCreate = null;
-                            _currentSubTile = -1;
-                            _currentSubStructure = -1;
-                            _currentSubOther = -1;
-                            Pasting = false;
+                            ClearSelectedListItem();
 
                         }
 
@@ -5881,28 +5867,15 @@ DoneTesting:;
                     }
                     else {
 
-                        NeoDraw.TileToCreate = null;
-                        NeoDraw.WallToCreate = null;
-                        NeoDraw.SpecialToCreate = null;
-                        NeoDraw.OtherToCreate = null;
-                        _currentSubTile = -1;
-                        _currentSubStructure = -1;
-                        _currentSubOther = -1;
-                        Pasting = false;
+                        ClearSelectedListItem();
 
                     }
 
                 }
-                else {
+                else { // Right Clicking Unselects current tile/special/other
 
-                    NeoDraw.TileToCreate = null;
-                    NeoDraw.WallToCreate = null;
-                    NeoDraw.SpecialToCreate = null;
-                    NeoDraw.OtherToCreate = null;
-                    _currentSubTile = -1;
-                    _currentSubStructure = -1;
-                    _currentSubOther = -1;
-                    Pasting = false;
+                    ClearSelectedListItem();
+
                     StartPoint = default;
 
                 }
@@ -5934,6 +5907,47 @@ DoneTesting:;
                 KeyPressDelay = DateTime.Now.AddMilliseconds(KeyDelay);
 
             }
+
+        }
+
+        private static void ClearSelectedListItem() {
+
+            switch (CurrentTab) {
+
+                case Tabs.Tiles: {
+
+                        NeoDraw.TileToCreate = null;
+                        _currentSubTile = -1;
+                        SubTileNames.Clear();
+                        break;
+
+                    }
+                case Tabs.Walls: {
+
+                        NeoDraw.WallToCreate = null;
+                        break;
+
+                    }
+                case Tabs.Structures: {
+
+                        NeoDraw.StructureToCreate = null;
+                        _currentSubStructure = -1;
+                        SubStructureNames.Clear();
+                        break;
+
+                    }
+                case Tabs.Other: {
+
+                        NeoDraw.OtherToCreate = null;
+                        _currentSubOther = -1;
+                        SubOtherNames.Clear();
+                        break;
+
+                    }
+
+            }
+
+            Pasting = false;
 
         }
 
@@ -6976,7 +6990,7 @@ DoneTesting:;
                             w.segments = SubTileNames.Count + 1;
                         }
                         else if (CurrentTab == Tabs.Structures) {
-                            w.segments = SubSpecialNames.Count + 1;
+                            w.segments = SubStructureNames.Count + 1;
                         }
                         else if (CurrentTab == Tabs.Other) {
                             w.segments = SubOtherNames.Count + 1;
@@ -8861,13 +8875,13 @@ DoneTesting:;
             }
             else if (CurrentTab == Tabs.Structures) {
 
-                if (NeoDraw.SpecialToCreate != null && NeoDraw.SpecialToCreate != _currentSubStructure) {
+                if (NeoDraw.StructureToCreate != null && NeoDraw.StructureToCreate != _currentSubStructure) {
 
-                    _currentSubStructure = (int)NeoDraw.SpecialToCreate;
-                    SubSpecialNames.Clear();
+                    _currentSubStructure = (int)NeoDraw.StructureToCreate;
+                    SubStructureNames.Clear();
 
-                    if (StructureSubList.ContainsKey(StructuresList[(int)NeoDraw.SpecialToCreate].Name)) // TODO: Protect this read from accessing out of bounds
-                        SubSpecialNames.AddRange(StructureSubList[StructuresList[(int)NeoDraw.SpecialToCreate].Name]); // TODO: Protect this read from accessing out of bounds
+                    if (StructureSubList.ContainsKey(StructuresList[(int)NeoDraw.StructureToCreate].Name)) // TODO: Protect this read from accessing out of bounds
+                        SubStructureNames.AddRange(StructureSubList[StructuresList[(int)NeoDraw.StructureToCreate].Name]); // TODO: Protect this read from accessing out of bounds
 
                 }
 

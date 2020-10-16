@@ -59,7 +59,7 @@ namespace NeoDraw {
         public static int CurrentTab;
 
         public static int? OtherToCreate;
-        public static int? SpecialToCreate;
+        public static int? StructureToCreate;
         public static int? TileToCreate;
         public static int? WallToCreate;
 
@@ -166,7 +166,7 @@ namespace NeoDraw {
                                     break;
                                 }
                             case Tabs.Structures: {
-                                    if (SpecialToCreate != null)
+                                    if (StructureToCreate != null)
                                         show = false;
                                     break;
                                 }
@@ -491,7 +491,7 @@ namespace NeoDraw {
 
             CurrentTab = BrightMode = 0;
             DrawMode = GridView = false;
-            OtherToCreate = SpecialToCreate = TileToCreate = WallToCreate = null;
+            OtherToCreate = StructureToCreate = TileToCreate = WallToCreate = null;
 
             UndoManager = new UndoManager(MaxUndoCount);
 
