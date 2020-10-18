@@ -74,8 +74,6 @@ namespace NeoDraw.Core {
             DisplayNames[468] = "Trapped Chests";
             DisplayNames[469] = "Tables 2";
 
-            return;
-            
         }
         
         public static void SetupSubTiles() {

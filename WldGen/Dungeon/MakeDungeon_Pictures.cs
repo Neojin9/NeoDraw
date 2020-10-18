@@ -4,7 +4,6 @@ using NeoDraw.Undo;
 using Terraria;
 using Terraria.Utilities;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.Dungeon {
 
@@ -32,10 +31,8 @@ namespace NeoDraw.WldGen.Dungeon {
 				int num4;
 				int num5;
 				int num6;
-				int num7;
-				int num8;
 
-				for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 2; j++) {
 
 					num3 = curX;
 					num4 = curX;
@@ -88,13 +85,14 @@ namespace NeoDraw.WldGen.Dungeon {
 				num6--;
 				curX = (num3 + num4) / 2;
 				curY = (num5 + num6) / 2;
-				num7 = num4 - num3;
-				num8 = num6 - num5;
 
-				if (num7 <= 7 || num8 <= 5)
+                int num7 = num4 - num3;
+                int num8 = num6 - num5;
+
+                if (num7 <= 7 || num8 <= 5)
 					continue;
 
-				bool[] array = new bool[3] {
+				bool[] array = new bool[] {
 					true,
 					false,
 					false

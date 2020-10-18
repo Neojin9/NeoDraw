@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Utilities;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.Dungeon {
 

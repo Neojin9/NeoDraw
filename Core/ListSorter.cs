@@ -6,8 +6,8 @@ namespace NeoDraw.Core{
     public class ListSorter<T> : IComparer<T> {
 
         public readonly string Name;
-        public Func<T, bool> Allow;
-        public Func<T, T, int> Comparer;
+        public readonly Func<T, bool> Allow;
+        public readonly Func<T, T, int> Comparer;
 
         public ListSorter(string name, Func<T, T, int> comparer, Func<T, bool> allow) {
 

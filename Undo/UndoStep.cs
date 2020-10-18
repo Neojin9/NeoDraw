@@ -20,9 +20,9 @@ namespace NeoDraw.Undo {
 
         #region Public Variables
 
-        public int Count { get { return _changedTiles.Count; } }
+        public int Count => _changedTiles.Count;
 
-        public string  Action { get; set; }
+        public string  Action { get; }
 
         #endregion
 
@@ -61,8 +61,8 @@ namespace NeoDraw.Undo {
             
             IList<Point> list = new List<Point>();
 
-            for (int i = 0; i < _changedTiles.Count; i++)
-                list.Add(_changedTiles[i].Location);
+            foreach (ChangedTile tile in _changedTiles)
+                list.Add(tile.Location);
 
             return list;
 
@@ -97,12 +97,12 @@ namespace NeoDraw.Undo {
             if (Count <= 0)
                 return;
             
-            for (int i = 0; i < _changedTiles.Count; i++) {
+            foreach (ChangedTile tile in _changedTiles) {
 
-               WorldGen.SquareTileFrame(_changedTiles[i].Location.X, _changedTiles[i].Location.Y);
+               WorldGen.SquareTileFrame(tile.Location.X, tile.Location.Y);
 
                 if (wallToo)
-                    WorldGen.SquareWallFrame(_changedTiles[i].Location.X, _changedTiles[i].Location.Y);
+                    WorldGen.SquareWallFrame(tile.Location.X, tile.Location.Y);
 
             }
             
@@ -110,10 +110,10 @@ namespace NeoDraw.Undo {
 
         public void Undo() {
 
-            for (int i = 0; i < _changedTiles.Count; i++) {
+            foreach (ChangedTile tile in _changedTiles) {
 
-                int x = _changedTiles[i].Location.X;
-                int y = _changedTiles[i].Location.Y;
+                int x = tile.Location.X;
+                int y = tile.Location.Y;
 
                 Chest tempChest = null;
                 Tile tempTile = new Tile(Main.tile[x, y]);
@@ -135,7 +135,7 @@ namespace NeoDraw.Undo {
 
                 }
 
-                Main.tile[x, y] = new Tile(_changedTiles[i].Tile);
+                Main.tile[x, y] = new Tile(tile.Tile);
 
                 if (Neo.IsTopLeft(x, y)) {
 
@@ -147,14 +147,14 @@ namespace NeoDraw.Undo {
                             chestIndex = Chest.FindChest(x, y);
 
                         if (chestIndex != -1)
-                            Main.chest[chestIndex] = _changedTiles[i].Chest;
+                            Main.chest[chestIndex] = tile.Chest;
 
                     }
 
                 }
 
-                _changedTiles[i].Tile = new Tile(tempTile);
-                _changedTiles[i].Chest = tempChest;
+                tile.Tile = new Tile(tempTile);
+                tile.Chest = tempChest;
 
             }
 

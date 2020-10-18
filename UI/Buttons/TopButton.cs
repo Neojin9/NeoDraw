@@ -20,8 +20,10 @@ namespace NeoDraw.UI {
         private int _currentFrame;
         private int _frameDelayCounter;
 
-        private int xPosition { get { return (int)Position.X + (int)Offset.X; } }
-        private int yPosition { get { return (int)Position.Y + (int)Offset.Y; } }
+        private bool IsHovered => new Rectangle(xPosition + _clickedPos, yPosition + _clickedPos, (int)Size.X, (int)Size.Y).Contains(Main.MouseScreen.ToPoint());
+
+        private int xPosition => (int)Position.X + (int)Offset.X;
+        private int yPosition => (int)Position.Y + (int)Offset.Y;
 
         #endregion
 
@@ -29,7 +31,7 @@ namespace NeoDraw.UI {
 
         public Func<bool> IsActive;
         public Func<float> GetAlpha;
-        public new Action<TopButton> OnClick;
+        public Action<TopButton> OnClick;
         public Action<TopButton> OnHover;
         public Func<TopButton, Texture2D, Texture2D> PreDrawBackground;
 
@@ -133,10 +135,6 @@ namespace NeoDraw.UI {
 
         }
 
-        public bool IsHovered() {
-            return new Rectangle(xPosition + _clickedPos, yPosition + _clickedPos, (int)Size.X, (int)Size.Y).Contains(Main.MouseScreen.ToPoint());
-        }
-
         public void Update(bool shouldCheckHover) {
 
             if (GetAlpha != null)
@@ -159,7 +157,7 @@ namespace NeoDraw.UI {
 
             }
 
-            if (!shouldCheckHover || !IsHovered()) {
+            if (!shouldCheckHover || !IsHovered) {
                 _clickedPos = 0;
                 return;
             }
@@ -183,11 +181,7 @@ namespace NeoDraw.UI {
 
         }
 
-        public void UpdatePos(Vector2 pos) {
-
-            Position = pos;
-
-        }
+        public void UpdatePos(Vector2 pos) => Position = pos;
 
         #endregion
 
@@ -198,7 +192,7 @@ namespace NeoDraw.UI {
             Color color;
             Texture2D texture;
 
-            if (IsHovered()) {
+            if (IsHovered) {
                 color = BGHoveredColor;
                 texture = BGHoveredTexture;
             }

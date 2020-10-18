@@ -3,7 +3,6 @@ using NeoDraw.Undo;
 using Terraria;
 using Terraria.Utilities;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.Dungeon {
 
@@ -13,7 +12,7 @@ namespace NeoDraw.WldGen.Dungeon {
 
 			UnifiedRandom genRand = WorldGen.genRand;
 
-			int[] array = new int[3] {
+			int[] array = new int[] {
 				genRand.Next(7),
 				genRand.Next(7),
 				0

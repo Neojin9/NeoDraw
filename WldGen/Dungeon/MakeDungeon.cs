@@ -22,7 +22,7 @@ namespace NeoDraw.WldGen.Dungeon {
         public static int[] DDoorY = new int[300];
         public static int[] DDoorPos = new int[300];
 
-        public static int numDRooms = 0;
+        public static int numDRooms;
         public static int[] dRoomX = new int[WorldGen.maxDRooms];
         public static int[] dRoomY = new int[WorldGen.maxDRooms];
         public static int[] dRoomSize = new int[WorldGen.maxDRooms];
@@ -34,8 +34,8 @@ namespace NeoDraw.WldGen.Dungeon {
 
         public static bool[] dRoomTreasure = new bool[WorldGen.maxDRooms];
 
-        public static int dEnteranceX = 0;
-        public static bool dSurface = false;
+        public static int dEnteranceX;
+        public static bool dSurface;
 
         public static double dxStrength1;
         public static double dyStrength1;
@@ -49,8 +49,8 @@ namespace NeoDraw.WldGen.Dungeon {
 
         public static Vector2 lastDungeonHall = Vector2.Zero;
 
-        public static int dWallCount = 0;
-        public static bool dWallBroke = false;
+        public static int dWallCount;
+        public static bool dWallBroke;
 
         public static bool dungeonLake;
         

@@ -3,7 +3,6 @@ using NeoDraw.Undo;
 using Terraria;
 using Terraria.Utilities;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.Dungeon {
 
@@ -49,10 +48,10 @@ namespace NeoDraw.WldGen.Dungeon {
 							if (!Main.wallDungeon[Main.tile[i, num4].wall])
 								Neo.SetWall(i, num4, 244, ref undo);
 
-							if (!Main.wallDungeon[Main.tile[i - 1, num4].wall] && (Main.tile[i - 1, num4].wall > 0 || (double)num4 >= Main.worldSurface))
+							if (!Main.wallDungeon[Main.tile[i - 1, num4].wall] && (Main.tile[i - 1, num4].wall > 0 || num4 >= Main.worldSurface))
 								Neo.SetWall(i - 1, num4, 244, ref undo);
 
-							if (!Main.wallDungeon[Main.tile[i + 1, num4].wall] && (Main.tile[i + 1, num4].wall > 0 || (double)num4 >= Main.worldSurface))
+							if (!Main.wallDungeon[Main.tile[i + 1, num4].wall] && (Main.tile[i + 1, num4].wall > 0 || num4 >= Main.worldSurface))
 								Neo.SetWall(i + 1, num4, 244, ref undo);
 
 							if (num4 == j && i > num6 - 2 && i <= num6 + 1) {

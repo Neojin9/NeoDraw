@@ -18,8 +18,8 @@ namespace NeoDraw.WldGen.Dungeon {
 
         public static UndoStep Undo;
 
-        public static bool FramesReset   = false;
-        public static bool MakingDungeon = false;
+        public static bool FramesReset;
+        public static bool MakingDungeon;
 
         public static float Count;
 
@@ -61,117 +61,117 @@ namespace NeoDraw.WldGen.Dungeon {
             switch (DungeonStep) {
 
                 case 0:
-                    //Main.NewText("Start");
+                    DrawInterface.SetStatusBarTempMessage("Dungeon Creation Starting");
                     Part0(StartX, StartY, DungeonStyle);
                     DungeonStep++;
                     break;
 
                 case 1:
-                    //Main.NewText("Part 1");
+                    DrawInterface.SetStatusBarTempMessage("Part 1");
                     Part1();
                     DungeonStep++;
                     break;
                     
                 case 2:
-                    //Main.NewText("Part 2");
+                    DrawInterface.SetStatusBarTempMessage("Part 2");
                     Part2();
                     DungeonStep++;
                     break;
                     
                 case 3:
-                    //Main.NewText("Part 3");
+                    DrawInterface.SetStatusBarTempMessage("Part 3");
                     Part3();
                     DungeonStep++;
                     break;
 
                 case 4:
-                    //Main.NewText("Part 4");
+                    DrawInterface.SetStatusBarTempMessage("Part 4");
                     Part4();
                     DungeonStep++;
                     break;
 
                 case 5:
-                    //Main.NewText("Part 5");
+                    DrawInterface.SetStatusBarTempMessage("Part 5");
                     Part5();
                     DungeonStep++;
                     break;
                     
                 case 6:
-                    //Main.NewText("Part 6");
+                    DrawInterface.SetStatusBarTempMessage("Part 6");
                     Part6();
                     DungeonStep++;
                     break;
 
                 case 7:
-                    //Main.NewText("Part 7");
+                    DrawInterface.SetStatusBarTempMessage("Part 7");
                     Part7();
                     DungeonStep++;
                     break;
 
                 case 8:
-                    //Main.NewText("Part 8");
+                    DrawInterface.SetStatusBarTempMessage("Part 8");
                     Part8();
                     DungeonStep++;
                     break;
                     
                 case 9:
-                    //Main.NewText("Part 9");
+                    DrawInterface.SetStatusBarTempMessage("Part 9");
                     Part9();
                     DungeonStep++;
                     break;
 
                 case 10:
-                    //Main.NewText("Part 10");
+                    DrawInterface.SetStatusBarTempMessage("Part 10");
                     Part10();
                     DungeonStep++;
                     break;
 
                 case 11:
-                    //Main.NewText("Part 11");
+                    DrawInterface.SetStatusBarTempMessage("Part 11");
                     Part11();
                     DungeonStep++;
                     break;
 
                 case 12:
-                    //Main.NewText("Part 12");
+                    DrawInterface.SetStatusBarTempMessage("Part 12");
                     Part12();
                     DungeonStep++;
                     break;
 
                 case 13:
-                    //Main.NewText("Part 13");
+                    DrawInterface.SetStatusBarTempMessage("Part 13");
                     Part13();
                     DungeonStep++;
                     break;
                     
                 case 14:
-                    //Main.NewText("Part 14");
+                    DrawInterface.SetStatusBarTempMessage("Part 14");
                     Part14();
                     DungeonStep++;
                     break;
 
                 case 15:
-                    //Main.NewText("Part 15");
+                    DrawInterface.SetStatusBarTempMessage("Part 15");
                     Part15();
                     DungeonStep++;
                     break;
 
                 case 16:
-                    //Main.NewText("Part 16");
+                    DrawInterface.SetStatusBarTempMessage("Part 16");
                     Part16();
                     DungeonStep++;
                     break;
                     
                 case 17:
                     float percent = CurrentY / (float)dMaxY;
-                    //Main.NewText("Part 17, " + percent.ToString("P1"), (byte)Main.rand.Next(0, 255), (byte)Main.rand.Next(0, 255), (byte)Main.rand.Next(0, 255));
+                    DrawInterface.SetStatusBarTempMessage($"{percent:P1}");
                     Part17();
                     if (FramesReset)
                         DungeonStep++;
                     break;
 
                 default:
-                    //Main.NewText("Finish");
+                    DrawInterface.SetStatusBarTempMessage("Dungeon Creation Complete");
                     EndDungeonCreation();
                     break;
 
@@ -1032,7 +1032,7 @@ namespace NeoDraw.WldGen.Dungeon {
 
                                 break;
                             }
-                        case 4: {
+                        case 4: { // TODO: Ignore until v1.4
 
                                 chestTileType = 467;
                                 style2 = 13;
@@ -1072,7 +1072,7 @@ namespace NeoDraw.WldGen.Dungeon {
 
             UnifiedRandom genRand = WorldGen.genRand;
 
-            int[] array2 = new int[3] {
+            int[] array2 = new int[] {
                 genRand.Next(9, 13),
                 genRand.Next(9, 13),
                 0
@@ -1143,10 +1143,8 @@ namespace NeoDraw.WldGen.Dungeon {
                             for (; num85 > dMinX && num85 < dMaxX && !Main.tile[num85, num81].active() && !Main.tile[num85, num81 - 1].active() && !Main.tile[num85, num81 + 1].active(); num85 += num82) { }
 
                             num85 = Math.Abs(num80 - num85);
-                            bool flag7 = false;
 
-                            if (genRand.Next(2) == 0)
-                                flag7 = true;
+                            bool flag7 = genRand.Next(2) == 0;
 
                             if (num85 > 5) {
 

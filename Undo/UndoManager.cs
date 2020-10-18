@@ -18,8 +18,8 @@ namespace NeoDraw.Undo {
 
         #region Public Variables
 
-        public int HistoryCount { get { return _history.Count; } }
-        public int RedoCount    { get { return _redo.Count;    } }
+        public int HistoryCount => _history.Count;
+        public int RedoCount => _redo.Count;
 
         #endregion
 

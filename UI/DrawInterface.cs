@@ -146,28 +146,28 @@ namespace NeoDraw.UI {
 
         private static readonly Dictionary<string, List<string>> StructureSubList = new Dictionary<string, List<string>> {
 
-            {StrucNames.Cavinator,               new List<string> { "1x", "2x", "3x", "4x", "5x", "10x", "20x", "30x", "40x", "50x" } },
-            {StrucNames.CloudIsland,             new List<string> { "Default", "Desert", "Snow" } },
-            {StrucNames.CrimsonEntrance,         new List<string> { "Enter Left", "Enter Right" } },
-            {StrucNames.CrimsonStart,            new List<string> { "Auto", "Enter Left", "Enter Right" } },
-            {StrucNames.Dungeon,                 new List<string> { "Random", "Blue", "Green", "Pink" } },
-            {StrucNames.EnchantedSword,          new List<string> { "Random", "Fake Sword", "Real Sword" } },
-            {StrucNames.GemCave,                 new List<string> { "Random", "Amethyst", "Topaz", "Sapphire", "Emerald", "Ruby", "Diamond", "All" } },
-            {StrucNames.GraniteCave,             new List<string> { "Default", "With Lava", "Without Lava" } },
-            //{StrucNames.Hive,                    new List<string> { "Default", "Tiny", "Small", "Medium", "Large", "Extra Large", "Huge", "Hive City", "Small W/ Queen", "Medium W/ Queen", "Large W/ Queen", "Extra Large W/ Queen", "Huge W/ Queen", "Hive City W/ Queen" } },
-            {StrucNames.Hive,                    new List<string> { "Default", "Special", "Classic" } },
-            {StrucNames.JungleShrine,            new List<string> { "Random", "Gold", "Iridescent", "Mudstone", "Rich Mahogany", "Tin" } },
-            {StrucNames.Lakinater,               new List<string> { "Default", "Son of Lakinater" } },// "Tiny", "Small", "Medium", "Large", "Huge", "Oceanater" } },
-            {StrucNames.LivingMahoganyTree,      new List<string> { "Default", "Tiny", "Small", "Medium", "Large", "Extra Large", "Huge", "World Tree", "Large W/ Room", "Extra Large W/ Room", "Huge W/ Room", "World Tree W/ Room" } },
-            {StrucNames.LivingTree,              new List<string> { "Default", "Tiny", "Small", "Medium", "Large", "Extra Large", "Huge", "World Tree", "Large W/ Room", "Extra Large W/ Room", "Huge W/ Room", "World Tree W/ Room" } },
-            {StrucNames.MakeHole,                new List<string> { "Tiny", "Small", "Medium", "Large", "Huge", "The Void" } },//, "Tiny Pool", "Small Pool", "Medium Pool", "Large Pool", "Huge Pool", "The Void Pool" } },
-            {StrucNames.MarbleCave,              new List<string> { "Default", "With Lava", "Without Lava" } },
-            {StrucNames.Meteor,                  new List<string> { "Default", "Tiny", "Small", "Large", "Extra Large", "Huge"} },
-            {StrucNames.MossCave,                new List<string> { "Random", "Default", "Green", "Yellow", "Red", "Blue", "Purple" } },
-            {StrucNames.Mountinater,             new List<string> { "Tiny", "Small", "Medium", "Large", "Huge", "Olympus" } },
-            {StrucNames.Pyramid,                 new List<string> { "Egyptian", "Mayan" } },
-            {StrucNames.SpiderCave,              new List<string> { "Default", "500 Tile Limit", "2000 Tile Limit", "5000 Tile Limit" } },
-            {StrucNames.UndergroundHouse,        new List<string> { "Default", "Old" } }
+            {StructureNames.Cavinator,               new List<string> { "1x", "2x", "3x", "4x", "5x", "10x", "20x", "30x", "40x", "50x" } },
+            {StructureNames.CloudIsland,             new List<string> { "Default", "Desert", "Snow" } },
+            {StructureNames.CrimsonEntrance,         new List<string> { "Enter Left", "Enter Right" } },
+            {StructureNames.CrimsonStart,            new List<string> { "Auto", "Enter Left", "Enter Right" } },
+            {StructureNames.Dungeon,                 new List<string> { "Random", "Blue", "Green", "Pink" } },
+            {StructureNames.EnchantedSword,          new List<string> { "Random", "Fake Sword", "Real Sword" } },
+            {StructureNames.GemCave,                 new List<string> { "Random", "Amethyst", "Topaz", "Sapphire", "Emerald", "Ruby", "Diamond", "All" } },
+            {StructureNames.GraniteCave,             new List<string> { "Default", "With Lava", "Without Lava" } },
+            //{StructureNames.Hive,                    new List<string> { "Default", "Tiny", "Small", "Medium", "Large", "Extra Large", "Huge", "Hive City", "Small W/ Queen", "Medium W/ Queen", "Large W/ Queen", "Extra Large W/ Queen", "Huge W/ Queen", "Hive City W/ Queen" } },
+            {StructureNames.Hive,                    new List<string> { "Default", "Special", "Classic" } },
+            {StructureNames.JungleShrine,            new List<string> { "Random", "Gold", "Iridescent", "Mudstone", "Rich Mahogany", "Tin" } },
+            {StructureNames.Lakinater,               new List<string> { "Default", "Son of Lakinater" } },// "Tiny", "Small", "Medium", "Large", "Huge", "Oceanater" } },
+            {StructureNames.LivingMahoganyTree,      new List<string> { "Default", "Tiny", "Small", "Medium", "Large", "Extra Large", "Huge", "World Tree", "Large W/ Room", "Extra Large W/ Room", "Huge W/ Room", "World Tree W/ Room" } },
+            {StructureNames.LivingTree,              new List<string> { "Default", "Tiny", "Small", "Medium", "Large", "Extra Large", "Huge", "World Tree", "Large W/ Room", "Extra Large W/ Room", "Huge W/ Room", "World Tree W/ Room" } },
+            {StructureNames.MakeHole,                new List<string> { "Tiny", "Small", "Medium", "Large", "Huge", "The Void" } },//, "Tiny Pool", "Small Pool", "Medium Pool", "Large Pool", "Huge Pool", "The Void Pool" } },
+            {StructureNames.MarbleCave,              new List<string> { "Default", "With Lava", "Without Lava" } },
+            {StructureNames.Meteor,                  new List<string> { "Default", "Tiny", "Small", "Large", "Extra Large", "Huge"} },
+            {StructureNames.MossCave,                new List<string> { "Random", "Default", "Green", "Yellow", "Red", "Blue", "Purple" } },
+            {StructureNames.Mountinater,             new List<string> { "Tiny", "Small", "Medium", "Large", "Huge", "Olympus" } },
+            {StructureNames.Pyramid,                 new List<string> { "Egyptian", "Mayan" } },
+            {StructureNames.SpiderCave,              new List<string> { "Default", "500 Tile Limit", "2000 Tile Limit", "5000 Tile Limit" } },
+            {StructureNames.UndergroundHouse,        new List<string> { "Default", "Old" } }
 
         };
 
@@ -674,9 +674,9 @@ namespace NeoDraw.UI {
 
                                     switch (StructuresList[(int)NeoDraw.StructureToCreate].Name) { // TODO: Protect this read from accessing out of bounds
 
-                                        //case StrucNames.UndergroundHouse: WldGen.WldGen.GetMineHouseSize(); break;
-                                        //case StrucNames.JungleShrine: WldGen.WldGen.GetJungleShrineSize(); break;
-                                        case StrucNames.CloudIslandHouse: GetIslandHouseSize(); break;
+                                        //case StructureNames.UndergroundHouse: WldGen.WldGen.GetMineHouseSize(); break;
+                                        //case StructureNames.JungleShrine: WldGen.WldGen.GetJungleShrineSize(); break;
+                                        case StructureNames.CloudIslandHouse: GetIslandHouseSize(); break;
 
                                     }
 
@@ -1659,9 +1659,9 @@ namespace NeoDraw.UI {
 
                                     switch (StructuresList[(int)NeoDraw.StructureToCreate].Name) {
 
-                                        //case StrucNames.UndergroundHouse: WorldGen.GetMineHouseSize(); break;
-                                        //case StrucNames.JungleShrine: WorldGen.GetJungleShrineSize(); break;
-                                        case StrucNames.CloudIslandHouse: GetIslandHouseSize(); break;
+                                        //case StructureNames.UndergroundHouse: WorldGen.GetMineHouseSize(); break;
+                                        //case StructureNames.JungleShrine: WorldGen.GetJungleShrineSize(); break;
+                                        case StructureNames.CloudIslandHouse: GetIslandHouseSize(); break;
 
                                     }
 
@@ -1809,7 +1809,6 @@ namespace NeoDraw.UI {
 
             bool flag = false;
 
-            _middleVerticalSlider.whoAmi = 0;
             _middleVerticalSlider.Update();
 
             if (_middleVerticalSlider.canMouseOver && !_middleVerticalSlider.disabled)
@@ -1959,7 +1958,6 @@ namespace NeoDraw.UI {
 
             bool flag = false;
 
-            _bottomVerticalSlider.whoAmi = 0;
             _bottomVerticalSlider.Update();
 
             if (_bottomVerticalSlider.canMouseOver && !_bottomVerticalSlider.disabled)
@@ -2366,7 +2364,7 @@ DrawMessage:;
 
                                         switch (StructuresList[(int)NeoDraw.StructureToCreate].Name) {
 
-                                            case StrucNames.LavaTrap: {
+                                            case StructureNames.LavaTrap: {
 
                                                     int xStart = Neo.TileTargetX;
                                                     int yStart = Neo.TileTargetY;
@@ -2509,8 +2507,8 @@ LavaTrapEnd:;
                                                     break;
 
                                                 }
-                                            case StrucNames.LivingTree:
-                                            case StrucNames.LivingMahoganyTree: {
+                                            case StructureNames.LivingTree:
+                                            case StructureNames.LivingMahoganyTree: {
 
                                                     string mouseText = "";
 
@@ -2555,7 +2553,7 @@ DoneTesting:;
                                                     break;
 
                                                 }
-                                            /*case StrucNames.UndergroundHouse:
+                                            /*case StructureNames.UndergroundHouse:
 
                                                 for (int x = Neo.TileTargetX - WorldGen.LeftHalfWidth; x < Neo.TileTargetX + WorldGen.RightHalfWidth; x++)
                                                     for (int y = Neo.TileTargetY - WorldGen.TopHalfWidth; y < Neo.TileTargetY + WorldGen.BottomHalfWidth + 2; y++)
@@ -2563,7 +2561,7 @@ DoneTesting:;
 
                                                 break;
 
-                                            case StrucNames.JungleShrine:
+                                            case StructureNames.JungleShrine:
 
                                                 for (int x = Neo.TileTargetX - WorldGen.JungleShrineWidth - 2; x < Neo.TileTargetX + WorldGen.JungleShrineWidth + 1; x++)
                                                     for (int y = Neo.TileTargetY - WorldGen.JungleShrineHeight - 1; y < Neo.TileTargetY + WorldGen.JungleShrineHeight + 2; y++)
@@ -2571,7 +2569,7 @@ DoneTesting:;
 
                                                 break;*/
 
-                                            case StrucNames.CloudIslandHouse: {
+                                            case StructureNames.CloudIslandHouse: {
 
                                                     Vector2 position = new Vector2(Neo.TileTargetX, Neo.TileTargetY);
 
@@ -2601,7 +2599,7 @@ DoneTesting:;
                                                     break;
 
                                                 }
-                                            case StrucNames.EpicTree: {
+                                            case StructureNames.EpicTree: {
 
                                                     DrawEpicTreeOutline(sb);
 
@@ -4061,25 +4059,25 @@ DoneTesting:;
 
             switch (SpecialToCreateName) {
 
-                case StrucNames.CampSite: {
+                case StructureNames.CampSite: {
 
                         Biomes<Campsite>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.CaveOpenater: {
+                case StructureNames.CaveOpenater: {
 
                         CaveOpenater(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.Caverer: {
+                case StructureNames.Caverer: {
 
                         Caverer(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.Cavinator: {
+                case StructureNames.Cavinator: {
 
                         int steps = 1;
 
@@ -4103,31 +4101,31 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.CloudIsland: {
+                case StructureNames.CloudIsland: {
 
                         CloudIsland(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle);
                         break;
 
                     }
-                case StrucNames.CloudIslandHouse: {
+                case StructureNames.CloudIslandHouse: {
 
                         IslandHouse(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.CloudLake: {
+                case StructureNames.CloudLake: {
 
                         CloudLake(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.CorruptionStart: {
+                case StructureNames.CorruptionStart: {
 
                         Biomes<CorruptionStart>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.CrimsonEntrance: {
+                case StructureNames.CrimsonEntrance: {
 
                         int crimEntDir = 1;
 
@@ -4143,7 +4141,7 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.CrimsonStart: {
+                case StructureNames.CrimsonStart: {
 
                         int crimStartDir = 0;
 
@@ -4160,25 +4158,25 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.DeadMansChest: {
+                case StructureNames.DeadMansChest: {
 
                         Biomes<DeadMansChest>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo, true);
                         break;
 
                     }
-                case StrucNames.Desert: {
+                case StructureNames.Desert: {
 
                         Biomes<Desert>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.Dunes: {
+                case StructureNames.Dunes: {
 
                         Biomes<Dunes>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.Dungeon: {
+                case StructureNames.Dungeon: {
 
                         if (Main.keyState.PressingAlt())
                             GetGoodWorldGen = true;
@@ -4190,46 +4188,46 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.EnchantedSword: {
+                case StructureNames.EnchantedSword: {
 
                         EnchantedSword.RealSword = _specialStyle;
                         Biomes<EnchantedSword>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.EpicTree: {
+                case StructureNames.EpicTree: {
 
                         GrowEpicTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.GemCave: {
+                case StructureNames.GemCave: {
 
                         GemCave(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle - 1);
                         break;
 
                     }
-                case StrucNames.GraniteCave: {
+                case StructureNames.GraniteCave: {
 
                         GraniteCave.Style = _specialStyle;
                         Biomes<GraniteCave>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.GraniteCavern: {
+                case StructureNames.GraniteCavern: {
 
                         MarbleCavern.SwitchToGranite = true;
                         Biomes<MarbleCavern>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.HellFort: {
+                case StructureNames.HellFort: {
 
                         HellFort(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.Hive: {
+                case StructureNames.Hive: {
 
                         if (_specialStyle == 1) {
                             Hive.DrunkWorldGen = true;
@@ -4242,19 +4240,19 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.HoneyPatch: {
+                case StructureNames.HoneyPatch: {
 
                         Biomes<HoneyPatch>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.JungleShrine: {
+                case StructureNames.JungleShrine: {
 
                         MakeJungleShrine(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle - 1);
                         break;
 
                     }
-                case StrucNames.Lakinater: {
+                case StructureNames.Lakinater: {
 
                         if (_specialStyle == 0) {
                             Lakinater(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
@@ -4266,25 +4264,25 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.LavaTrap: {
+                case StructureNames.LavaTrap: {
 
                         LavaTrap(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.LivingMahoganyTree: {
+                case StructureNames.LivingMahoganyTree: {
 
                         GrowLivingTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo, TileID.LivingMahogany, TileID.LivingMahoganyLeaves, WallID.LivingWood, _specialStyle, Main.keyState.PressingAlt() ? true : false);
                         break;
 
                     }
-                case StrucNames.LivingTree: {
+                case StructureNames.LivingTree: {
 
                         GrowLivingTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo, TileID.LivingWood, TileID.LeafBlock, WallID.LivingWood, _specialStyle, Main.keyState.PressingAlt() ? true : false);
                         break;
 
                     }
-                case StrucNames.LihzahrdTemple: {
+                case StructureNames.LihzahrdTemple: {
 
                         makeTemple(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         templePart2(ref _undo);
@@ -4293,13 +4291,13 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.MahoganyTree: {
+                case StructureNames.MahoganyTree: {
 
                         Biomes<MahoganyTree>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.MakeHole: {
+                case StructureNames.MakeHole: {
 
                         switch (_specialStyle) {
 
@@ -4320,21 +4318,21 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.MarbleCave: {
+                case StructureNames.MarbleCave: {
 
                         GraniteCave.Style = _specialStyle + 3;
                         Biomes<GraniteCave>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.MarbleCavern: {
+                case StructureNames.MarbleCavern: {
 
                         MarbleCavern.SwitchToGranite = false;
                         Biomes<MarbleCavern>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.Meteor: {
+                case StructureNames.Meteor: {
 
                         float meteorSize = 1f;
 
@@ -4354,38 +4352,38 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.MiningExplosives: {
+                case StructureNames.MiningExplosives: {
 
                         Biomes<MiningExplosives>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
                         break;
 
                     }
-                case StrucNames.Mountinater: {
+                case StructureNames.Mountinater: {
 
                         Mountinater(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle);
                         break;
 
                     }
-                case StrucNames.MossCave: {
+                case StructureNames.MossCave: {
 
                         MossCave(Neo.TileTargetX, Neo.TileTargetY, ref _undo, _specialStyle - 2);
                         //Biomes<NeonMoss>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo); // TODO: Update this to be a biome
                         break;
 
                     }
-                case StrucNames.Oasis: {
+                case StructureNames.Oasis: {
 
                         PlaceOasis(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.OceanCave: {
+                case StructureNames.OceanCave: {
 
                         OceanCave(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.Pyramid: {
+                case StructureNames.Pyramid: {
 
                         if (_specialStyle == 0) {
                             Pyramid(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
@@ -4397,19 +4395,19 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.SandTrap: {
+                case StructureNames.SandTrap: {
 
                         SandTrap(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.ShroomPatch: {
+                case StructureNames.ShroomPatch: {
 
                         ShroomPatch(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.SpiderCave: {
+                case StructureNames.SpiderCave: {
 
                         int maxLocations = -1;
 
@@ -4434,13 +4432,13 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.StonePatch: {
+                case StructureNames.StonePatch: {
 
                         StonePatch(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
 
                     }
-                case StrucNames.UndergroundHouse: {
+                case StructureNames.UndergroundHouse: {
 
                         if (_specialStyle == 0) {
                             Biomes<CaveHouse>.Place(Neo.TileTargetX, Neo.TileTargetY, new StructureMap(), ref _undo);
@@ -4452,7 +4450,7 @@ DoneTesting:;
                         break;
 
                     }
-                case StrucNames.WateryIceThing: {
+                case StructureNames.WateryIceThing: {
                         MakeWateryIceThing(Neo.TileTargetX, Neo.TileTargetY, ref _undo);
                         break;
                     }
@@ -6861,9 +6859,8 @@ DoneTesting:;
             _middleVerticalSlider = new VerticalSlider(
 
                 anchor: new Vector2(0f, 0f),
-                offset: new Vector2(ListWidth - 20, MiddleListTop + 2),
-                display: "",
-                to: "")
+                offset: new Vector2(ListWidth - 20, MiddleListTop + 2)
+                )
                 .SetSize(20f, MiddleListLength - 4)
                 .With(delegate (VerticalSlider w) {
 
@@ -6978,9 +6975,8 @@ DoneTesting:;
             _bottomVerticalSlider = new VerticalSlider(
 
                 anchor: new Vector2(0f, 0f),
-                offset: new Vector2(ListWidth - 20, MiddleListBottom + 2),
-                display: "",
-                to: "")
+                offset: new Vector2(ListWidth - 20, MiddleListBottom + 2)
+                )
                 .SetSize(20f, SubListLength - 4)
                 .With(delegate (VerticalSlider w) {
 
@@ -7073,53 +7069,53 @@ DoneTesting:;
 
             StructuresList = new List<ListItem> {
 
-                new ListItem(index++, StrucNames.DeadMansChest), // Booby Trap Chest
-                new ListItem(index++, StrucNames.CampSite),
-                new ListItem(index++, StrucNames.CaveOpenater),
-                new ListItem(index++, StrucNames.Caverer),
-                new ListItem(index++, StrucNames.Cavinator),
-                new ListItem(index++, StrucNames.CloudIsland),
-                new ListItem(index++, StrucNames.CloudIslandHouse),
-                new ListItem(index++, StrucNames.CloudLake),
-                //new ListItem(index++, StrucNames.CorruptionPit),
-                new ListItem(index++, StrucNames.CorruptionStart),
-                //new ListItem(index++, StrucNames.CrimsonEntrance),
-                new ListItem(index++, StrucNames.CrimsonStart),
-                new ListItem(index++, StrucNames.Desert),
-                new ListItem(index++, StrucNames.Dunes),
-                new ListItem(index++, StrucNames.Dungeon),
-                new ListItem(index++, StrucNames.EnchantedSword),
-                new ListItem(index++, StrucNames.EpicTree),
-                //new ListItem(index++, StrucNames.FloatingIsland),
-                new ListItem(index++, StrucNames.GemCave),
-                new ListItem(index++, StrucNames.GraniteCave),
-                new ListItem(index++, StrucNames.GraniteCavern),
-                new ListItem(index++, StrucNames.HellFort),
-                new ListItem(index++, StrucNames.Hive),
-                new ListItem(index++, StrucNames.HoneyPatch),
-                new ListItem(index++, StrucNames.JungleShrine),
-                new ListItem(index++, StrucNames.Lakinater),
-                new ListItem(index++, StrucNames.LavaTrap),
-                new ListItem(index++, StrucNames.LihzahrdTemple),
-                new ListItem(index++, StrucNames.LivingMahoganyTree),
-                new ListItem(index++, StrucNames.LivingTree),
-                new ListItem(index++, StrucNames.MahoganyTree),
-                new ListItem(index++, StrucNames.MakeHole),
-                new ListItem(index++, StrucNames.MarbleCave),
-                new ListItem(index++, StrucNames.MarbleCavern),
-                new ListItem(index++, StrucNames.Meteor),
-                new ListItem(index++, StrucNames.MiningExplosives),
-                new ListItem(index++, StrucNames.MossCave),
-                new ListItem(index++, StrucNames.Mountinater),
-                new ListItem(index++, StrucNames.Oasis),
-                new ListItem(index++, StrucNames.OceanCave),
-                new ListItem(index++, StrucNames.Pyramid),
-                new ListItem(index++, StrucNames.SandTrap),
-                new ListItem(index++, StrucNames.ShroomPatch),
-                new ListItem(index++, StrucNames.SpiderCave),
-                new ListItem(index++, StrucNames.StonePatch),
-                new ListItem(index++, StrucNames.UndergroundHouse),
-                new ListItem(index++, StrucNames.WateryIceThing)
+                new ListItem(index++, StructureNames.DeadMansChest), // Booby Trap Chest
+                new ListItem(index++, StructureNames.CampSite),
+                new ListItem(index++, StructureNames.CaveOpenater),
+                new ListItem(index++, StructureNames.Caverer),
+                new ListItem(index++, StructureNames.Cavinator),
+                new ListItem(index++, StructureNames.CloudIsland),
+                new ListItem(index++, StructureNames.CloudIslandHouse),
+                new ListItem(index++, StructureNames.CloudLake),
+                //new ListItem(index++, StructureNames.CorruptionPit),
+                new ListItem(index++, StructureNames.CorruptionStart),
+                //new ListItem(index++, StructureNames.CrimsonEntrance),
+                new ListItem(index++, StructureNames.CrimsonStart),
+                new ListItem(index++, StructureNames.Desert),
+                new ListItem(index++, StructureNames.Dunes),
+                new ListItem(index++, StructureNames.Dungeon),
+                new ListItem(index++, StructureNames.EnchantedSword),
+                new ListItem(index++, StructureNames.EpicTree),
+                //new ListItem(index++, StructureNames.FloatingIsland),
+                new ListItem(index++, StructureNames.GemCave),
+                new ListItem(index++, StructureNames.GraniteCave),
+                new ListItem(index++, StructureNames.GraniteCavern),
+                new ListItem(index++, StructureNames.HellFort),
+                new ListItem(index++, StructureNames.Hive),
+                new ListItem(index++, StructureNames.HoneyPatch),
+                new ListItem(index++, StructureNames.JungleShrine),
+                new ListItem(index++, StructureNames.Lakinater),
+                new ListItem(index++, StructureNames.LavaTrap),
+                new ListItem(index++, StructureNames.LihzahrdTemple),
+                new ListItem(index++, StructureNames.LivingMahoganyTree),
+                new ListItem(index++, StructureNames.LivingTree),
+                new ListItem(index++, StructureNames.MahoganyTree),
+                new ListItem(index++, StructureNames.MakeHole),
+                new ListItem(index++, StructureNames.MarbleCave),
+                new ListItem(index++, StructureNames.MarbleCavern),
+                new ListItem(index++, StructureNames.Meteor),
+                new ListItem(index++, StructureNames.MiningExplosives),
+                new ListItem(index++, StructureNames.MossCave),
+                new ListItem(index++, StructureNames.Mountinater),
+                new ListItem(index++, StructureNames.Oasis),
+                new ListItem(index++, StructureNames.OceanCave),
+                new ListItem(index++, StructureNames.Pyramid),
+                new ListItem(index++, StructureNames.SandTrap),
+                new ListItem(index++, StructureNames.ShroomPatch),
+                new ListItem(index++, StructureNames.SpiderCave),
+                new ListItem(index++, StructureNames.StonePatch),
+                new ListItem(index++, StructureNames.UndergroundHouse),
+                new ListItem(index++, StructureNames.WateryIceThing)
 
             };
 

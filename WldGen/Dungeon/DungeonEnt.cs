@@ -211,14 +211,13 @@ namespace NeoDraw.WldGen.Dungeon {
 
 			}
 
-			int num30;
-			int num31 = maxY;
+            int num31 = maxY;
 
 			for (int num32 = 0; num32 < 20; num32++) {
 
-				num30 = (int)vector.X - num32;
+                int num30 = (int)vector.X - num32;
 
-				if (!Main.tile[num30, num31].active() && Main.wallDungeon[Main.tile[num30, num31].wall]) {
+                if (!Main.tile[num30, num31].active() && Main.wallDungeon[Main.tile[num30, num31].wall]) {
 
 					DPlatX[numDPlats] = num30;
 					DPlatY[numDPlats] = num31;

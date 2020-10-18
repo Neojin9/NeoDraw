@@ -12,8 +12,8 @@ namespace NeoDraw.UI {
 
         #region Private Variables
 
-        private int xPosition { get { return (int)Position.X + (int)Offset.X; } }
-        private int yPosition { get { return (int)Position.Y + (int)Offset.Y; } }
+        private int xPosition => (int)Position.X + (int)Offset.X;
+        private int yPosition => (int)Position.Y + (int)Offset.Y;
 
         #endregion
 

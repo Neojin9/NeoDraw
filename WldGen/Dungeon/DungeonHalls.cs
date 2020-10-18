@@ -29,10 +29,7 @@ namespace NeoDraw.WldGen.Dungeon {
 
 			int num4 = genRand.Next(35, 80);
 
-			bool crackedHall = false;
-
-			if (genRand.Next(5) == 0)
-				crackedHall = true;
+			bool crackedHall = genRand.Next(5) == 0;
 
 			crackedHall = false; // TODO: Remove for v1.4
 

@@ -14,16 +14,14 @@ namespace NeoDraw {
 
         #region Private Variables
 
-        private static bool _captureTileChanges;
-        private static bool _captureTileFrames;
 
         #endregion
 
         #region Public Variables
 
-        public static bool CaptureTileFrames { get => _captureTileFrames; set => _captureTileFrames = value; }
-        
-        public static bool CaptureTileChanges { get => _captureTileChanges; set => _captureTileChanges = value; }
+        public static bool CaptureTileFrames { get; set; }
+
+        public static bool CaptureTileChanges { get; set; }
 
         #endregion
 

@@ -8,9 +8,9 @@ namespace NeoDraw.Core {
 
     public class Drawing {
 
-        public static readonly int[][] shadowOffset;
+        private static readonly int[][] shadowOffset;
 
-        public static Texture2D box;
+        private static readonly Texture2D box;
 
         static Drawing() {
 

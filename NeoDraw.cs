@@ -30,7 +30,7 @@ namespace NeoDraw {
         private static bool oldMapEnabled;
         private static bool oldSmartCursorEnabled;
 
-        private static byte DoubleClickCounter = 0;
+        private static byte DoubleClickCounter;
 
         private static float oldGameZoom;
 
@@ -81,7 +81,7 @@ namespace NeoDraw {
 
         public static UndoManager UndoManager;
 
-        public static bool MouseXoverToolbar { get { return (!AtLeftEdgeOfWorld && Main.mouseX <= DrawInterface.ListWidth) || (AtLeftEdgeOfWorld && Main.mouseX >= Main.screenWidth - DrawInterface.ListWidth); } }
+        public static bool MouseXoverToolbar => (!AtLeftEdgeOfWorld && Main.mouseX <= DrawInterface.ListWidth) || (AtLeftEdgeOfWorld && Main.mouseX >= Main.screenWidth - DrawInterface.ListWidth);
 
         #endregion
 
@@ -355,7 +355,7 @@ namespace NeoDraw {
             
         }
 
-        public void GrabMapTile() {
+        public static void GrabMapTile() {
 
             if (!Main.mapEnabled || !Main.mapReady)
                 return;

@@ -6,36 +6,56 @@ using Terraria;
 
 namespace NeoDraw.UI {
 
-    public class VerticalSlider : MenuButtonVerticalSlider {
+    public class VerticalSlider {
 
-        public VerticalSlider(int pageAnchor, string display, string to, string desc = "", Action cl = null, Action clh = null) : base(pageAnchor, display, to, desc, cl, clh) {}
+        #region Variables
 
-        public VerticalSlider(Vector2 anchor, Vector2 offset, string display, string to, string desc = "", Action cl = null, Action clh = null) : this(-1, display, to, desc, cl, clh) {
+        public Action Click     = delegate { };
+        public Action ClickHold = delegate { };
+        public Action Update    = delegate { };
+
+        public bool buttonLock   = true;
+        public bool canMouseOver = true;
+        public bool disabled;
+
+        public int framesHeld;
+        public int multislide = 1;
+        public int segments;
+        public int slider;
+        public int slider_hover;
+
+        public Vector2 anchor;
+        public Vector2 offset;
+        public Vector2 size;
+
+        #endregion
+
+        public Vector2 position => new Vector2(Main.screenWidth, Main.screenHeight) * anchor + offset;
+
+        public VerticalSlider(Vector2 anchor, Vector2 offset, Action cl = null, Action clh = null) {
+
+            size = new Vector2(200f, 40f);
+
+            if (cl != null)
+                Click = cl;
+
+            if (clh != null)
+                ClickHold = clh;
+
             this.anchor = anchor;
             this.offset = offset;
-        }
-
-        public override void Draw(SpriteBatch sb, bool mouseOver) {
-
-            ActualDraw(sb, mouseOver);
 
         }
 
-        public void DrawWithOffset(SpriteBatch sb, bool mouseOver, int xOffset = 0, int yOffset = 0) {
-
-            ActualDraw(sb, mouseOver);
-
-        }
-
-        public void ActualDraw(SpriteBatch sb, bool mouseOver) {
+        public void Draw(SpriteBatch sb, bool mouseOver) {
 
             if (segments == 0 || disabled)
                 return;
 
             Texture2D colorBlipTexture = Main.colorBlipTexture;
-            float _scale = 0.784313738f;
+            float     _scale           = 0.784313738f;
 
-            int num = -6;
+            int num  = -6;
             int num2 = -4;
 
             sb.Draw(
@@ -49,7 +69,7 @@ namespace NeoDraw.UI {
                 Color.LightGray * _scale
             );
 
-            num = -4;
+            num  = -4;
             num2 = -6;
 
             sb.Draw(
@@ -65,19 +85,47 @@ namespace NeoDraw.UI {
 
         }
 
+        public bool MouseOver(Vector2 mouse) {
+
+            slider_hover = -1;
+
+            if (!(mouse.X >= position.X && mouse.X < position.X + size.X && mouse.Y >= position.Y && mouse.Y < position.Y + size.Y))
+                return false;
+
+            if (mouse.X >= size.X + position.X - 4f || mouse.X < position.X + 4f)
+                return true;
+
+            float num  = 0f;
+            float num2 = size.Y - 8f;
+
+            for (int i = 0; i < segments; i++) {
+
+                float num3 = num2 / segments;
+
+                if (mouse.Y >= num + position.Y + 4f && mouse.Y < num + position.Y + 4f + num3) {
+                    slider_hover = i;
+                    return true;
+                }
+
+                num += num3;
+
+            }
+
+            return true;
+
+        }
+
         public VerticalSlider With(Action<VerticalSlider> action) {
             action(this);
             return this;
         }
 
-        public new VerticalSlider SetSize(Vector2 s) {
+        public VerticalSlider SetSize(Vector2 s) {
             size = s;
             return this;
         }
 
-        public new VerticalSlider SetSize(float s, float ss) {
-            return SetSize(new Vector2(s, ss));
-        }
+        public VerticalSlider SetSize(float width, float height) => SetSize(new Vector2(width, height));
 
     }
 

@@ -27,17 +27,17 @@ namespace NeoDraw.Core {
 
     public class Neo {
 
-        public static int TileTargetX { get { /*return Player.tileTargetX;*/ return Utils.Clamp((int)((Main.mouseX + Main.screenPosition.X) / 16f), 0, Main.maxTilesX); } }
-        
-        public static int TileTargetY { get { /*return Player.tileTargetY;*/ return Utils.Clamp(Main.LocalPlayer.gravDir == -1f ? (int)((Main.screenPosition.Y + Main.screenHeight - Main.mouseY) / 16f) : (int)((Main.mouseY + Main.screenPosition.Y) / 16f), 0, Main.maxTilesY); } }
+        public static int TileTargetX => Utils.Clamp((int)((Main.mouseX + Main.screenPosition.X) / 16f), 0, Main.maxTilesX);
+
+        public static int TileTargetY => Utils.Clamp(Main.LocalPlayer.gravDir == -1f ? (int)((Main.screenPosition.Y + Main.screenHeight - Main.mouseY) / 16f) : (int)((Main.mouseY + Main.screenPosition.Y) / 16f), 0, Main.maxTilesY);
 
         public static int UnderworldLayer => Main.maxTilesY - 200;
 
-        public static Tile TileTarget_Tile { get { return Main.tile[TileTargetX, TileTargetY]; } }
+        public static Tile TileTarget_Tile => Main.tile[TileTargetX, TileTargetY];
 
-        public static Vector2 TileTarget_Vector { get { return new Vector2(TileTargetX, TileTargetY); } }
+        public static Vector2 TileTarget_Vector => new Vector2(TileTargetX, TileTargetY);
 
-        public static Color ColorBorder(int x, int y, int width, int height, int borderThickness, int borderRadius, int borderShadow, Color initialColor, List<Color> borderColors, float initialShadowIntensity, float finalShadowIntensity) {
+        private static Color ColorBorder(int x, int y, int width, int height, int borderThickness, int borderRadius, int borderShadow, Color initialColor, List<Color> borderColors, float initialShadowIntensity, float finalShadowIntensity) {
 
             Rectangle internalRectangle = new Rectangle((borderThickness + borderRadius), (borderThickness + borderRadius), width - 2 * (borderThickness + borderRadius), height - 2 * (borderThickness + borderRadius));
 
@@ -1015,7 +1015,7 @@ namespace NeoDraw.Core {
             
         }
 
-        public static bool TileCut(int x, int y) => TileCut(new Point[] { new Point(x, y) });
+        public static bool TileCut(int x, int y) => TileCut(new[] { new Point(x, y) });
 
         public static bool TileCut(Point[] tiles) {
 
@@ -1107,9 +1107,9 @@ namespace NeoDraw.Core {
 
     public class ListItem {
 
-        public int ID { get; private set; }
+        public int ID { get; }
         
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public ListItem(int id, string name) {
 
@@ -1120,7 +1120,7 @@ namespace NeoDraw.Core {
 
     }
 
-    public struct IntRange {
+    public readonly struct IntRange {
 
         public readonly int Minimum;
         public readonly int Maximum;
@@ -1148,7 +1148,7 @@ namespace NeoDraw.Core {
 
     }
 
-    public struct StrucNames {
+    public struct StructureNames {
 
         public const string CampSite           = "Camp Site";
         public const string CaveOpenater       = "Cave Openater";
@@ -1158,7 +1158,6 @@ namespace NeoDraw.Core {
         public const string CloudIslandHouse   = "Cloud Island House";
         public const string CloudLake          = "Cloud Lake";
         public const string DeadMansChest      = "Booby Trap Chest";
-        public const string CorruptionPit      = "Corruption Pit";
         public const string CorruptionStart    = "Corruption Start";
         public const string CrimsonEntrance    = "Crimson Entrance";
         public const string CrimsonStart       = "Crimson Start";
@@ -1167,7 +1166,6 @@ namespace NeoDraw.Core {
         public const string Dungeon            = "Dungeon";
         public const string EnchantedSword     = "Enchanted Sword Biome";
         public const string EpicTree           = "Epic Tree";
-        public const string FloatingIsland     = "Floating Island";
         public const string GemCave            = "Gem Cave";
         public const string GraniteCave        = "Granite Cave";
         public const string GraniteCavern      = "Granite Cavern";
