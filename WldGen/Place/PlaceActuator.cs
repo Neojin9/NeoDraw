@@ -15,7 +15,7 @@ namespace NeoDraw.WldGen.Place {
 
 				undo.Add(new ChangedTile(i, j));
 				Main.PlaySound(SoundID.Dig, i * 16, j * 16);
-				Main.tile[i, j].actuator(actuator: true);
+				Main.tile[i, j].actuator(true);
 				return true;
 
 			}

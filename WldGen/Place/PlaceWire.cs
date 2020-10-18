@@ -10,7 +10,7 @@ namespace NeoDraw.WldGen.Place {
 			if (!Main.tile[i, j].wire()) {
 				
 				undo.Add(new ChangedTile(i, j));
-				Main.tile[i, j].wire(wire: true);
+				Main.tile[i, j].wire(true);
 
 				return true;
 
@@ -25,7 +25,7 @@ namespace NeoDraw.WldGen.Place {
 			if (!Main.tile[i, j].wire2()) {
 
 				undo.Add(new ChangedTile(i, j));
-				Main.tile[i, j].wire2(wire2: true);
+				Main.tile[i, j].wire2(true);
 
 				return true;
 
@@ -40,7 +40,7 @@ namespace NeoDraw.WldGen.Place {
 			if (!Main.tile[i, j].wire3()) {
 
 				undo.Add(new ChangedTile(i, j));
-				Main.tile[i, j].wire3(wire3: true);
+				Main.tile[i, j].wire3(true);
 
 				return true;
 
@@ -55,7 +55,7 @@ namespace NeoDraw.WldGen.Place {
 			if (!Main.tile[i, j].wire4()) {
 
 				undo.Add(new ChangedTile(i, j));
-				Main.tile[i, j].wire4(wire4: true);
+				Main.tile[i, j].wire4(true);
 
 				return true;
 

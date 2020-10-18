@@ -62,7 +62,7 @@ namespace NeoDraw.WldGen.Place {
 
 			}
 
-			if (!Neo.TileCut(new Point[] { new Point(leftSide, top), new Point(leftSide + 1, top), new Point(leftSide, top + 1), new Point(leftSide + 1, top + 1) }))
+			if (!Neo.TileCut(new[] { new Point(leftSide, top), new Point(leftSide + 1, top), new Point(leftSide, top + 1), new Point(leftSide + 1, top + 1) }))
 				return false;
 
 			int frameX = 36 * placeStyle;
@@ -73,7 +73,7 @@ namespace NeoDraw.WldGen.Place {
 
 					undo.Add(new ChangedTile(leftSide + k, top + l));
 
-					Main.tile[leftSide + k, top + l].active(active: true);
+					Main.tile[leftSide + k, top + l].active(true);
 					Main.tile[leftSide + k, top + l].type = type;
 					Main.tile[leftSide + k, top + l].frameX = (short)(frameX + 18 * k);
 					Main.tile[leftSide + k, top + l].frameY = (short)(18 * l);

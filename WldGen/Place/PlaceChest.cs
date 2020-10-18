@@ -22,17 +22,14 @@ namespace NeoDraw.WldGen.Place {
 
 			if (TileObject.CanPlace(x, y, type, style, 1, out TileObject objectData)) {
 
-				bool flag = true;
+                bool flag = !(notNearOtherChests && Chest.NearOtherChests(x - 1, y - 1));
 
-				if (notNearOtherChests && Chest.NearOtherChests(x - 1, y - 1))
-					flag = false;
+                if (flag) {
+                    Place(objectData, ref undo);
+                    num = Chest.CreateChest(objectData.xCoord, objectData.yCoord);
+                }
 
-				if (flag) {
-					Place(objectData, ref undo);
-					num = Chest.CreateChest(objectData.xCoord, objectData.yCoord);
-				}
-
-			} else {
+            } else {
 				num = -1;
 			}
 

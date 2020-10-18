@@ -37,12 +37,12 @@ namespace NeoDraw.WldGen.Place {
 					undo.Add(new ChangedTile(x, y + 1));
 
 					Main.tile[x, y].type = type;
-					Main.tile[x, y].active(active: true);
+					Main.tile[x, y].active(true);
 					Main.tile[x, y].frameX = (short)frameX;
 					Main.tile[x, y].frameY = 0;
 
 					Main.tile[x, y + 1].type = type;
-					Main.tile[x, y + 1].active(active: true);
+					Main.tile[x, y + 1].active(true);
 					Main.tile[x, y + 1].frameX = (short)frameX;
 					Main.tile[x, y + 1].frameY = 18;
 
@@ -60,7 +60,7 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 72;
 
@@ -71,12 +71,12 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y + 1));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 0;
 
 							Main.tile[x, y + 1].type = type;
-							Main.tile[x, y + 1].active(active: true);
+							Main.tile[x, y + 1].active(true);
 							Main.tile[x, y + 1].frameX = (short)frameX;
 							Main.tile[x, y + 1].frameY = 18;
 
@@ -95,7 +95,7 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 72;
 
@@ -106,12 +106,12 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y + 1));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 0;
 
 							Main.tile[x, y + 1].type = type;
-							Main.tile[x, y + 1].active(active: true);
+							Main.tile[x, y + 1].active(true);
 							Main.tile[x, y + 1].frameX = (short)frameX;
 							Main.tile[x, y + 1].frameY = 18;
 
@@ -128,7 +128,7 @@ namespace NeoDraw.WldGen.Place {
 						undo.Add(new ChangedTile(x, y));
 
 						Main.tile[x, y].type = type;
-						Main.tile[x, y].active(active: true);
+						Main.tile[x, y].active(true);
 						Main.tile[x, y].frameX = (short)frameX;
 						Main.tile[x, y].frameY = 72;
 
@@ -145,7 +145,7 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 72;
 
@@ -156,12 +156,12 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y + 1));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 0;
 
 							Main.tile[x, y + 1].type = type;
-							Main.tile[x, y + 1].active(active: true);
+							Main.tile[x, y + 1].active(true);
 							Main.tile[x, y + 1].frameX = (short)frameX;
 							Main.tile[x, y + 1].frameY = 18;
 
@@ -180,7 +180,7 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 72;
 
@@ -191,12 +191,12 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y + 1));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 0;
 
 							Main.tile[x, y + 1].type = type;
-							Main.tile[x, y + 1].active(active: true);
+							Main.tile[x, y + 1].active(true);
 							Main.tile[x, y + 1].frameX = (short)frameX;
 							Main.tile[x, y + 1].frameY = 18;
 
@@ -215,7 +215,7 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 72;
 
@@ -226,12 +226,12 @@ namespace NeoDraw.WldGen.Place {
 							undo.Add(new ChangedTile(x, y + 1));
 
 							Main.tile[x, y].type = type;
-							Main.tile[x, y].active(active: true);
+							Main.tile[x, y].active(true);
 							Main.tile[x, y].frameX = (short)frameX;
 							Main.tile[x, y].frameY = 0;
 
 							Main.tile[x, y + 1].type = type;
-							Main.tile[x, y + 1].active(active: true);
+							Main.tile[x, y + 1].active(true);
 							Main.tile[x, y + 1].frameX = (short)frameX;
 							Main.tile[x, y + 1].frameY = 18;
 

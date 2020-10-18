@@ -38,9 +38,8 @@ namespace NeoDraw.WldGen.Place {
 				return false;
 
 			int num  = 72 * style;
-			int num2 = 0;
 
-			undo.Add(new ChangedTile(x - 1, y - 2));
+            undo.Add(new ChangedTile(x - 1, y - 2));
 			undo.Add(new ChangedTile(x,     y - 2));
 			undo.Add(new ChangedTile(x + 1, y - 2));
 			undo.Add(new ChangedTile(x + 2, y - 2));
@@ -53,63 +52,63 @@ namespace NeoDraw.WldGen.Place {
 			undo.Add(new ChangedTile(x + 1, y    ));
 			undo.Add(new ChangedTile(x + 2, y    ));
 
-			Main.tile[x - 1, y - 2].active(active: true);
-			Main.tile[x - 1, y - 2].frameY = (short)num2;
+			Main.tile[x - 1, y - 2].active(true);
+            Main.tile[x - 1, y - 2].frameY = 0;
 			Main.tile[x - 1, y - 2].frameX = (short)num;
 			Main.tile[x - 1, y - 2].type = type;
 
-			Main.tile[x, y - 2].active(active: true);
-			Main.tile[x, y - 2].frameY = (short)num2;
+			Main.tile[x, y - 2].active(true);
+            Main.tile[x, y - 2].frameY = 0;
 			Main.tile[x, y - 2].frameX = (short)(18 + num);
 			Main.tile[x, y - 2].type = type;
 
-			Main.tile[x + 1, y - 2].active(active: true);
-			Main.tile[x + 1, y - 2].frameY = (short)num2;
+			Main.tile[x + 1, y - 2].active(true);
+            Main.tile[x + 1, y - 2].frameY = 0;
 			Main.tile[x + 1, y - 2].frameX = (short)(36 + num);
 			Main.tile[x + 1, y - 2].type = type;
 
-			Main.tile[x + 2, y - 2].active(active: true);
-			Main.tile[x + 2, y - 2].frameY = (short)num2;
+			Main.tile[x + 2, y - 2].active(true);
+            Main.tile[x + 2, y - 2].frameY = 0;
 			Main.tile[x + 2, y - 2].frameX = (short)(54 + num);
 			Main.tile[x + 2, y - 2].type = type;
 
-			Main.tile[x - 1, y - 1].active(active: true);
-			Main.tile[x - 1, y - 1].frameY = (short)(num2 + 18);
+			Main.tile[x - 1, y - 1].active(true);
+            Main.tile[x - 1, y - 1].frameY = 18;
 			Main.tile[x - 1, y - 1].frameX = (short)num;
 			Main.tile[x - 1, y - 1].type = type;
 
-			Main.tile[x, y - 1].active(active: true);
-			Main.tile[x, y - 1].frameY = (short)(num2 + 18);
+			Main.tile[x, y - 1].active(true);
+            Main.tile[x, y - 1].frameY = 18;
 			Main.tile[x, y - 1].frameX = (short)(18 + num);
 			Main.tile[x, y - 1].type = type;
 
-			Main.tile[x + 1, y - 1].active(active: true);
-			Main.tile[x + 1, y - 1].frameY = (short)(num2 + 18);
+			Main.tile[x + 1, y - 1].active(true);
+            Main.tile[x + 1, y - 1].frameY = 18;
 			Main.tile[x + 1, y - 1].frameX = (short)(36 + num);
 			Main.tile[x + 1, y - 1].type = type;
 
-			Main.tile[x + 2, y - 1].active(active: true);
-			Main.tile[x + 2, y - 1].frameY = (short)(num2 + 18);
+			Main.tile[x + 2, y - 1].active(true);
+            Main.tile[x + 2, y - 1].frameY = 18;
 			Main.tile[x + 2, y - 1].frameX = (short)(54 + num);
 			Main.tile[x + 2, y - 1].type = type;
 
-			Main.tile[x - 1, y].active(active: true);
-			Main.tile[x - 1, y].frameY = (short)(num2 + 36);
+			Main.tile[x - 1, y].active(true);
+            Main.tile[x - 1, y].frameY = 36;
 			Main.tile[x - 1, y].frameX = (short)num;
 			Main.tile[x - 1, y].type = type;
 
-			Main.tile[x, y].active(active: true);
-			Main.tile[x, y].frameY = (short)(num2 + 36);
+			Main.tile[x, y].active(true);
+            Main.tile[x, y].frameY = 36;
 			Main.tile[x, y].frameX = (short)(18 + num);
 			Main.tile[x, y].type = type;
 
-			Main.tile[x + 1, y].active(active: true);
-			Main.tile[x + 1, y].frameY = (short)(num2 + 36);
+			Main.tile[x + 1, y].active(true);
+            Main.tile[x + 1, y].frameY = 36;
 			Main.tile[x + 1, y].frameX = (short)(36 + num);
 			Main.tile[x + 1, y].type = type;
 
-			Main.tile[x + 2, y].active(active: true);
-			Main.tile[x + 2, y].frameY = (short)(num2 + 36);
+			Main.tile[x + 2, y].active(true);
+            Main.tile[x + 2, y].frameY = 36;
 			Main.tile[x + 2, y].frameX = (short)(54 + num);
 			Main.tile[x + 2, y].type = type;
 

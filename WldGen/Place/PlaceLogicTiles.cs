@@ -31,7 +31,7 @@ namespace NeoDraw.WldGen.Place {
 
 					undo.Add(new ChangedTile(x, y));
 
-					tile.active(active: true);
+					tile.active(true);
 					tile.type = (ushort)type;
 					tile.frameX = (short)(style * 18);
 					tile.frameY = 0;
@@ -44,7 +44,7 @@ namespace NeoDraw.WldGen.Place {
 
 				undo.Add(new ChangedTile(x, y));
 
-				tile.active(active: true);
+				tile.active(true);
 				tile.type = (ushort)type;
 				tile.frameX = 0;
 				tile.frameY = (short)(18 * style);

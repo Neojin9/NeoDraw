@@ -38,18 +38,18 @@ namespace NeoDraw.WldGen.Place {
 				if (!WorldGen.SolidTile2(i, j + 1) || !WorldGen.SolidTile2(i + 1, j + 1))
 					return false;
 
-				if (!Neo.TileCut(new Point[] { new Point(i, j), new Point(i + 1, j) }))
+				if (!Neo.TileCut(new[] { new Point(i, j), new Point(i + 1, j) }))
 					return false;
 
 				undo.Add(new ChangedTile(i, j));
 				undo.Add(new ChangedTile(i + 1, j));
 
-				Main.tile[i, j].active(active: true);
+				Main.tile[i, j].active(true);
 				Main.tile[i, j].frameY = frameY;
 				Main.tile[i, j].frameX = frameX;
 				Main.tile[i, j].type = type;
 
-				Main.tile[i + 1, j].active(active: true);
+				Main.tile[i + 1, j].active(true);
 				Main.tile[i + 1, j].frameY = frameY;
 				Main.tile[i + 1, j].frameX = (short)(frameX + 18);
 				Main.tile[i + 1, j].type = type;
@@ -64,7 +64,7 @@ namespace NeoDraw.WldGen.Place {
 
 				undo.Add(new ChangedTile(i, j));
 
-				Main.tile[i, j].active(active: true);
+				Main.tile[i, j].active(true);
 				Main.tile[i, j].frameY = frameY;
 				Main.tile[i, j].frameX = frameX;
 				Main.tile[i, j].type = type;

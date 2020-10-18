@@ -43,7 +43,7 @@ namespace NeoDraw.WldGen.Place {
 						frameY = 1;
                     }
 
-					tile.active(active: true);
+					tile.active(true);
 					tile.type = (ushort)type;
 					tile.frameX = (short)(22 * frameX);
 					tile.frameY = (short)(22 * frameY);
@@ -65,7 +65,7 @@ namespace NeoDraw.WldGen.Place {
 					Main.tile[x, y].type = (ushort)type;
 					Main.tile[x, y].frameX = 0;
 					Main.tile[x, y].frameY = 0;
-					Main.tile[x, y].active(active: true);
+					Main.tile[x, y].active(true);
 
 				}
 
@@ -77,7 +77,7 @@ namespace NeoDraw.WldGen.Place {
 
 				undo.Add(new ChangedTile(x, y));
 
-				tile.active(active: true);
+				tile.active(true);
 				tile.type = (ushort)type;
 				
 				switch (type) {

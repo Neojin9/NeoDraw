@@ -161,7 +161,7 @@ namespace NeoDraw.WldGen.Place {
 							if (Main.tile[x, y].liquid > 0)
 								return false;
 
-							if (Main.tile[x, y + 1].type != 0 && Main.tile[x, y + 1].type != 59 && Main.tile[x, y + 1].type != 78 && Main.tile[x, y + 1].type != 380)
+							if (Main.tile[x, y + 1].type != 0 && Main.tile[x, y + 1].type != TileID.Mud && Main.tile[x, y + 1].type != 78 && Main.tile[x, y + 1].type != 380)
 								return false;
 
 							break;
@@ -224,7 +224,7 @@ namespace NeoDraw.WldGen.Place {
 
 				undo.Add(new ChangedTile(x, y));
 
-				Main.tile[x, y].active(active: true);
+				Main.tile[x, y].active(true);
 				Main.tile[x, y].type = age;
 				Main.tile[x, y].frameX = (short)(18 * style);
 				Main.tile[x, y].frameY = 0;

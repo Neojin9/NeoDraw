@@ -99,6 +99,7 @@ namespace NeoDraw {
         public override void Load() {
 
             SetupLists();
+            WldGen.WldGen.SetupHellChest();
 
             UndoManager = new UndoManager(MaxUndoCount);
 

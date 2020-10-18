@@ -12,7 +12,7 @@ namespace NeoDraw.WldGen.Place {
 
 			Tile tile = Main.tile[i, j];
 
-			tile.active(active: true);
+			tile.active(true);
 			tile.type = 314;
 			tile.frameY = -1;
 

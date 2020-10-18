@@ -4,6 +4,7 @@ using NeoDraw.Undo;
 using Terraria;
 
 namespace NeoDraw.WldGen.Place {
+
     public partial class TilePlacer { // Updated v1.4 8/3/2020 TileCut
 
 		public static bool Place1x2Top(int x, int y, ushort type, int style, ref UndoStep undo) {
@@ -25,7 +26,7 @@ namespace NeoDraw.WldGen.Place {
             if (!Main.tile[x, y - 1].nactive() || !Main.tileSolid[Main.tile[x, y - 1].type] || Main.tileSolidTop[Main.tile[x, y - 1].type])
                 return false;
 
-            if (!Neo.TileCut(new Point[] { new Point(x, y), new Point(x, y + 1) }))
+            if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y + 1) }))
                 return false;
 
             short num = (short)(style * 36);
@@ -33,12 +34,12 @@ namespace NeoDraw.WldGen.Place {
             undo.Add(new ChangedTile(x, y));
             undo.Add(new ChangedTile(x, y + 1));
 
-            Main.tile[x, y].active(active: true);
+            Main.tile[x, y].active(true);
             Main.tile[x, y].frameY = num;
             Main.tile[x, y].frameX = frameX;
             Main.tile[x, y].type = type;
 
-            Main.tile[x, y + 1].active(active: true);
+            Main.tile[x, y + 1].active(true);
             Main.tile[x, y + 1].frameY = (short)(num + 18);
             Main.tile[x, y + 1].frameX = frameX;
             Main.tile[x, y + 1].type = type;

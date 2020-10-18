@@ -55,7 +55,7 @@ namespace NeoDraw.WldGen.Place {
 
 				if (k == 0) {
 
-					groundTile.active(active: true);
+					groundTile.active(true);
 					groundTile.type = TileID.PalmTree;
 					groundTile.frameX = 66;
 					groundTile.frameY = 0;
@@ -66,7 +66,7 @@ namespace NeoDraw.WldGen.Place {
 
 				if (k == height - 1) {
 
-					groundTile.active(active: true);
+					groundTile.active(true);
 					groundTile.type = TileID.PalmTree;
 					groundTile.frameX = (short)(22 * genRand.Next(4, 7));
 					groundTile.frameY = num3;
@@ -92,7 +92,7 @@ namespace NeoDraw.WldGen.Place {
 
 				}
 
-				groundTile.active(active: true);
+				groundTile.active(true);
 				groundTile.type = TileID.PalmTree;
 				groundTile.frameX = (short)(22 * genRand.Next(0, 3));
 				groundTile.frameY = num3;

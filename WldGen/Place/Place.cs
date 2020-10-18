@@ -66,7 +66,7 @@ namespace NeoDraw.WldGen.Place {
 
 						undo.Add(new ChangedTile(xPos + tileX, yPos + tileY));
 
-						tileSafely2.active(active: true);
+						tileSafely2.active(true);
 						tileSafely2.frameX = (short)curFrameX;
 						tileSafely2.frameY = (short)curFrameY;
 						tileSafely2.type = tileType;

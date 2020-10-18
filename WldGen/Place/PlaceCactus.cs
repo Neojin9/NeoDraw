@@ -68,12 +68,12 @@ namespace NeoDraw.WldGen.Place {
 				TileLoader.CanGrowModCactus(Main.tile[x, y].type)
 			) {
 
-				if (!Neo.TileCut(new Point[] { new Point(x, y - 1), new Point(x - 1, y - 1), new Point(x + 1, y - 1) }))
+				if (!Neo.TileCut(new[] { new Point(x, y - 1), new Point(x - 1, y - 1), new Point(x + 1, y - 1) }))
 					return false;
 
 				undo.Add(new ChangedTile(x, y - 1));
 
-				Main.tile[x, y - 1].active(active: true);
+				Main.tile[x, y - 1].active(true);
 				Main.tile[x, y - 1].type = TileID.Cactus;
 
 				if (Main.netMode == NetmodeID.Server)
@@ -223,7 +223,7 @@ namespace NeoDraw.WldGen.Place {
 
 							undo.Add(new ChangedTile(curX, curY - 1));
 
-							Main.tile[curX, curY - 1].active(active: true);
+							Main.tile[curX, curY - 1].active(true);
 							Main.tile[curX, curY - 1].type = TileID.Cactus;
 							
 							WorldGen.SquareTileFrame(curX, curY - 1);
@@ -242,7 +242,7 @@ namespace NeoDraw.WldGen.Place {
 
 					undo.Add(new ChangedTile(curX, curY - 1));
 
-					Main.tile[curX, curY - 1].active(active: true);
+					Main.tile[curX, curY - 1].active(true);
 					Main.tile[curX, curY - 1].type = TileID.Cactus;
 					
 					WorldGen.SquareTileFrame(curX, curY - 1);

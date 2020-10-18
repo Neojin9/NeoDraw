@@ -19,7 +19,7 @@ namespace NeoDraw.WldGen.Place {
 
 					if (WorldGen.SolidTile2(testTile) && Neo.TileCut(x + i, y + j)) {
 
-						PlaceTile(x + i, y + j, TileID.PressurePlates, ref undo, mute: true);
+						PlaceTile(x + i, y + j, TileID.PressurePlates, ref undo, true);
 						
 						if (tile.active() && tile.type == TileID.PressurePlates) {
 							WldUtils.WldUtils.WireLine(new Point(x, y), new Point(x + i, y + j), ref undo);

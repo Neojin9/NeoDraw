@@ -53,7 +53,7 @@ namespace NeoDraw.WldGen.Place {
 					}
 
 					Main.tile[k, l].type = type;
-					Main.tile[k, l].active(active: true);
+					Main.tile[k, l].active(true);
 
 					num4++;
 

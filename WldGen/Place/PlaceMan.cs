@@ -38,32 +38,32 @@ namespace NeoDraw.WldGen.Place {
             undo.Add(new ChangedTile(i + 1, j - 1));
             undo.Add(new ChangedTile(i + 1, j    ));
 
-            Main.tile[i, j - 2].active(active: true);
+            Main.tile[i, j - 2].active(true);
             Main.tile[i, j - 2].frameY = 0;
             Main.tile[i, j - 2].frameX = b;
             Main.tile[i, j - 2].type = type;
 
-            Main.tile[i, j - 1].active(active: true);
+            Main.tile[i, j - 1].active(true);
             Main.tile[i, j - 1].frameY = 18;
             Main.tile[i, j - 1].frameX = b;
             Main.tile[i, j - 1].type = type;
 
-            Main.tile[i, j].active(active: true);
+            Main.tile[i, j].active(true);
             Main.tile[i, j].frameY = 36;
             Main.tile[i, j].frameX = b;
             Main.tile[i, j].type = type;
 
-            Main.tile[i + 1, j - 2].active(active: true);
+            Main.tile[i + 1, j - 2].active(true);
             Main.tile[i + 1, j - 2].frameY = 0;
             Main.tile[i + 1, j - 2].frameX = (byte)(18 + b);
             Main.tile[i + 1, j - 2].type = type;
 
-            Main.tile[i + 1, j - 1].active(active: true);
+            Main.tile[i + 1, j - 1].active(true);
             Main.tile[i + 1, j - 1].frameY = 18;
             Main.tile[i + 1, j - 1].frameX = (byte)(18 + b);
             Main.tile[i + 1, j - 1].type = type;
 
-            Main.tile[i + 1, j].active(active: true);
+            Main.tile[i + 1, j].active(true);
             Main.tile[i + 1, j].frameY = 36;
             Main.tile[i + 1, j].frameX = (byte)(18 + b);
             Main.tile[i + 1, j].type = type;
@@ -103,32 +103,32 @@ namespace NeoDraw.WldGen.Place {
             undo.Add(new ChangedTile(i + 1, j));
 
 
-            Main.tile[i, j - 2].active(active: true);
+            Main.tile[i, j - 2].active(true);
             Main.tile[i, j - 2].frameY = 0;
             Main.tile[i, j - 2].frameX = frameX;
             Main.tile[i, j - 2].type = TileID.Womannequin;
 
-            Main.tile[i, j - 1].active(active: true);
+            Main.tile[i, j - 1].active(true);
             Main.tile[i, j - 1].frameY = 18;
             Main.tile[i, j - 1].frameX = frameX;
             Main.tile[i, j - 1].type = TileID.Womannequin;
 
-            Main.tile[i, j].active(active: true);
+            Main.tile[i, j].active(true);
             Main.tile[i, j].frameY = 36;
             Main.tile[i, j].frameX = frameX;
             Main.tile[i, j].type = TileID.Womannequin;
 
-            Main.tile[i + 1, j - 2].active(active: true);
+            Main.tile[i + 1, j - 2].active(true);
             Main.tile[i + 1, j - 2].frameY = 0;
             Main.tile[i + 1, j - 2].frameX = (byte)(18 + frameX);
             Main.tile[i + 1, j - 2].type = TileID.Womannequin;
 
-            Main.tile[i + 1, j - 1].active(active: true);
+            Main.tile[i + 1, j - 1].active(true);
             Main.tile[i + 1, j - 1].frameY = 18;
             Main.tile[i + 1, j - 1].frameX = (byte)(18 + frameX);
             Main.tile[i + 1, j - 1].type = TileID.Womannequin;
 
-            Main.tile[i + 1, j].active(active: true);
+            Main.tile[i + 1, j].active(true);
             Main.tile[i + 1, j].frameY = 36;
             Main.tile[i + 1, j].frameX = (byte)(18 + frameX);
             Main.tile[i + 1, j].type = TileID.Womannequin;

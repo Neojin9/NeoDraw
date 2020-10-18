@@ -18,7 +18,7 @@ namespace NeoDraw.WldGen.Place {
 				if (!WorldGen.SolidTile(x, y - 1))
 					return false;
 
-				if (!Neo.TileCut(new Point[] { new Point(x, y), new Point(x, y + 1) }))
+				if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y + 1) }))
 					return false;
 
 			} else {
@@ -28,7 +28,7 @@ namespace NeoDraw.WldGen.Place {
 					if (!Main.tile[x, y + 1].nactive() || Main.tile[x, y + 1].type != TileID.Cactus)
 						return false;
 
-					if (!Neo.TileCut(new Point[] { new Point(x, y), new Point(x, y - 1), new Point(x - 1, y), new Point(x + 1, y) }))
+					if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y - 1), new Point(x - 1, y), new Point(x + 1, y) }))
 						return false;
 
 				} else if (WorldGen.SolidTile(x, y + 1)) {
@@ -62,7 +62,7 @@ namespace NeoDraw.WldGen.Place {
 
 					}
 
-					if (!Neo.TileCut(new Point[] { new Point(x, y), new Point(x, y - 1) }))
+					if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y - 1) }))
 						return false;
 
 				}

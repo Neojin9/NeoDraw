@@ -33,7 +33,7 @@ namespace NeoDraw.WldGen.Place {
 
 				undo.Add(new ChangedTile(x, y));
 
-				Main.tile[x, y].active(active: true);
+				Main.tile[x, y].active(true);
 				Main.tile[x, y].type = (ushort)type;
 
 				if (type == TileID.Candles) {
