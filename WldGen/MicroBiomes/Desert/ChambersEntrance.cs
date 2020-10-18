@@ -10,7 +10,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 	public static class ChambersEntrance {
 
-		private struct PathConnection {
+		private readonly struct PathConnection {
 
 			public readonly Vector2 Position;
 			public readonly float Direction;

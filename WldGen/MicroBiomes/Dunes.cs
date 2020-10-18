@@ -44,7 +44,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 			Right
 		}
 
-		private WorldGenRange _singleDunesWidth = new WorldGenRange(150, 250); // WorldGenRange.Empty;
+		private readonly WorldGenRange _singleDunesWidth = new WorldGenRange(150, 250); // WorldGenRange.Empty;
 
 		private float _heightScale = 1f;
 

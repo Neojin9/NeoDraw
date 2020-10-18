@@ -6,7 +6,6 @@ using NeoDraw.WldGen.WldUtils;
 using Terraria;
 using Terraria.ID;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 using static NeoDraw.WldGen.WldUtils.WldUtils;
 
 namespace NeoDraw.WldGen.MicroBiomes {
@@ -36,19 +35,17 @@ namespace NeoDraw.WldGen.MicroBiomes {
 				new Shapes.Rectangle(50, 50),
 				new Actions.TileScanner(0, 1).Output(dictionary)
 			);
-			
-			Point result;
 
-			Find(
-				origin,
-				Searches.Chain(
-					new Searches.Up(1000),
-					new Conditions.IsSolid().AreaOr(1, 50).Not()
-				),
-				out result
-			);
-			
-			if (Find(
+            Find(
+                origin,
+                Searches.Chain(
+                    new Searches.Up(1000),
+                    new Conditions.IsSolid().AreaOr(1, 50).Not()
+                ),
+                out Point result
+            );
+
+            if (Find(
 				origin,
 				Searches.Chain(
 					new Searches.Up(origin.Y - result.Y),

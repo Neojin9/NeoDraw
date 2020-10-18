@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using NeoDraw.Core;
-using NeoDraw.UI;
 using NeoDraw.Undo;
 using NeoDraw.WldGen.WldUtils;
 using Terraria;
@@ -12,7 +11,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 	
     public class NeonMoss : MicroBiome {
 
-		public static int MaxY = 99999; // LavaLine
+        public const int MaxY = 99999; // LavaLine
 
         public override bool Place(Point origin, StructureMap structures, ref UndoStep undo, params object[] list) {
 

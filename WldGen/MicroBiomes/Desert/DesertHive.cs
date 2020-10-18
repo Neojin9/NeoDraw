@@ -5,15 +5,14 @@ using NeoDraw.UI;
 using NeoDraw.WldGen.WldUtils;
 using Terraria;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.MicroBiomes {
 
 	public static class DesertHive {
 
-		private struct Block {
+		private readonly struct Block {
 
-			public Vector2 Position;
+			public readonly Vector2 Position;
 
 			public Block(float x, float y) {
 				Position = new Vector2(x, y);
@@ -131,9 +130,9 @@ namespace NeoDraw.WldGen.MicroBiomes {
 					foreach (Point item in list[num6])
 						array2[item.X, item.Y] = num6;
 					
-				for (int num7 = 0; num7 < list.Count; num7++) {
+				foreach (List<Point> item in list) {
 
-					foreach (Point item2 in list[num7]) {
+					foreach (Point item2 in item) {
 
 						int x = item2.X;
 						int y = item2.Y;
@@ -439,7 +438,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 						}
 
 					}
-
+					// TODO: Uncomment for v1.4
 					/*if (flag && WorldGen.genRand.Next(5) == 0) {
 						PlaceTile(num3, num4 - 1, 485, ref DrawInterface.Undo, mute: true, forced: true, -1, WorldGen.genRand.Next(4));
 					}

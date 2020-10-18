@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Utilities;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.MicroBiomes {
 
@@ -127,7 +126,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 									undo.Add(new ChangedTile(num7, num11));
 
-									Main.tile[num7, num11].active(active: false);
+									Main.tile[num7, num11].active(false);
 
 								}
 								else {
@@ -147,7 +146,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 								Main.tile[num7, num11].wall = WallID.Planked;
 								Main.tile[num7, num11].liquid = 0;
-								Main.tile[num7, num11].lava(lava: false);
+								Main.tile[num7, num11].lava(false);
 
 							}
 
@@ -160,7 +159,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 									undo.Add(new ChangedTile(num7, num11));
 
-									Main.tile[num7, num11].active(active: true);
+									Main.tile[num7, num11].active(true);
 									Main.tile[num7, num11].type = TileID.WoodBlock;
 
 								}
@@ -260,7 +259,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 						if (Main.tile[m - 1, n].wall != WallID.Planked && m < i && !WorldGen.SolidTile(m - 1, n)) {
 
-							PlaceTile(m, n, TileID.WoodBlock, ref undo, mute: true);
+							PlaceTile(m, n, TileID.WoodBlock, ref undo, true);
 
 							undo.Add(new ChangedTile(m, n));
 
@@ -270,7 +269,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 						if (Main.tile[m + 1, n].wall != WallID.Planked && m > i && !WorldGen.SolidTile(m + 1, n)) {
 
-							PlaceTile(m, n, TileID.WoodBlock, ref undo, mute: true);
+							PlaceTile(m, n, TileID.WoodBlock, ref undo, true);
 
 							undo.Add(new ChangedTile(m, n));
 
@@ -300,7 +299,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 						undo.Add(new ChangedTile(m, n));
 
-						Main.tile[m, n].active(active: false);
+						Main.tile[m, n].active(false);
 						Main.tile[m, n].wall = WallID.Planked;
 
 					}
@@ -319,7 +318,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 							undo.Add(new ChangedTile(num24, num25));
 
-							Main.tile[num24, num25].active(active: false);
+							Main.tile[num24, num25].active(false);
 							Main.tile[num24, num25].wall = WallID.Planked;
 
 						}
@@ -329,9 +328,9 @@ namespace NeoDraw.WldGen.MicroBiomes {
 							undo.Add(new ChangedTile(num24, num25));
 							undo.Add(new ChangedTile(num24 + 1, num25));
 
-							Main.tile[num24, num25].active(active: false);
+							Main.tile[num24, num25].active(false);
 							Main.tile[num24, num25].wall = WallID.Planked;
-							Main.tile[num24 + 1, num25].active(active: false);
+							Main.tile[num24 + 1, num25].active(false);
 							Main.tile[num24 + 1, num25].wall = WallID.Planked;
 
 						}

@@ -94,7 +94,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 					vector3.X += WorldGen.genRand.Next(-50, 51);
 					vector3.Y += WorldGen.genRand.Next(-50, 51);
 
-					if (WorldGen.InWorld((int)vector3.X, (int)vector3.Y) && Vector2.Distance(vector, vector3) > 10f && !Main.tile[(int)vector3.X, (int)vector3.Y].active() && Main.tile[(int)vector3.X, (int)vector3.Y].wall == 86) {
+					if (WorldGen.InWorld((int)vector3.X, (int)vector3.Y) && Vector2.Distance(vector, vector3) > 10f && !_tiles[(int)vector3.X, (int)vector3.Y].active() && _tiles[(int)vector3.X, (int)vector3.Y].wall == 86) {
 						CreateStandForLarva(vector3);
 						break;
 					}
@@ -118,7 +118,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 				for (int j = num3; j < num4; j++) {
 
-					Tile tile = Main.tile[i, j];
+					Tile tile = _tiles[i, j];
 
 					if (tile.active() && tile.type == 225)
 						WorldGen.SquareTileFrame(i, j);
@@ -196,21 +196,21 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 						}
 						else {
 
-							if (Main.tile[k - 10, l].wall == 87)
+							if (_tiles[k - 10, l].wall == 87)
 								num2 = 0f;
 							
-							if (Main.tile[k + 10, l].wall == 87)
+							if (_tiles[k + 10, l].wall == 87)
 								num2 = 0f;
 							
-							if (Main.tile[k, l - 10].wall == 87)
+							if (_tiles[k, l - 10].wall == 87)
 								num2 = 0f;
 							
-							if (Main.tile[k, l + 10].wall == 87)
+							if (_tiles[k, l + 10].wall == 87)
 								num2 = 0f;
 							
 						}
 
-						if (l < Main.worldSurface && Main.tile[k, l - 5].wall == 0)
+						if (l < Main.worldSurface && _tiles[k, l - 5].wall == 0)
 							num2 = 0f;
 						
 						float num9   = Math.Abs(k - result.X);
@@ -222,30 +222,30 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 							DrawInterface.AddChangedTile(k, l);
 
 							if (random.Next(3) == 0)
-								Main.tile[k, l].liquid = byte.MaxValue;
+								_tiles[k, l].liquid = byte.MaxValue;
 							
 							if (DrunkWorldGen)
-								Main.tile[k, l].liquid = byte.MaxValue;
+								_tiles[k, l].liquid = byte.MaxValue;
 							
-							Main.tile[k, l].honey(honey: true);
-							Main.tile[k, l].wall = 86;
-							Main.tile[k, l].active(active: false);
-							Main.tile[k, l].halfBrick(halfBrick: false);
-							Main.tile[k, l].slope(0);
+							_tiles[k, l].honey(true);
+							_tiles[k, l].wall = 86;
+							_tiles[k, l].active(false);
+							_tiles[k, l].halfBrick(false);
+							_tiles[k, l].slope(0);
 
 						}
 						else if (num11 < num4 * 0.75 * (1.0 + random.Next(-10, 11) * 0.005)) {
 
 							DrawInterface.AddChangedTile(k, l);
 
-							Main.tile[k, l].liquid = 0;
+							_tiles[k, l].liquid = 0;
 
-							if (Main.tile[k, l].wall != 86) {
+							if (_tiles[k, l].wall != 86) {
 
-								Main.tile[k, l].active(active: true);
-								Main.tile[k, l].halfBrick(halfBrick: false);
-								Main.tile[k, l].slope(0);
-								Main.tile[k, l].type = 225;
+								_tiles[k, l].active(true);
+								_tiles[k, l].halfBrick(false);
+								_tiles[k, l].slope(0);
+								_tiles[k, l].type = 225;
 
 							}
 
@@ -255,12 +255,12 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 							DrawInterface.AddChangedTile(k, l);
 
-							Main.tile[k, l].wall = 86;
+							_tiles[k, l].wall = 86;
 
 							if (DrunkWorldGen && random.Next(2) == 0) {
 
-								Main.tile[k, l].liquid = byte.MaxValue;
-								Main.tile[k, l].honey(honey: true);
+								_tiles[k, l].liquid = byte.MaxValue;
+								_tiles[k, l].honey(true);
 
 							}
 
@@ -299,12 +299,12 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 					WorldGen.PoundTile(x, y);
 
-					if (!Main.tile[x, y + 1].active()) {
+					if (!_tiles[x, y + 1].active()) {
 
 						DrawInterface.AddChangedTile(x, y + 1);
 
-						Main.tile[x, y + 1].active(active: true);
-						Main.tile[x, y + 1].type = 225;
+						_tiles[x, y + 1].active(true);
+						_tiles[x, y + 1].type = 225;
 
 					}
 
@@ -324,15 +324,15 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 					if (i >= x && i <= x + 1 && j >= y && j <= y + 1) {
 
-						Main.tile[i, j].active(active: false);
-						Main.tile[i, j].liquid = byte.MaxValue;
-						Main.tile[i, j].honey(honey: true);
+						_tiles[i, j].active(false);
+						_tiles[i, j].liquid = byte.MaxValue;
+						_tiles[i, j].honey(true);
 
 					}
 					else {
 
-						Main.tile[i, j].active(active: true);
-						Main.tile[i, j].type = 225;
+						_tiles[i, j].active(true);
+						_tiles[i, j].type = 225;
 
 					}
 
@@ -351,7 +351,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 					if (i < 10 || i > Main.maxTilesX - 10)
 						return true;
 					
-					if (Main.tile[i, j].active() && Main.tile[i, j].type != 225)
+					if (_tiles[i, j].active() && _tiles[i, j].type != 225)
 						return true;
 					
 				}
@@ -364,8 +364,8 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 		private static bool BadSpotForHoneyFall(int x, int y) {
 
-			if (Main.tile[x, y].active() && Main.tile[x, y + 1].active() && Main.tile[x + 1, y].active())
-				return !Main.tile[x + 1, y + 1].active();
+			if (_tiles[x, y].active() && _tiles[x, y + 1].active() && _tiles[x + 1, y].active())
+				return !_tiles[x + 1, y + 1].active();
 			
 			return true;
 
@@ -384,15 +384,15 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 					if (y != startY + 1) {
 
-						Main.tile[x, y].active(active: false);
+						_tiles[x, y].active(false);
 						continue;
 
 					}
 
-					Main.tile[x, y].active(active: true);
-					Main.tile[x, y].type = 225;
-					Main.tile[x, y].slope(0);
-					Main.tile[x, y].halfBrick(halfBrick: false);
+					_tiles[x, y].active(true);
+					_tiles[x, y].type = 225;
+					_tiles[x, y].slope(0);
+					_tiles[x, y].halfBrick(false);
 
 				}
 
@@ -415,15 +415,15 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 					if (curY != y + 1) {
 
-						Main.tile[curX, curY].active(active: false);
+						_tiles[curX, curY].active(false);
 
 					}
 					else {
 
-						Main.tile[curX, curY].active(active: true);
-						Main.tile[curX, curY].type = 225;
-						Main.tile[curX, curY].slope(0);
-						Main.tile[curX, curY].halfBrick(halfBrick: false);
+						_tiles[curX, curY].active(true);
+						_tiles[curX, curY].type = 225;
+						_tiles[curX, curY].slope(0);
+						_tiles[curX, curY].halfBrick(false);
 
 					}
 
@@ -431,7 +431,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
 			}
 
-			PlaceTile(x, y, 231, ref DrawInterface.Undo, mute: true);
+			PlaceTile(x, y, 231, ref DrawInterface.Undo, true);
 
 		}
 

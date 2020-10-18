@@ -22,7 +22,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 		// 4: Marble - With Lava
 		// 5: Marble - Without Lava
 
-		private struct Magma {
+		private readonly struct Magma {
 
 			public readonly float Pressure;
 			public readonly float Resistance;
@@ -49,7 +49,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 		private Magma[,] _sourceMagmaMap = new Magma[150, 150];
 		private Magma[,] _targetMagmaMap = new Magma[150, 150];
 
-		private static Vector2[] _normalisedVectors = new Vector2[9] {
+		private static readonly Vector2[] _normalisedVectors = {
 
 			Vector2.Normalize(new Vector2(-1f, -1f)),
 			Vector2.Normalize(new Vector2(-1f, 0f)),
@@ -114,7 +114,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 			int num5 = num2;
 			int num6 = num5;
 
-			for (int i = 0; i < 300; i++) {
+			for (int i = 0; i < MAX_MAGMA_ITERATIONS; i++) {
 
 				for (int j = num3; j <= num4; j++) {
 

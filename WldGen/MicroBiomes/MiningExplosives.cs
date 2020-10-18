@@ -10,7 +10,7 @@ using static NeoDraw.WldGen.WldUtils.WldUtils;
 
 namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 
-    class MiningExplosives : MicroBiome {
+    public class MiningExplosives : MicroBiome {
 
 		public override bool Place(Point origin, StructureMap structures, ref UndoStep undo, params object[] list) {
 
@@ -44,7 +44,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 			Gen(
 				origin,
 				new ModShapes.All(shapeData),
-				new Actions.SetTile(type, setSelfFrames: true)
+				new Actions.SetTile(type, true)
 			);
 			
 			Gen(
@@ -52,7 +52,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 				new Shapes.Circle(5),
 				Actions.Chain(
 					new Modifiers.Blotches(),
-					new Actions.ClearTile(frameNeighbors: true)
+					new Actions.ClearTile(true)
 				)
 			);
 			
@@ -88,7 +88,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 			DrawInterface.AddChangedTile(result.X, result.Y);
 
 			tile.slope(0);
-			tile.halfBrick(halfBrick: false);
+			tile.halfBrick(false);
 			
 			for (int i = -1; i <= 1; i++) {
 
@@ -112,18 +112,18 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/25/2020
 				tile2.slope(0);
 				tile2.halfBrick(halfBrick: false);
 
-				Terraria.World.Generation.WorldUtils.TileFrame(result2.X + i, result2.Y + 1, frameNeighbors: true);
+				Terraria.World.Generation.WorldUtils.TileFrame(result2.X + i, result2.Y + 1, true);
 
 			}
 
 			result.Y--;
 
 			DrawInterface.AddChangedTile(result.X, result.Y);
-			Main.tile[result.X, result.Y].ClearEverything();
+			_tiles[result.X, result.Y].ClearEverything();
 
 			PlaceTile(result.X, result.Y, TileID.Explosives, ref DrawInterface.Undo);
 
-			PlaceTile(result2.X, result2.Y, TileID.Detonator, ref DrawInterface.Undo, mute: true, forced: true);
+			PlaceTile(result2.X, result2.Y, TileID.Detonator, ref DrawInterface.Undo, true, true);
 
 			WireLine(result, result2, ref DrawInterface.Undo);
 

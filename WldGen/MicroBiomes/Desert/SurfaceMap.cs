@@ -27,11 +27,11 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/24/2020
 			int num2 = int.MaxValue;
 			int num3 = 0;
 			
-			for (int i = 0; i < heights.Length; i++) {
+			foreach (short height in heights) {
 
-				num3 += heights[i];
-				num = Math.Max(num, heights[i]);
-				num2 = Math.Min(num2, heights[i]);
+				num3 += height;
+				num = Math.Max(num, height);
+				num2 = Math.Min(num2, height);
 
 			}
 

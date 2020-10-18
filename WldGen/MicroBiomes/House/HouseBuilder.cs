@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.Utilities;
 using static NeoDraw.WldGen.Place.TilePlacer;
 using static NeoDraw.WldGen.WldUtils.WldUtils;
+// ReSharper disable AssignmentInConditionalExpression
 
 namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
@@ -23,7 +24,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 		public readonly bool BathroomCreated;
 		public readonly bool IsValid;
 
-		protected ushort[] SkipTilesDuringWallAging = new ushort[5] {
+		protected readonly ushort[] SkipTilesDuringWallAging = new ushort[] {
 			TileID.Painting3X3,
 			TileID.Painting4X3,
 			TileID.Painting6X4,
@@ -94,7 +95,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
         #endregion
 
-		public ReadOnlyCollection<Rectangle> Rooms { get; private set; }
+		public ReadOnlyCollection<Rectangle> Rooms { get; }
 
 		public Rectangle TopRoom => Rooms.First();
 
@@ -116,7 +117,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 			List<Rectangle> list = rooms.ToList();
 
-			list.Sort((Rectangle lhs, Rectangle rhs) => lhs.Top.CompareTo(rhs.Top));
+			list.Sort((lhs, rhs) => lhs.Top.CompareTo(rhs.Top));
 
 			Rooms = list.AsReadOnly();
 
@@ -180,7 +181,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 			if (UsesTables2)
 				tableStyle = TileID.Tables2;
 			
-			Point[] choices = new Point[7] {
+			Point[] choices = new Point[] {
 
 				new Point(tableStyle, TableStyle),
 				new Point(TileID.Anvils, 0),
@@ -458,8 +459,8 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 			List<Rectangle> list = new List<Rectangle>();
 
-			int num  = Rooms.Min((Rectangle room) => room.Left);
-			int num2 = Rooms.Max((Rectangle room) => room.Right) - 1;
+			int num  = Rooms.Min(room => room.Left);
+			int num2 = Rooms.Max(room => room.Right) - 1;
 			int num3 = 6;
 			
 			while (num3 > 4 && (num2 - num) % num3 != 0)
@@ -483,18 +484,17 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 						
 					if (num5 > 0) {
 
-						Point result;
-						
-						bool flag = Find(
-										new Point(i, num4),
-										Searches.Chain(
-											new Searches.Down(num5),
-											new Conditions.IsSolid()
-										),
-										out result
-									);
-						
-						if (num5 < 50) {
+
+                        bool flag = Find(
+                                        new Point(i, num4),
+                                        Searches.Chain(
+                                            new Searches.Down(num5),
+                                            new Conditions.IsSolid()
+                                        ),
+                                        out Point result
+                                    );
+
+                        if (num5 < 50) {
 							flag = true;
 							result = new Point(i, num4 + num5);
 						}
@@ -514,18 +514,17 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 		private static bool FindVerticalExit(Rectangle wall, bool isUp, out int exitX) {
 
-			Point result;
-			
-			bool result2 = Find(
-								new Point(wall.X + wall.Width - 3, wall.Y + (isUp ? (-5) : 0)),
-								Searches.Chain(
-									new Searches.Left(wall.Width - 3),
-									new Conditions.IsSolid().Not().AreaOr(3, 5)
-								),
-								out result
-							);
-			
-			exitX = result.X;
+
+            bool result2 = Find(
+                                new Point(wall.X + wall.Width - 3, wall.Y + (isUp ? (-5) : 0)),
+                                Searches.Chain(
+                                    new Searches.Left(wall.Width - 3),
+                                    new Conditions.IsSolid().Not().AreaOr(3, 5)
+                                ),
+                                out Point result
+                            );
+
+            exitX = result.X;
 			
 			return result2;
 
@@ -533,24 +532,23 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 		private static bool FindSideExit(Rectangle wall, bool isLeft, out int exitY) {
 
-			Point result;
 
-			bool result2 = Find(
-								new Point(wall.X + (isLeft ? (-4) : 0), wall.Y + wall.Height - 3),
-								Searches.Chain(
-									new Searches.Up(wall.Height - 3),
-									new Conditions.IsSolid().Not().AreaOr(4, 3)
-								),
-								out result
-							);
-			
-			exitY = result.Y;
+            bool result2 = Find(
+                                new Point(wall.X + (isLeft ? (-4) : 0), wall.Y + wall.Height - 3),
+                                Searches.Chain(
+                                    new Searches.Up(wall.Height - 3),
+                                    new Conditions.IsSolid().Not().AreaOr(4, 3)
+                                ),
+                                out Point result
+                            );
+
+            exitY = result.Y;
 			
 			return result2;
 
 		}
 
-		private void PlaceChests() {
+        private void PlaceChests() {
 
 			if (_random.NextFloat() > ChestChance)
 				return;

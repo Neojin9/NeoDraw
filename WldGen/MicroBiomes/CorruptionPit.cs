@@ -51,7 +51,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/23/2020
 					origin,
 					new Shapes.Circle(_random.Next(4, 6) + k / 2),
 					Actions.Chain(
-						new Modifiers.Offset(0, (int)(7.5f * (float)k) - 10),
+						new Modifiers.Offset(0, (int)(7.5f * k) - 10),
 						new Modifiers.Blotches(3).Output(shapeData3)
 					)
 				);

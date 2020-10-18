@@ -89,8 +89,8 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 			subRoom2.Y = mainRoom.Y + mainRoom.Height - 1;
 
-			float roomSolidPrecentage  = GetRoomSolidPrecentage(subRoom1);
-			float roomSolidPrecentage2 = GetRoomSolidPrecentage(subRoom2);
+			float roomSolidPercentage  = GetRoomSolidPercentage(subRoom1);
+			float roomSolidPercentage2 = GetRoomSolidPercentage(subRoom2);
 			
 			mainRoom.Y += 3;
 			subRoom1.Y += 3;
@@ -112,25 +112,23 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 		private static Rectangle FindRoom(Point origin) {
 
-			Point leftSide;
-			Point rightSide;
 
-			bool foundSolidTileToTheLeft = Find(
-				origin,
-				Searches.Chain(
-					new Searches.Left(25),
-					new Conditions.IsSolid()
-				),
-				out leftSide
-			);
-			
-			bool foundSolidTileToTheRight = Find(
+            bool foundSolidTileToTheLeft = Find(
+                origin,
+                Searches.Chain(
+                    new Searches.Left(25),
+                    new Conditions.IsSolid()
+                ),
+                out Point leftSide
+            );
+
+            bool foundSolidTileToTheRight = Find(
 				origin,
 				Searches.Chain(
 					new Searches.Right(25),
 					new Conditions.IsSolid()
 				),
-				out rightSide
+				out Point rightSide
 			);
 			
 			if (!foundSolidTileToTheLeft)
@@ -154,25 +152,23 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 			}
 
-			Point ceilingLeft;
-			Point ceilingRight;
 
-			bool foundSolidTopLeftTile = Find(
-				leftSide,
-				Searches.Chain(
-					new Searches.Up(10),
-					new Conditions.IsSolid()
-				),
-				out ceilingLeft
-			);
-			
-			bool foundSolidTopRightTile = Find(
+            bool foundSolidTopLeftTile = Find(
+                leftSide,
+                Searches.Chain(
+                    new Searches.Up(10),
+                    new Conditions.IsSolid()
+                ),
+                out Point ceilingLeft
+            );
+
+            bool foundSolidTopRightTile = Find(
 				rightSide,
 				Searches.Chain(
 					new Searches.Up(10),
 					new Conditions.IsSolid()
 				),
-				out ceilingRight
+				out Point ceilingRight
 			);
 			
 			if (!foundSolidTopLeftTile)
@@ -188,7 +184,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // v1.4 7/23/2020
 
 		}
 
-		private static float GetRoomSolidPrecentage(Rectangle room) {
+		private static float GetRoomSolidPercentage(Rectangle room) {
 
 			float roomArea = room.Width * room.Height;
 			Ref<int> @ref = new Ref<int>(0);

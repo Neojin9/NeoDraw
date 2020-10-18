@@ -48,7 +48,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 					new Point(result.X + num5 + num9 + 2, result.Y - (i + 1) * 5),
 					new Shapes.Rectangle(2 + Math.Abs(num8 - num5), 5),
 					Actions.Chain(
-						new Actions.ClearTile(frameNeighbors: true),
+						new Actions.ClearTile(true),
 						new Actions.PlaceWall(78)
 					)
 				);
@@ -57,7 +57,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 					new Point(result.X + num5 + 2, result.Y - i * 5),
 					new Shapes.Rectangle(2, 2),
 					Actions.Chain(
-						new Actions.ClearTile(frameNeighbors: true),
+						new Actions.ClearTile(true),
 						new Actions.PlaceWall(78)
 					)
 				);
@@ -87,7 +87,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 					new Shapes.Branch(num13, _random.Next(12, 16)).OutputEndpoints(points),
 					Actions.Chain(
 						new Actions.SetTile(TileID.LivingMahogany),
-						new Actions.SetFrames(frameNeighbors: true)
+						new Actions.SetFrames(true)
 					)
 				);
 				
@@ -102,7 +102,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 				new Shapes.Branch(-0.68539818525314333, _random.Next(16, 22)).OutputEndpoints(points),
 				Actions.Chain(
 					new Actions.SetTile(TileID.LivingMahogany),
-					new Actions.SetFrames(frameNeighbors: true)
+					new Actions.SetFrames(true)
 				)
 			);
 			
@@ -111,7 +111,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 				new Shapes.Branch(-2.4561944961547852, _random.Next(16, 22)).OutputEndpoints(points),
 				Actions.Chain(
 					new Actions.SetTile(TileID.LivingMahogany),
-					new Actions.SetFrames(frameNeighbors: true)
+					new Actions.SetFrames(true)
 				)
 			);
 			
@@ -125,7 +125,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 						new Modifiers.SkipTiles(TileID.LivingMahogany),
 						new Modifiers.SkipWalls(78),
 						new Actions.SetTile(TileID.LivingMahoganyLeaves),
-						new Actions.SetFrames(frameNeighbors: true)
+						new Actions.SetFrames(true)
 					)
 				);
 
@@ -138,12 +138,12 @@ namespace NeoDraw.WldGen.MicroBiomes {
 				Gen(
 					result,
 					new Shapes.Root(angle, _random.Next(40, 60)),
-					new Actions.SetTile(TileID.LivingMahogany, setSelfFrames: true)
+					new Actions.SetTile(TileID.LivingMahogany, true)
 				);
 
 			}
 
-			AddBuriedChest(result.X + 3, result.Y - 1, ref DrawInterface.Undo, (_random.Next(4) != 0) ? WorldGen.GetNextJungleChestItem() : 0, notNearOtherChests: false, 10, trySlope: false, 0);
+			AddBuriedChest(result.X + 3, result.Y - 1, ref DrawInterface.Undo, (_random.Next(4) != 0) ? WorldGen.GetNextJungleChestItem() : 0, false, 10, false, 0);
 
 			return true;
 

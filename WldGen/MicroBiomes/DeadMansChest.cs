@@ -7,7 +7,6 @@ using NeoDraw.WldGen.WldUtils;
 using Terraria;
 using Terraria.ID;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 using static NeoDraw.WldGen.WldUtils.WldUtils;
 
 namespace NeoDraw.WldGen.MicroBiomes {
@@ -242,7 +241,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 				if (num < 50) {
 
-					if (Main.tile[x, y - num].active())
+					if (_tiles[x, y - num].active())
 						break;
 					
 					num++;
@@ -267,7 +266,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 				for (int j = position.Y - 4; j <= position.Y; j++) {
 
-					Tile tile = Main.tile[i, j];
+					Tile tile = _tiles[i, j];
 					
 					if (tile.active() && !Main.tileFrameImportant[tile.type] && Main.tileSolid[tile.type])
 						array[tile.type]++;
@@ -281,7 +280,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 			for (int k = position.X - 1; k < position.X + 2 + 1; k++)
 				for (int l = position.Y - 4 - 1; l <= position.Y - 4 + 2; l++)
-					if (!Main.tile[k, l].active())
+					if (!_tiles[k, l].active())
 						return;
 					
 			int num = -1;
@@ -322,7 +321,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 			for (int i = 0; i < 20; i++) {
 
-				Tile tile = Main.tile[x + i * directionX, y];
+				Tile tile = _tiles[x + i * directionX, y];
 				
 				if (tile.type != 467 && tile.active() && Main.tileSolid[tile.type]) {
 
@@ -400,7 +399,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 		private bool IsGoodSpotsForExplosive(int x, int y) {
 
-			Tile tile = Main.tile[x, y];
+			Tile tile = _tiles[x, y];
 			
 			if (tile.active() && Main.tileSolid[tile.type] && !Main.tileFrameImportant[tile.type] && !Main.tileSolidTop[tile.type])
 				return true;
@@ -419,7 +418,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 				return false;
 			}
 			
-			Tile tile = Main.tile[position.X, position.Y];
+			Tile tile = _tiles[position.X, position.Y];
 
 			//if (tile.type != TileID.Containers && tile.type != TileID.FakeContainers && tile.type != TileID.Containers2 && tile.type != TileID.FakeContainers2) {
 			//	DrawInterface.SetStatusBarTempMessage("Must place over a Chest", 150);
@@ -442,7 +441,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 					int num = position.X + i;
 					int num2 = position.Y + j;
 					
-					Tile tile = Main.tile[num, num2];
+					Tile tile = _tiles[num, num2];
 
 					DrawInterface.AddChangedTile(num, num2);
 
@@ -471,9 +470,9 @@ namespace NeoDraw.WldGen.MicroBiomes {
 			}
 
 			t.slope(0);
-			t.halfBrick(halfBrick: false);
+			t.halfBrick(false);
 
-			WorldGen.TileFrame(x, y, resetFrame: true);
+			WorldGen.TileFrame(x, y, true);
 			
 			PlaceWireLine(position, directionX, 0, xPush);
 
@@ -484,7 +483,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 			for (int i = 0; i <= steps; i++) {
 
 				DrawInterface.AddChangedTile(start.X + offsetX * i, start.Y + offsetY * i);
-				Main.tile[start.X + offsetX * i, start.Y + offsetY * i].wire(wire: true);
+				_tiles[start.X + offsetX * i, start.Y + offsetY * i].wire(true);
 
 			}
 
@@ -496,7 +495,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 				for (int j = position.Y - requiredHeight; j <= position.Y + 2; j++) {
 
-					Tile tile = Main.tile[i, j];
+					Tile tile = _tiles[i, j];
 
 					DrawInterface.AddChangedTile(i, j);
 
@@ -507,17 +506,17 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 						if (!tile.active()) {
 
-							tile.active(active: true);
+							tile.active(true);
 							tile.type = (ushort)bestType;
 
 						}
 
 						tile.slope(0);
-						tile.halfBrick(halfBrick: false);
-						tile.actuator(actuator: true);
-						tile.wire(wire: true);
+						tile.halfBrick(false);
+						tile.actuator(true);
+						tile.wire(true);
 
-						WorldGen.TileFrame(i, j, resetFrame: true);
+						WorldGen.TileFrame(i, j, true);
 
 					}
 					else {
@@ -540,10 +539,10 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 				for (int l = num5; l <= num7; l++) {
 
-					if (Main.tile[k, l].type != 138) {
+					if (_tiles[k, l].type != 138) {
 
 						DrawInterface.AddChangedTile(k, l);
-						Main.tile[k, l].type = 1;
+						_tiles[k, l].type = 1;
 
 					}
 
@@ -558,16 +557,16 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 		private void ActuallyPlaceExplosive(Point position) {
 
-			Tile tile = Main.tile[position.X, position.Y];
+			Tile tile = _tiles[position.X, position.Y];
 
 			DrawInterface.AddChangedTile(position.X, position.Y);
 
 			tile.type = 141;
-			tile.frameX = (tile.frameY = 0);
+			tile.frameX = tile.frameY = 0;
 			tile.slope(0);
-			tile.halfBrick(halfBrick: false);
+			tile.halfBrick(false);
 			
-			WorldGen.TileFrame(position.X, position.Y, resetFrame: true);
+			WorldGen.TileFrame(position.X, position.Y, true);
 
 		}
 

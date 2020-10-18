@@ -5,12 +5,6 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
 	public class DesertDescription {
 
-		public static bool skipDesertTileCheck;
-
-		public static readonly DesertDescription Invalid = new DesertDescription {
-			IsValid = false
-		};
-
 		private static readonly Vector2 DefaultBlockScale = new Vector2(4f, 2f);
 
 		public Rectangle CombinedArea { get; private set; }

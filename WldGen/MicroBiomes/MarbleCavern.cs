@@ -6,7 +6,6 @@ using NeoDraw.WldGen.WldUtils;
 using Terraria;
 using Terraria.ID;
 using static NeoDraw.WldGen.Place.TilePlacer;
-using static NeoDraw.WldGen.WldGen;
 
 namespace NeoDraw.WldGen.MicroBiomes {
 
@@ -34,7 +33,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 
         }
 
-		private struct Slab {
+		private readonly struct Slab {
 
 			public readonly SlabState State;
 
@@ -207,7 +206,7 @@ namespace NeoDraw.WldGen.MicroBiomes {
 						flag = false;
 					}
 
-					_slabs[i + 1, j + 1] = Slab.Create(flag ? new SlabState(SlabStates.Solid) : new SlabState(SlabStates.Empty), hasWall);
+					_slabs[i + 1, j + 1] = Slab.Create(flag ? SlabStates.Solid : new SlabState(SlabStates.Empty), hasWall);
 
 				}
 

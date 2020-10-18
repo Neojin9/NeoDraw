@@ -50,7 +50,7 @@ namespace NeoDraw.WldGen.MicroBiomes { // Updated v1.4 7/23/2020
 					if (i > 0 && i < Main.maxTilesX - 1 && j > 0 && j < Main.maxTilesY - 1) {
 
 						WorldGen.SquareWallFrame(i, j);
-						Terraria.World.Generation.WorldUtils.TileFrame(i, j, frameNeighbors: true);
+						Terraria.World.Generation.WorldUtils.TileFrame(i, j, true);
 
 					}
 
