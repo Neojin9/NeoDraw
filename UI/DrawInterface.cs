@@ -754,7 +754,7 @@ namespace NeoDraw.UI {
 
             SwitchedToEyedropper = false;
 
-            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.Eyedropper.Current) {
+            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.Eyedropper.Current && StartPoint == default) { // Check for Quick Swap to Eyedropper
 
                 if (!NeoPlayer.Moving) {
 

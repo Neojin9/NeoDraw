@@ -4,6 +4,7 @@
 - Updated Line Tool Status Bar message
 - Selection will now clear properly while Line Tool is selected
 - Cursor aims properly while zoomed in
+- Will not try to Quick Swap to Eyedropper while drawing line or making selection
 - Additional Tile Compatibility
 -- 452 Silly Balloon Machine
 -- 454 Pigronata
