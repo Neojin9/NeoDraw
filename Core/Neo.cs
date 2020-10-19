@@ -27,9 +27,48 @@ namespace NeoDraw.Core {
 
     public class Neo {
 
-        public static int TileTargetX => Utils.Clamp((int)((Main.mouseX + Main.screenPosition.X) / 16f), 0, Main.maxTilesX);
+        public static int TileTargetX {
+            get {
 
-        public static int TileTargetY => Utils.Clamp(Main.LocalPlayer.gravDir == -1f ? (int)((Main.screenPosition.Y + Main.screenHeight - Main.mouseY) / 16f) : (int)((Main.mouseY + Main.screenPosition.Y) / 16f), 0, Main.maxTilesY);
+                bool swapped = false;
+
+                if (!DrawInterface.SwitchedToMouseInWorldZoom) {
+                    DrawInterface.SwitchToMouseInWorldZoom();
+                    swapped = true;
+                }
+
+                int target = Utils.Clamp((int)((Main.mouseX + Main.screenPosition.X) / 16f), 0, Main.maxTilesX);
+
+                if (swapped)
+                    DrawInterface.SwitchToMouseInUIZoom();
+
+                return target;
+
+            }
+
+        }
+
+        public static int TileTargetY {
+
+            get {
+
+                bool swapped = false;
+
+                if (!DrawInterface.SwitchedToMouseInWorldZoom) {
+                    DrawInterface.SwitchToMouseInWorldZoom();
+                    swapped = true;
+                }
+
+                int target = Utils.Clamp(Main.LocalPlayer.gravDir == -1f ? (int)((Main.screenPosition.Y + Main.screenHeight - Main.mouseY) / 16f) : (int)((Main.mouseY + Main.screenPosition.Y) / 16f), 0, Main.maxTilesY);
+
+                if (swapped)
+                    DrawInterface.SwitchToMouseInUIZoom();
+
+                return target;
+
+            }
+
+        }
 
         public static int UnderworldLayer => Main.maxTilesY - 200;
 

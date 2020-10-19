@@ -78,7 +78,7 @@ namespace NeoDraw.UI {
         private static bool _subScrolling;
         private static byte CurrentTab = Tabs.Tiles;
         private static byte DayNightOption;
-        private static byte GridStyle = 0;
+        private static byte GridStyle;
         private static byte LeftClickHoldTime;
         private static byte RightClickHoldTime;
         private static byte SelectionFrameCounter = SelectionFrameCounterMax;
@@ -110,29 +110,30 @@ namespace NeoDraw.UI {
         private static string _hoverText;
         private static string statusBarTempMessage;
 
-        private static Vector2 RulerStartPoint = default;
-        private static Vector2 StartPoint = default;
+        private static Vector2 RulerStartPoint;
+        private static Vector2 StartPoint;
 
         public static UndoStep _undo;
         private static UndoStep CurrentSelection;
 
-        private static readonly int[] bigBrushCompatible = new int[] {
-            TileID.CorruptThorns,         TileID.Cobweb,           TileID.JungleThorns,   TileID.InactiveStoneBlock, TileID.MetalBars,       TileID.CopperCoinPile,  TileID.SilverCoinPile,
-            TileID.GoldCoinPile,          TileID.PlatinumCoinPile, TileID.LivingFire,     TileID.LivingCursedFire,   TileID.LivingDemonFire, TileID.LivingFrostFire, TileID.LivingIchor,
-            TileID.LivingUltrabrightFire, TileID.ChimneySmoke,     TileID.CrimtaneThorns, TileID.PixelBox
+        private static readonly int[] bigBrushCompatible = {
+            TileID.CorruptThorns,         TileID.Cobweb,           TileID.JungleThorns,   TileID.InactiveStoneBlock, TileID.MetalBars,         TileID.CopperCoinPile,     TileID.SilverCoinPile,
+            TileID.GoldCoinPile,          TileID.PlatinumCoinPile, TileID.LivingFire,     TileID.LivingCursedFire,   TileID.LivingDemonFire,   TileID.LivingFrostFire,    TileID.LivingIchor,
+            TileID.LivingUltrabrightFire, TileID.ChimneySmoke,     TileID.CrimtaneThorns, TileID.PixelBox,           TileID.SillyStreamerBlue, TileID.SillyStreamerGreen, TileID.SillyStreamerPink
         };
 
-        private static readonly int[] lineCompatible = new int[] {
+        private static readonly int[] lineCompatible = {
             TileID.MinecartTrack, 427, 435, 436, 437, 438, 439, 445
         };
 
-        private static readonly int[] wideLineCompatible = new int[] { TileID.PixelBox };
+        private static readonly int[] wideLineCompatible = { TileID.PixelBox };
 
-        private static readonly int[] superCover = new int[] {
-            TileID.Chain, TileID.Rope, TileID.SilkRope, TileID.VineRope, TileID.WebRope, TileID.ConveyorBeltLeft, TileID.ConveyorBeltRight, TileID.MinecartTrack
+        private static readonly int[] superCover = {
+            TileID.Chain, TileID.Rope, TileID.SilkRope, TileID.VineRope, TileID.WebRope, TileID.ConveyorBeltLeft, TileID.ConveyorBeltRight, TileID.MinecartTrack, TileID.SillyStreamerBlue,
+            TileID.SillyStreamerGreen, TileID.SillyStreamerPink
         };
 
-        private static readonly int[] styleDown = new int[] {
+        private static readonly int[] styleDown = {
             TileID.Torches,         TileID.ClosedDoor,  TileID.OpenDoor,    TileID.Chairs,     TileID.Platforms,   TileID.Pots,           TileID.Candles,               TileID.Chandeliers, TileID.Jackolanterns,
             TileID.HangingLanterns, TileID.Beds,        TileID.Bathtubs,    TileID.Lamps,      TileID.Candelabras, TileID.PressurePlates, TileID.Traps,                 TileID.MusicBoxes,  TileID.Sinks,
             TileID.Firework,        TileID.Painting6X4, TileID.Painting3X2, TileID.PlanterBox, TileID.LogicGate,   TileID.LogicSensor,    TileID.WeightedPressurePlate, TileID.Painting4X3
@@ -422,10 +423,20 @@ namespace NeoDraw.UI {
 
                     case Tabs.Other:
 
-                        int? type2 = NeoDraw.OtherToCreate;
+                        switch (OtherToCreateName) {
+                            
+                            case OtherNames.Mech: {
 
-                        if (type2 != null && OthersList[(int)type2].Name == OtherNames.Spawn)
-                            return 1;
+                                if (CurrentBrushShape == BrushShape.Line)
+                                    return 1;
+
+                                break;
+                            }
+                            case OtherNames.Spawn: {
+                                return 1;
+                            }
+
+                        }
 
                         return _brushSize;
 
@@ -455,11 +466,11 @@ namespace NeoDraw.UI {
 
         #region Various Fields
 
-        public static bool AtBottomEdgeOfWorld { get { return Main.screenPosition.Y > Main.bottomWorld - Main.screenHeight - StatusBarHeight - 650; } }
+        public static bool AtBottomEdgeOfWorld => Main.screenPosition.Y > Main.bottomWorld - Main.screenHeight - StatusBarHeight - 650;
 
-        public static bool AtLeftEdgeOfWorld { get { return Main.screenPosition.X < 900; } }
+        public static bool AtLeftEdgeOfWorld => Main.screenPosition.X < 900;
 
-        public static bool AtRightEdgeOfWorld { get { return Main.screenPosition.X > Main.rightWorld - Main.screenWidth - 900; } }
+        public static bool AtRightEdgeOfWorld => Main.screenPosition.X > Main.rightWorld - Main.screenWidth - 900;
 
         public static byte CurrentBrushShape { get; set; } = BrushShape.Square;
 
@@ -482,7 +493,7 @@ namespace NeoDraw.UI {
 
         }
 
-        private static int HellLayer { get { return Main.maxTilesY - 200; } }
+        private static int HellLayer => Main.maxTilesY - 200;
 
         public static bool MouseOffScreen {
             
@@ -510,9 +521,9 @@ namespace NeoDraw.UI {
 
         public static bool MouseYoverStatusbar { get { return (AtBottomEdgeOfWorld && Main.mouseY < StatusBarHeight) || (!AtBottomEdgeOfWorld && Main.mouseY > ((AtBottomEdgeOfWorld && !Main.mapFullscreen) ? 0 : Main.screenHeight - StatusBarHeight)); } }
 
-        public static string OtherToCreateName { get { return NeoDraw.OtherToCreate == null ? "" : OthersList[(int)NeoDraw.OtherToCreate].Name; } }
+        public static string OtherToCreateName => NeoDraw.OtherToCreate == null ? "" : OthersList[(int)NeoDraw.OtherToCreate].Name;
 
-        public static string SpecialToCreateName { get { return NeoDraw.StructureToCreate == null ? "" : StructuresList[(int)NeoDraw.StructureToCreate].Name; } }
+        public static string SpecialToCreateName => NeoDraw.StructureToCreate == null ? "" : StructuresList[(int)NeoDraw.StructureToCreate].Name;
 
         public static ref UndoStep Undo {
 
@@ -543,18 +554,18 @@ namespace NeoDraw.UI {
 
             structures = new StructureMap();
 
-            Active = GetTexture("NeoDraw/Textures/Active");
-            ButtonActive = GetTexture("NeoDraw/Textures/ButtonActive");
-            ButtonInactive = GetTexture("NeoDraw/Textures/ButtonInactive");
-            ButtonHover = GetTexture("NeoDraw/Textures/ButtonHover");
-            Dark = GetTexture("NeoDraw/Textures/Dark");
-            Highlight = GetTexture("NeoDraw/Textures/Highlight");
-            Inactive = GetTexture("NeoDraw/Textures/Inactive");
-            Light = GetTexture("NeoDraw/Textures/Light");
-            Lighter = GetTexture("NeoDraw/Textures/Lighter");
-            LineMarker = GetTexture("NeoDraw/Textures/LineMarker");
-            SelectionDash = GetTexture("NeoDraw/Textures/SelectionDash");
-            Square = GetTexture("NeoDraw/Textures/SelectionSquare");
+            Active           = GetTexture("NeoDraw/Textures/Active");
+            ButtonActive     = GetTexture("NeoDraw/Textures/ButtonActive");
+            ButtonInactive   = GetTexture("NeoDraw/Textures/ButtonInactive");
+            ButtonHover      = GetTexture("NeoDraw/Textures/ButtonHover");
+            Dark             = GetTexture("NeoDraw/Textures/Dark");
+            Highlight        = GetTexture("NeoDraw/Textures/Highlight");
+            Inactive         = GetTexture("NeoDraw/Textures/Inactive");
+            Light            = GetTexture("NeoDraw/Textures/Light");
+            Lighter          = GetTexture("NeoDraw/Textures/Lighter");
+            LineMarker       = GetTexture("NeoDraw/Textures/LineMarker");
+            SelectionDash    = GetTexture("NeoDraw/Textures/SelectionDash");
+            Square           = GetTexture("NeoDraw/Textures/SelectionSquare");
             UIButtonTextures = GetTexture("NeoDraw/Textures/UIButtons");
 
             CreateSliders();
@@ -738,7 +749,7 @@ namespace NeoDraw.UI {
                 NeoDraw.ForceCursorToShow = false;
             }
 
-            if (Main.LocalPlayer.mouseInterface || MouseXoverToolbar || MouseYoverStatusbar || Searching)
+            if (Main.LocalPlayer.mouseInterface || MouseXoverToolbar || MouseYoverStatusbar || Searching) // TODO: Should I check for SwitchedToEyedropper here?
                 return;
 
             SwitchedToEyedropper = false;
@@ -798,7 +809,7 @@ namespace NeoDraw.UI {
             SwitchToUIZoom(); // SpriteBatch Change
             //////////////////////////////////////////
 
-            if (DateTime.Now < _clickDelay)
+            if (DateTime.Now < _clickDelay) // TODO: Should I check for SwitchedToEyedropper here?
                 return;
 
             if (Main.mouseLeft) {
@@ -3092,50 +3103,17 @@ DoneTesting:;
                     }
                     else {
 
-                        if (Main.keyState.PressingAlt() || Main.keyState.PressingShift()) {
-
-                            if (CurrentTab == Tabs.Tiles) {
-
-                                if (superCover.Contains((ushort)NeoDraw.TileToCreate)) {
-                                    DrawLineOther();
-                                }
-                                else {
-                                    DrawLine();
-                                }
-
-                            }
-                            else if (CurrentTab == Tabs.Walls) {
-                                DrawLineWall();
-                            }
-                            else if (CurrentTab == Tabs.Other) {
-                                DrawLineOther();
-                            }
-
-                            StartPoint = new Vector2(Neo.TileTargetX, Neo.TileTargetY);
-
+                        if (CurrentTab == Tabs.Tiles) {
+                            DrawLine();
                         }
-                        else {
-
-                            if (CurrentTab == Tabs.Tiles) {
-
-                                if (superCover.Contains((ushort)NeoDraw.TileToCreate)) {
-                                    DrawLineOther();
-                                }
-                                else {
-                                    DrawLine();
-                                }
-
-                            }
-                            else if (CurrentTab == Tabs.Walls) {
-                                DrawLineWall();
-                            }
-                            else if (CurrentTab == Tabs.Other) {
-                                DrawLineOther();
-                            }
-
-                            StartPoint = default;
-
+                        else if (CurrentTab == Tabs.Walls) {
+                            DrawLineWall();
                         }
+                        else if (CurrentTab == Tabs.Other) {
+                            DrawLineOther();
+                        }
+
+                        StartPoint = (Main.keyState.PressingAlt() || Main.keyState.PressingShift()) ? new Vector2(Neo.TileTargetX, Neo.TileTargetY) : default;
 
                     }
 
@@ -3635,135 +3613,222 @@ DoneTesting:;
 
         private static void DrawLine() {
 
-            List<Point> points = GetLinePoints();
+            bool getSuperCover = CurrentTab == Tabs.Other || (NeoDraw.TileToCreate != null && superCover.Contains((int)NeoDraw.TileToCreate));
 
-            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.TileToCreate != null && TileID.Sets.Platforms[(int)NeoDraw.TileToCreate]) { // NeoDraw.TileToCreate == TileID.Platforms) {
+            List<Point> points = GetLinePoints(getSuperCover);
 
-                bool wasDownRight = false;
+            if (CurrentPaintMode == PaintMode.Paint && NeoDraw.TileToCreate != null) {
 
-                for (int i = 0; i < points.Count; i++) {
+                int type = (int)NeoDraw.TileToCreate;
 
-                    int curX = points[i].X;
-                    int curY = points[i].Y;
+                if (TileID.Sets.Platforms[type]) {
 
-                    DrawTile(curX, curY);
+                    bool wasDownRight = false;
 
-                    if (i == 0)
-                        continue;
+                    for (int i = 0; i < points.Count; i++) {
 
-                    byte slope = 0;
+                        int curX = points[i].X;
+                        int curY = points[i].Y;
 
-                    int prevX = points[i - 1].X;
-                    int prevY = points[i - 1].Y;
+                        DrawTile(curX, curY);
 
-                    bool headingRight = false;
-                    bool headingLeft = false;
-                    bool headingUp = false;
-                    bool headingDown = false;
+                        if (i == 0)
+                            continue;
 
-                    if (curY > prevY) {
-                        headingDown = true;
-                    }
-                    else if (curY < prevY) {
-                        headingUp = true;
-                    }
+                        byte slope = 0;
 
-                    if (curX > prevX) {
-                        headingRight = true;
-                    }
-                    else if (curX < prevX) {
-                        headingLeft = true;
-                    }
+                        int prevX = points[i - 1].X;
+                        int prevY = points[i - 1].Y;
 
-                    if (headingDown) {
+                        bool headingRight = false;
+                        bool headingLeft  = false;
+                        bool headingUp    = false;
+                        bool headingDown  = false;
 
-                        if (headingLeft) {
-                            slope = 2;
+                        if (curY > prevY) {
+                            headingDown = true;
                         }
-                        else if (headingRight) {
-                            slope = 1;
+                        else if (curY < prevY) {
+                            headingUp = true;
                         }
 
-                    }
-                    else if (headingUp) {
-
-                        if (headingLeft) {
-                            slope = 1;
+                        if (curX > prevX) {
+                            headingRight = true;
                         }
-                        else if (headingRight) {
-                            slope = 2;
+                        else if (curX < prevX) {
+                            headingLeft = true;
                         }
 
-                    }
+                        if (headingDown) {
 
-                    if (slope == 0) {
+                            if (headingLeft) {
+                                slope = 2;
+                            }
+                            else if (headingRight) {
+                                slope = 1;
+                            }
 
-                        if (wasDownRight) {
+                        }
+                        else if (headingUp) {
 
-                            Main.tile[prevX, prevY].halfBrick(false);
-                            Main.tile[prevX, prevY].slope(0);
+                            if (headingLeft) {
+                                slope = 1;
+                            }
+                            else if (headingRight) {
+                                slope = 2;
+                            }
 
                         }
 
-                        Main.tile[curX, curY].halfBrick(false);
-                        Main.tile[curX, curY].slope(0);
+                        if (slope == 0) {
 
-                    }
-                    else {
+                            if (wasDownRight) {
+
+                                Main.tile[prevX, prevY].halfBrick(false);
+                                Main.tile[prevX, prevY].slope(0);
+
+                            }
+
+                            Main.tile[curX, curY].halfBrick(false);
+                            Main.tile[curX, curY].slope(0);
+
+                        }
+                        else {
+
+                            if ((headingUp && headingLeft) || (headingDown && headingRight)) {
+                        
+                                Main.tile[prevX, prevY].halfBrick(false);
+                                Main.tile[prevX, prevY].slope(slope);
+                        
+                            }
+
+                            Main.tile[curX, curY].halfBrick(false);
+                            Main.tile[curX, curY].slope(slope);
+
+                        }
 
                         if ((headingUp && headingLeft) || (headingDown && headingRight)) {
-                        
-                            Main.tile[prevX, prevY].halfBrick(false);
-                            Main.tile[prevX, prevY].slope(slope);
-                        
+                            wasDownRight = true;
+                        }
+                        else {
+                            wasDownRight = false;
                         }
 
-                        Main.tile[curX, curY].halfBrick(false);
-                        Main.tile[curX, curY].slope(slope);
-
                     }
 
-                    if ((headingUp && headingLeft) || (headingDown && headingRight)) {
-                        wasDownRight = true;
-                    }
-                    else {
-                        wasDownRight = false;
-                    }
+                    for (int i = 0; i < points.Count; i++)
+                        WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
+
+                    return;
 
                 }
+                else if (type == TileID.Rope) {
 
-                for (int i = 0; i < points.Count; i++)
-                    SquareTileFrame(points[i].X, points[i].Y, ref _undo);
+                    bool wasDownRight = false;
 
-                return;
+                    for (int i = 0; i < points.Count; i++) {
+
+                        int curX = points[i].X;
+                        int curY = points[i].Y;
+
+                        DrawTile(curX, curY);
+
+                        if (i == 0)
+                            continue;
+
+                        byte slope = 0;
+
+                        int prevX = points[i - 1].X;
+                        int prevY = points[i - 1].Y;
+
+                        bool headingRight = false;
+                        bool headingLeft = false;
+                        bool headingUp = false;
+                        bool headingDown = false;
+
+                        if (curY > prevY) {
+                            headingDown = true;
+                        }
+                        else if (curY < prevY) {
+                            headingUp = true;
+                        }
+
+                        if (curX > prevX) {
+                            headingRight = true;
+                        }
+                        else if (curX < prevX) {
+                            headingLeft = true;
+                        }
+
+                        if (headingDown) {
+
+                            if (headingLeft) {
+                                slope = 2;
+                            }
+                            else if (headingRight) {
+                                slope = 1;
+                            }
+
+                        }
+                        else if (headingUp) {
+
+                            if (headingLeft) {
+                                slope = 1;
+                            }
+                            else if (headingRight) {
+                                slope = 2;
+                            }
+
+                        }
+
+                        if (slope == 0) {
+
+                            if (wasDownRight) {
+
+                                Main.tile[prevX, prevY].halfBrick(false);
+                                Main.tile[prevX, prevY].slope(0);
+
+                            }
+
+                            Main.tile[curX, curY].halfBrick(false);
+                            Main.tile[curX, curY].slope(0);
+
+                        }
+                        else {
+
+                            if ((headingUp && headingLeft) || (headingDown && headingRight)) {
+
+                                Main.tile[prevX, prevY].halfBrick(false);
+                                Main.tile[prevX, prevY].slope(slope);
+
+                            }
+
+                            Main.tile[curX, curY].halfBrick(false);
+                            Main.tile[curX, curY].slope(slope);
+
+                        }
+
+                        if ((headingUp && headingLeft) || (headingDown && headingRight)) {
+                            wasDownRight = true;
+                        }
+                        else {
+                            wasDownRight = false;
+                        }
+
+                    }
+
+                    for (int i = 0; i < points.Count; i++)
+                        WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
+
+                    return;
+
+                }
 
             }
-
-            for (int i = 0; i < points.Count; i++) {
-
-                if (CurrentPaintMode == PaintMode.Paint) {
-                    DrawTile(points[i].X, points[i].Y);
-                }
-                else if (CurrentPaintMode == PaintMode.Erase) {
-                    EraseTile(points[i].X, points[i].Y);
-                }
-
-            }
-
-            for (int i = 0; i < points.Count; i++)
-                SquareTileFrame(points[i].X, points[i].Y, ref _undo);
-
-        }
-
-        private static void DrawLineOther() {
-
-            List<Point> points = GetLinePoints();
 
             for (int i = 0; i < points.Count; i++) {
 
                 if (CurrentTab == Tabs.Tiles) {
-
-                    _undo.Add(new ChangedTile(points[i].X, points[i].Y));
 
                     if (CurrentPaintMode == PaintMode.Paint) {
                         DrawTile(points[i].X, points[i].Y);
@@ -3787,8 +3852,28 @@ DoneTesting:;
             }
 
             for (int i = 0; i < points.Count; i++)
-                WorldGen.TileFrame(points[i].X, points[i].Y, true);
+                WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
 
+        }
+
+        private static void DrawLineOther() {
+            
+            List<Point> points = GetLinePoints(true);
+
+            for (int i = 0; i < points.Count; i++) {
+
+                if (CurrentPaintMode == PaintMode.Paint) {
+                    DrawOther(points[i].X, points[i].Y);
+                }
+                else if (CurrentPaintMode == PaintMode.Erase) {
+                    EraseOther(points[i].X, points[i].Y);
+                }
+
+            }
+
+            for (int i = 0; i < points.Count; i++)
+                WorldGen.TileFrame(points[i].X, points[i].Y, true);
+            
         }
 
         private static void DrawLineWall() {
@@ -3796,8 +3881,6 @@ DoneTesting:;
             List<Point> points = GetLinePoints();
 
             for (int i = 0; i < points.Count; i++) {
-
-                //_undo.Add(new ChangedTile(points[i].X, points[i].Y));
 
                 if (CurrentPaintMode == PaintMode.Paint) {
                     DrawWall(points[i].X, points[i].Y, ref _undo);
@@ -5830,21 +5913,7 @@ DoneTesting:;
 
             if ((RightClicked && !Main.keyState.PressingAlt()) || (Keys.Escape.Pressed() && DateTime.Now > KeyPressDelay)) {
 
-                if (CurrentBrushShape == BrushShape.Line) {
-
-                    if (StartPoint == default) {
-
-                        ClearSelectedListItem();
-
-                    }
-                    else {
-
-                        StartPoint = default;
-
-                    }
-
-                }
-                else if (CurrentPaintMode == PaintMode.Select) {
+                if (CurrentPaintMode == PaintMode.Select) {
 
                     if (StartPoint == default) {
 
@@ -5879,6 +5948,20 @@ DoneTesting:;
                     else {
 
                         ClearSelectedListItem();
+
+                    }
+
+                }
+                else if(CurrentBrushShape == BrushShape.Line) {
+
+                    if (StartPoint == default) {
+
+                        ClearSelectedListItem();
+
+                    }
+                    else {
+
+                        StartPoint = default;
 
                     }
 
@@ -6858,8 +6941,8 @@ DoneTesting:;
 
             _middleVerticalSlider = new VerticalSlider(
 
-                anchor: new Vector2(0f, 0f),
-                offset: new Vector2(ListWidth - 20, MiddleListTop + 2)
+                new Vector2(0f, 0f),
+                new Vector2(ListWidth - 20, MiddleListTop + 2)
                 )
                 .SetSize(20f, MiddleListLength - 4)
                 .With(delegate (VerticalSlider w) {
@@ -9033,7 +9116,7 @@ DoneTesting:;
 
         }
 
-        private static List<Point> GetLinePoints() {
+        private static List<Point> GetLinePoints(bool supercover = false) {
 
             Point target = new Point(Neo.TileTargetX, Neo.TileTargetY);
 
@@ -9133,13 +9216,34 @@ DoneTesting:;
             for (int j = 0; j < Math.Ceiling((BrushSize + 1) / 2f); j++) {
 
                 if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+
+                    if (supercover) {
+                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                    }
+                    else {
+                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                    }
+                    
                 }
                 else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+
+                    if (supercover) {
+                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                    }
+                    else {
+                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                    }
+                    
                 }
                 else {
-                    points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, target.X + j, target.Y));
+
+                    if (supercover) {
+                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X + j, (int)StartPoint.Y, target.X + j, target.Y));
+                    }
+                    else {
+                        points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, target.X + j, target.Y));
+                    }
+                    
                 }
 
             }
@@ -9150,13 +9254,34 @@ DoneTesting:;
                     continue;
 
                 if (angle >= -45 && angle < 45) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+
+                    if (supercover) {
+                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                    }
+                    else {
+                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                    }
+                    
                 }
                 else if (angle <= -135 || angle >= 135) {
-                    points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+
+                    if (supercover) {
+                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                    }
+                    else {
+                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                    }
+                    
                 }
                 else {
-                    points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, target.X - k, target.Y));
+
+                    if (supercover) {
+                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X - k, (int)StartPoint.Y, target.X - k, target.Y));
+                    }
+                    else {
+                        points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, target.X - k, target.Y));
+                    }
+                    
                 }
 
             }
@@ -9793,14 +9918,14 @@ DoneTesting:;
 
         }
 
-        private static void SwitchToMouseInUIZoom() {
+        public static void SwitchToMouseInUIZoom() {
 
             SwitchedToMouseInWorldZoom = false;
             PlayerInput.SetZoom_UI();
 
         }
 
-        private static void SwitchToMouseInWorldZoom() {
+        public static void SwitchToMouseInWorldZoom() {
 
             SwitchedToMouseInWorldZoom = true;
             PlayerInput.SetZoom_MouseInWorld();

@@ -19,7 +19,7 @@ namespace NeoDraw.WldGen.Place {
 
 			if (type == 106 || type == 212 || type == 219 || type == 220 || type == 228 || type == 231 || 
 				type == 243 || type == 247 || type == 283 || (type >= 300 && type <= 308) || type == 354 || 
-				type == 355 || type == 406) {
+				type == 355 || type == 406 || type == 452 || type == 455) {
 				
 				num = -2;
 				

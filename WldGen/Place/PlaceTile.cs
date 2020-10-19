@@ -468,7 +468,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                         break;
 
                     }
-                case TileID.Chandeliers: {
+                case TileID.Chandeliers: case TileID.Pigronata: {
 
                         result = PlaceChand(i, j, (ushort)type, ref undo, style);
                         WorldGen.SquareTileFrame(i, j);
@@ -764,7 +764,8 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
 
                 case TileID.Sawmill: case TileID.SnowballLauncher: case TileID.Extractinator: case TileID.Solidifier: case TileID.DyeVat: case TileID.Larva: case TileID.ImbuingStation: case TileID.Autohammer:
                 case TileID.HeavyWorkBench: case TileID.BoneWelder: case TileID.FleshCloningVat: case TileID.GlassKiln: case TileID.LihzahrdFurnace: case TileID.LivingLoom: case TileID.SkyMill:
-                case TileID.IceMachine: case TileID.SteampunkBoiler: case TileID.HoneyDispenser: case TileID.BewitchingTable: case TileID.AlchemyTable: case TileID.Chimney: case TileID.LunarCraftingStation: {
+                case TileID.IceMachine: case TileID.SteampunkBoiler: case TileID.HoneyDispenser: case TileID.BewitchingTable: case TileID.AlchemyTable: case TileID.Chimney: case TileID.LunarCraftingStation:
+                case TileID.SillyBalloonMachine: case TileID.PartyMonolith: {
 
                         result = Place3x3(i, j, (ushort)type, ref undo, style);
                         WorldGen.SquareTileFrame(i, j);

@@ -2,6 +2,12 @@
 - Improved Platform placement with Line Tool
 - Added Angle Snap to Line Tool
 - Updated Line Tool Status Bar message
+- Selection will now clear properly while Line Tool is selected
+- Cursor aims properly while zoomed in
+- Additional Tile Compatibility
+-- 452 Silly Balloon Machine
+-- 454 Pigronata
+-- 455 Party Monolith
 
 v0.1 - 10/11/2020
 - Initial Release
