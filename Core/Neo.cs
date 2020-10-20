@@ -935,7 +935,7 @@ namespace NeoDraw.Core {
                 return true;
 
             TOD tileData = TOD.GetTileData(tile);
-
+            
             if (tileData != null) {
 
                 int fullWidth  = tileData.CoordinateFullWidth;
@@ -953,14 +953,14 @@ namespace NeoDraw.Core {
         }
 
         public static void SetActive(int x, int y, bool active) {
-            Main.tile[x, y].active(active: active);
+            Main.tile[x, y].active(active);
         }
 
         public static void SetActive(int x, int y, bool active, ref UndoStep undo) {
 
             undo.Add(new ChangedTile(x, y));
 
-            Main.tile[x, y].active(active: active);
+            SetActive(x, y, active);
 
         }
 
@@ -968,11 +968,11 @@ namespace NeoDraw.Core {
 
             Main.tile[x, y].liquid = volume;
 
-            if (lava != null)
-                Main.tile[x, y].lava(lava: (bool)lava);
+            if (lava.HasValue)
+                Main.tile[x, y].lava(lava: lava.GetValueOrDefault());
 
-            if (honey != null)
-                Main.tile[x, y].honey(honey: (bool)honey);
+            if (honey.HasValue)
+                Main.tile[x, y].honey(honey: honey.GetValueOrDefault());
 
         }
 
@@ -980,46 +980,34 @@ namespace NeoDraw.Core {
 
             undo.Add(new ChangedTile(x, y));
 
-            Main.tile[x, y].liquid = volume;
-
-            if (lava != null)
-                Main.tile[x, y].lava(lava: (bool)lava);
-
-            if (honey != null)
-                Main.tile[x, y].honey(honey: (bool)honey);
+            SetLiquid(x, y, volume, lava, honey);
 
         }
 
-        public static void SetTile(int x, int y, ushort type, bool? active = true) {
+        public static void SetTile(int x, int y, ushort type, bool active = true) {
 
             Main.tile[x, y].Clear(TileDataType.Slope);
 
-            if (active != null)
-                Main.tile[x, y].active((bool)active);
+            //if (active.HasValue)
+            //    Main.tile[x, y].active(active.GetValueOrDefault());
 
+            Main.tile[x, y].active(active);
             Main.tile[x, y].type = type;
 
         }
 
-        public static void SetTile(int x, int y, ushort type, ref UndoStep undo, bool? active = true) {
+        public static void SetTile(int x, int y, ushort type, ref UndoStep undo, bool active = true) {
 
             undo.Add(new ChangedTile(x, y));
 
-            Main.tile[x, y].Clear(TileDataType.Slope);
-
-            if (active != null)
-                Main.tile[x, y].active((bool)active);
-
-            Main.tile[x, y].type = type;
+            SetTile(x, y, type, active);
 
         }
 
         public static void SetTileWall(int x, int y, ushort tileType, ushort wallType, bool active = true) {
 
-            Main.tile[x, y].Clear(TileDataType.Slope);
-            Main.tile[x, y].active(active);
-            Main.tile[x, y].type = tileType;
-            Main.tile[x, y].wall = wallType;
+            SetTile(x, y, tileType, active);
+            SetWall(x, y, wallType);
 
         }
 
@@ -1027,10 +1015,7 @@ namespace NeoDraw.Core {
 
             undo.Add(new ChangedTile(x, y));
 
-            Main.tile[x, y].Clear(TileDataType.Slope);
-            Main.tile[x, y].active(active);
-            Main.tile[x, y].type = tileType;
-            Main.tile[x, y].wall = wallType;
+            SetTileWall(x, y, tileType, wallType, active);
 
         }
 
@@ -1038,8 +1023,8 @@ namespace NeoDraw.Core {
 
             Main.tile[x, y].wall = type;
 
-            if (active != null)
-                Main.tile[x, y].active(active: (bool)active);
+            if (active.HasValue)
+                Main.tile[x, y].active(active.GetValueOrDefault());
 
         }
 
@@ -1047,11 +1032,8 @@ namespace NeoDraw.Core {
 
             undo.Add(new ChangedTile(x, y));
 
-            Main.tile[x, y].wall = type;
+            SetWall(x, y, type, active);
 
-            if (active != null)
-                Main.tile[x, y].active(active: (bool)active);
-            
         }
 
         public static bool TileCut(int x, int y) => TileCut(new[] { new Point(x, y) });

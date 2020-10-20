@@ -157,22 +157,22 @@ namespace NeoDraw {
                         switch (CurrentTab) {
 
                             case Tabs.Tiles: {
-                                    if (TileToCreate != null)
+                                    if (TileToCreate.HasValue)
                                         show = false;
                                     break;
                                 }
                             case Tabs.Walls: {
-                                    if (WallToCreate != null)
+                                    if (WallToCreate.HasValue)
                                         show = false;
                                     break;
                                 }
                             case Tabs.Structures: {
-                                    if (StructureToCreate != null)
+                                    if (StructureToCreate.HasValue)
                                         show = false;
                                     break;
                                 }
                             case Tabs.Other: {
-                                    if (OtherToCreate != null)
+                                    if (OtherToCreate.HasValue)
                                         show = false;
                                     break;
                                 }
@@ -217,7 +217,7 @@ namespace NeoDraw {
                     "NeoDraw: DrawInterface",
 
                     delegate {
-
+                        
                         if (drawInterface?.CurrentState != null)
                             drawInterface.Draw(Main.spriteBatch, new GameTime());
 
