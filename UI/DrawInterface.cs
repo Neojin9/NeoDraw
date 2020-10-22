@@ -122,6 +122,10 @@ namespace NeoDraw.UI {
             TileID.LivingUltrabrightFire, TileID.ChimneySmoke,     TileID.CrimtaneThorns, TileID.PixelBox,           TileID.SillyStreamerBlue, TileID.SillyStreamerGreen, TileID.SillyStreamerPink
         };
 
+        private static readonly int[] directional = {
+            TileID.OpenDoor, TileID.Chairs, TileID.Beds
+        };
+
         private static readonly int[] lineCompatible = {
             TileID.MinecartTrack, 427, 435, 436, 437, 438, 439, 445
         };
@@ -1419,7 +1423,8 @@ namespace NeoDraw.UI {
 
             SwitchToUIZoom();
 
-            sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11 * Main.GameZoomTarget, Main.mouseY - 11 * Main.GameZoomTarget), null, Color.White, 0f, default, Main.GameZoomTarget, SpriteEffects.None, 1f);
+            if (Main.keyState.PressingCtrl())
+                sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11 * Main.GameZoomTarget, Main.mouseY - 11 * Main.GameZoomTarget), null, Color.White, 0f, default, Main.GameZoomTarget, SpriteEffects.None, 1f);
             //sb.Draw(GetTexture("Terraria/UI/Cursor_15"), new Vector2(Main.mouseX - 11, Main.mouseY - 11), Color.White);
 
             SwitchToGameZoom();
@@ -2285,6 +2290,22 @@ namespace NeoDraw.UI {
 
                         float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X)) * -1;
                         statusBarText += " " + angle.ToString("F1") + "° - Hold CTRL to snap angle in 45° increments.";
+
+                    }
+                    else if ((CurrentBrushShape == BrushShape.Square || CurrentBrushShape == BrushShape.Circle) && CurrentPaintMode == PaintMode.Paint && CurrentTab == Tabs.Tiles) {
+
+                        int type = NeoDraw.TileToCreate.GetValueOrDefault();
+
+                        if (directional.Contains(type)) {
+
+                            statusBarText += " - Hold ALT to change tile direction.";
+
+                        }
+                        else if (type == TileID.Torches || type == TileID.Candles || type == TileID.Chandeliers || type == TileID.Jackolanterns || type == TileID.HangingLanterns /*|| type == TileID.WaterCandle*/) { // TODO: Uncomment for v1.4
+
+                            statusBarText += " - Hold ALT to place unlit.";
+
+                        }
 
                     }
 
@@ -8735,12 +8756,6 @@ DoneTesting:
                         break;
 
                     }
-                case TileID.Chairs: {
-
-                        //yToDrawAt += 1;
-                        break;
-
-                    }
                 case TileID.DyePlants: {
 
                         xToDrawAt -= 8;
@@ -8755,6 +8770,12 @@ DoneTesting:
 
                     }
                 case TileID.Beds:
+                case TileID.Candles:
+                case TileID.Chairs:
+                case TileID.Chandeliers:
+                case TileID.Jackolanterns:
+                case TileID.HangingLanterns:
+                //case TileID.WaterCandle: // TODO: Uncomment for v1.4
                 case TileID.Bathtubs: {
 
                         if (Main.keyState.PressingAlt())

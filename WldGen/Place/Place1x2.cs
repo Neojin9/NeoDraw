@@ -24,6 +24,14 @@ namespace NeoDraw.WldGen.Place {
 
             short frameX = 0;
 
+            if (type == Terraria.ID.TileID.Chairs) {
+
+                if (Main.keyState.PressingAlt()) {
+                    frameX += 18;
+                }
+
+            }
+
             if (TileLoader.IsSapling(type))
                 frameX = (short)(WorldGen.genRand.Next(3) * 18);
 

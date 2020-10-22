@@ -51,8 +51,12 @@ namespace NeoDraw.WldGen.Place {
 
 			}
 
-            if (type == 454)
+            if (type == 454) {
                 num2 += 18;
+            }
+			else if (type == 34 && Main.keyState.PressingAlt()) {
+				num2 += 54;
+            }
 
             for (int l = 0; l < 3; l++) {
 

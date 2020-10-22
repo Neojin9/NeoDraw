@@ -86,7 +86,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                     WorldGen.SquareTileFrame(i, j);
 
                     if (Main.keyState.PressingAlt())
-                        tile.frameX += 54;
+                        tile.frameX += 66;
 
                     result = true;
 

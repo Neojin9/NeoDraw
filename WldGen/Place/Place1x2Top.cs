@@ -14,6 +14,13 @@ namespace NeoDraw.WldGen.Place {
 
             short frameX = 0;
 
+            if (type == Terraria.ID.TileID.HangingLanterns) {
+
+                if (Main.keyState.PressingAlt())
+                    frameX += 18;
+
+            }
+
             if (Main.tile[x, y] == null)
                 Main.tile[x, y] = new Tile();
 
