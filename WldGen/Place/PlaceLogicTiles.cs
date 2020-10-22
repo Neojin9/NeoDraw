@@ -46,8 +46,19 @@ namespace NeoDraw.WldGen.Place {
 
 				tile.active(true);
 				tile.type = (ushort)type;
-				tile.frameX = 0;
-				tile.frameY = (short)(18 * style);
+
+				if (type == TileID.PixelBox && style == 1) {
+					tile.frameX = 18;
+					tile.frameY = 0;
+				}
+				else if (type == TileID.WirePipe) {
+					tile.frameX = (short)(18 * style);
+					tile.frameY = 0;
+                }
+				else {
+					tile.frameX = 0;
+					tile.frameY = (short)(18 * style);
+				}
 
 				return true;
 

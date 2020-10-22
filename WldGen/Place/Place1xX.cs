@@ -13,7 +13,9 @@ namespace NeoDraw.WldGen.Place {
 			if (!WorldGen.InWorld(x, y))
 				return false;
 
+			int frameX = 0;
 			int frameY = style * 18;
+
 			int height = 3;
 
 			if (type == TileID.Lampposts) {
@@ -21,6 +23,16 @@ namespace NeoDraw.WldGen.Place {
 			}
 			else if (type == TileID.TallGateClosed || type == TileID.TallGateOpen) {
 				height = 5;
+            }
+			else if (type == TileID.SillyBalloonTile) {
+				
+                frameX = style * 2 * 18;
+
+				if (Main.keyState.PressingAlt())
+					frameX += 18;
+
+				frameY = 0;
+
             }
 
 			if (!WorldGen.SolidTile2(x, y + 1))
@@ -41,7 +53,7 @@ namespace NeoDraw.WldGen.Place {
 
 				Main.tile[x, y - height + 1 + j].active(true);
 				Main.tile[x, y - height + 1 + j].frameY = (short)(j * 18 + height * frameY);
-				Main.tile[x, y - height + 1 + j].frameX = 0;
+				Main.tile[x, y - height + 1 + j].frameX = (short)frameX;
 				Main.tile[x, y - height + 1 + j].type = type;
 
 			}

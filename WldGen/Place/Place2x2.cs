@@ -23,6 +23,9 @@ namespace NeoDraw.WldGen.Place {
 				
 			} else {
 
+				if (type == TileID.TrapdoorOpen)
+					x++;
+
 				for (int i = x - 1; i < x + 1; i++) {
 
 					for (int j = y - 1; j < y + 1; j++) {
@@ -48,7 +51,7 @@ namespace NeoDraw.WldGen.Place {
 								break;
 
 							}
-						case TileID.Lever: {
+						case TileID.Lever: case TileID.TrapdoorOpen: {
 								break;
                             }
 						default: {
@@ -92,6 +95,25 @@ namespace NeoDraw.WldGen.Place {
 			x--;
 			y--;
 
+			if (type == TileID.TrapdoorOpen) {
+
+				y++;
+
+				Tile tileSafelyLeft = Framing.GetTileSafely(x - 1, y);
+				Tile tileSafelyRight = Framing.GetTileSafely(x + 2, y);
+
+				if (!tileSafelyLeft.nactive() || !tileSafelyRight.nactive() || !Main.tileSolid[tileSafelyLeft.type] || !Main.tileSolid[tileSafelyRight.type])
+					return false;
+
+				if (Main.keyState.PressingAlt()) {
+					style = 1;
+                }
+				else {
+					y--;
+				}
+
+			}
+
 			int frameHeight = (type == TileID.Sinks) ? 38 : 36;
 
 			Point[] tiles = new Point[4];
@@ -103,6 +125,27 @@ namespace NeoDraw.WldGen.Place {
 
 			if (!Neo.TileCut(tiles))
 				return false;
+
+			if (type == TileID.FakeContainers || type == TileID.TrapdoorOpen) {
+
+				for (int k = 0; k < 2; k++) {
+
+					for (int l = 0; l < 2; l++) {
+
+						undo.Add(new ChangedTile(x + k, y + l));
+
+						Main.tile[x + k, y + l].active(true);
+						Main.tile[x + k, y + l].frameX = (short)(style * frameHeight + k * 18);
+						Main.tile[x + k, y + l].frameY = (short)(l * 18);
+						Main.tile[x + k, y + l].type = type;
+
+					}
+
+				}
+
+				return true;
+
+			}
 
 			for (int k = 0; k < 2; k++) {
 

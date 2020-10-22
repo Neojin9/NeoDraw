@@ -102,7 +102,7 @@ namespace NeoDraw.Core {
             SubTileNames.Add(TileID.Chairs,                new List<string> {
                 "Wooden", "Toilet", "Ebonwood", "Rich Mahogany", "Pearlwood", "Living Wood", "Cactus", "Bone", "Flesh", "Mushroom", "Sky", "Shadewood", "Lihzahrd", "Blue Dungeon", "Green Dungeon",
                 "Pink Dungeon", "Obsidian", "Gothic", "Glass", "Golden", "Golden Toilet", "Bar Stool", "Honey", "Steampunk", "Pumpkin", "Spooky", "Pine", "Dynasty", "Frozen", "Palm", "Boreal", "Slime",
-                "Cactus", "Martian Hover", "Meteorite", "Granite", "Marble", "Crystal" });
+                "Martian Hover", "Meteorite", "Granite", "Marble", "Crystal" });
             SubTileNames.Add(TileID.Anvils,                new List<string> {
                 "Iron", "Lead" });
             SubTileNames.Add(TileID.WorkBenches,           new List<string> {
@@ -341,18 +341,24 @@ namespace NeoDraw.Core {
                 "AND", "OR", "NAND", "NOR", "XOR", "XNOR" });
             SubTileNames.Add(TileID.LogicSensor,           new List<string> {
                 "Day", "Night", "Player Above", "Water", "Lava", "Honey", "Any" });
+            SubTileNames.Add(TileID.WirePipe, new List<string> {
+                "Left->Right", "Left->Up", "Left->Down" });
             SubTileNames.Add(TileID.WeightedPressurePlate, new List<string> { 
                 "Orange", "Cyan", "Purple", "Pink" });
             SubTileNames.Add(TileID.GemLocks,              new List<string> {
-                "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Diamond", "Amber" });
+                "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Diamond", "Amber", "Ruby w/ Gem", "Sapphire", "Emerald w/ Gem", "Topaz w/ Gem", "Amethyst w/ Gem", "Diamond w/ Gem", "Amber w/ Gem" });
             SubTileNames.Add(TileID.FakeContainers,        new List<string> {
                 "Wooden", "Gold", "Gold - Locked", "Shadow", "Shadow - Locked", "Barrel", "Trash Can", "Ebonwood", "Rich Mahogany", "Pearlwood", "Ivy", "Ice", "Living Wood", "Skyware", "Shadewood", 
                 "Web Covered", "Lihzahrd", "Water", "Biome - Jungle", "Biome - Corruption", "Biome - Crimson", "Biome - Hallowed", "Biome - Frozen", "Biome - Jungle - Locked", "Biome - Corruption - Locked",
                 "Biome - Crimson - Locked", "Biome - Hallowed - Locked", "Biome - Frozen - Locked", "Dynasty", "Honey", "Steampunk", "Palm Wood", "Mushroom", "Boreal", "Slime", "Green Dungeon",
                 "Green Dungeon - Locked", "Pink Dungeon", "Pink Dungeon - Locked", "Blue Dungeon", "Blue Dungeon - Locked", "Bone", "Cactus", "Flesh", "Obsidian", "Pumpkin", "Spooky", "Glass", "Martian",
                 "Meteorite", "Granite", "Marble", "Crystal", "Golden" });
+            SubTileNames.Add(TileID.PixelBox, new List<string> {
+                "Off", "On" });
             SubTileNames.Add(TileID.SillyBalloonTile,      new List<string> {
                 "Purple", "Green", "Pink" });
+            SubTileNames.Add(TileID.PartyPresent, new List<string> {
+                "Dark Purple", "Pink", "Teal", "Purple", "Light Purple" });
             SubTileNames.Add(TileID.Containers2,           new List<string> {
                 "Crystal", "Golden"/*, "Spider", "Lesion", "Dead Man's", "Solar", "Vortex", "Nebula", "Stardust", "Golf", "Sandstone", "Bamboo", "Desert", "Desert - Locked"*/ });
             SubTileNames.Add(TileID.FakeContainers2,       new List<string> { 

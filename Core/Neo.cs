@@ -984,19 +984,18 @@ namespace NeoDraw.Core {
 
         }
 
-        public static void SetTile(int x, int y, ushort type, bool active = true) {
+        public static void SetTile(int x, int y, ushort type, bool? active = true) {
 
             Main.tile[x, y].Clear(TileDataType.Slope);
+            
+            if (active.HasValue)
+                Main.tile[x, y].active(active.GetValueOrDefault());
 
-            //if (active.HasValue)
-            //    Main.tile[x, y].active(active.GetValueOrDefault());
-
-            Main.tile[x, y].active(active);
             Main.tile[x, y].type = type;
 
         }
 
-        public static void SetTile(int x, int y, ushort type, ref UndoStep undo, bool active = true) {
+        public static void SetTile(int x, int y, ushort type, ref UndoStep undo, bool? active = true) {
 
             undo.Add(new ChangedTile(x, y));
 

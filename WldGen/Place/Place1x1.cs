@@ -70,6 +70,57 @@ namespace NeoDraw.WldGen.Place {
 				}
 
             }
+			else if (type == TileID.ProjectilePressurePad) {
+
+                if (!Neo.TileCut(x, y))
+                    return false;
+
+                if (Main.tile[x, y - 1] == null)
+                    Main.tile[x, y - 1] = new Tile();
+
+                if (Main.tile[x - 1, y] == null)
+                    Main.tile[x - 1, y] = new Tile();
+
+                if (Main.tile[x + 1, y] == null)
+                    Main.tile[x + 1, y] = new Tile();
+
+				short frameX = -1;
+
+                if (Main.tile[x, y + 1].active() && WorldGen.SolidTile(x, y + 1)) {
+
+                    frameX = 0;
+
+                }
+				else if (Main.tile[x, y - 1].active() && WorldGen.SolidTile(x, y - 1)) {
+
+                    frameX = 18;
+
+                }
+				else if(Main.tile[x - 1, y].active() && WorldGen.SolidTile(x - 1, y)) {
+
+                    frameX = 36;
+
+                }
+				else if(Main.tile[x + 1, y].active() && WorldGen.SolidTile(x + 1, y)) {
+
+                    frameX = 54;
+
+                }
+
+                if (frameX > -1) {
+
+                    undo.Add(new ChangedTile(x, y));
+
+                    Main.tile[x, y].type   = (ushort)type;
+                    Main.tile[x, y].frameX = frameX;
+                    Main.tile[x, y].frameY = 0;
+                    Main.tile[x, y].active(true);
+
+                    return true;
+
+                }
+
+			}
 			else if (WorldGen.SolidTile2(x, y + 1)) {
 
 				if (!Neo.TileCut(x, y))

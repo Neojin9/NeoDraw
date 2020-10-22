@@ -6,9 +6,15 @@
 - Cursor aims properly while zoomed in
 - Will not try to Quick Swap to Eyedropper while drawing line or making selection
 - Additional Tile Compatibility
+-- 386 Trapdoor Open
+-- 387 Trapdoor Closed
+-- 412 Lunar Crafting Station
+-- 441 Fake Chests
 -- 452 Silly Balloon Machine
+-- 453 Silly Balloon Tile
 -- 454 Pigronata
 -- 455 Party Monolith
+-- 457 Party Present: Sub Tile Selection
 
 v0.1 - 10/11/2020
 - Initial Release

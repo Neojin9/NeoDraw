@@ -27,11 +27,19 @@ namespace NeoDraw.WldGen.Place {
 			
 			bool flag = false;
 
-			if (type != TileID.DjinnLamp && type != TileID.PiggyBank && type != TileID.Bowls && WorldGen.SolidTile2(x, y + 1) && WorldGen.SolidTile2(x + 1, y + 1)) {
-				flag = true;
-			} else if ((type == TileID.DjinnLamp || type == TileID.PiggyBank || type == TileID.Bowls) && Main.tile[x, y + 1].active() && Main.tile[x + 1, y + 1].active() && Main.tileTable[Main.tile[x, y + 1].type] && Main.tileTable[Main.tile[x + 1, y + 1].type]) {
+			if (type != TileID.DjinnLamp && type != TileID.PiggyBank && type != TileID.Bowls && type != TileID.TrapdoorClosed && WorldGen.SolidTile2(x, y + 1) && WorldGen.SolidTile2(x + 1, y + 1)) {
 				flag = true;
 			}
+			else if (type == TileID.GeyserTrap && WorldGen.SolidTile2(x, y - 1) && WorldGen.SolidTile2(x + 1, y - 1)) {
+				flag = true;
+				style = 2;
+			}
+            else if ((type == TileID.DjinnLamp || type == TileID.PiggyBank || type == TileID.Bowls) && Main.tile[x, y + 1].active() && Main.tile[x + 1, y + 1].active() && Main.tileTable[Main.tile[x, y + 1].type] && Main.tileTable[Main.tile[x + 1, y + 1].type]) {
+				flag = true;
+			}
+			else if (type == TileID.TrapdoorClosed && (Main.tile[x - 1, y].active() && WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 2, y].active() && WorldGen.SolidTile2(x + 2, y))) {
+				flag = true;
+            }
 
 			if (flag) {
 

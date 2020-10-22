@@ -98,7 +98,11 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                     tile.active(active: true);
                     tile.type = (ushort)type;
                     tile.frameY = (short)(22 * style);
+
                     WorldGen.SquareTileFrame(i, j);
+
+                    if (Main.keyState.PressingAlt())
+                        tile.frameX += 54;
 
                     result = true;
 
@@ -605,6 +609,9 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                     }
                 case TileID.Plants2: case TileID.JunglePlants2: case TileID.HallowedPlants2: {
 
+                        if (style == 8)
+                            return false;
+
                         if (j + 1 < Main.maxTilesY && Main.tile[i, j + 1].active() && Main.tile[i, j + 1].slope() == 0 && !Main.tile[i, j + 1].halfBrick() && ((Main.tile[i, j + 1].type == TileID.Grass && type == TileID.Plants2) || (Main.tile[i, j + 1].type == TileID.JungleGrass && type == TileID.JunglePlants2) || (Main.tile[i, j + 1].type == TileID.HallowedGrass && type == TileID.HallowedPlants2))) {
 
                             if (Main.tile[i, j].active() || Main.tile[i, j - 1].active())
@@ -689,7 +696,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                         break;
 
                     }
-                case TileID.Anvils: case TileID.WorkBenches: case TileID.PiggyBank: case TileID.Bowls: case TileID.MythrilAnvil: case TileID.DjinnLamp: case TileID.GeyserTrap: {
+                case TileID.Anvils: case TileID.WorkBenches: case TileID.PiggyBank: case TileID.Bowls: case TileID.MythrilAnvil: case TileID.DjinnLamp: case TileID.GeyserTrap: case TileID.TrapdoorClosed: {
 
                         result = Place2x1(i, j, (ushort)type, ref undo, style);
                         WorldGen.SquareTileFrame(i, j);
@@ -713,7 +720,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                     }
 
                 case TileID.Presents: case TileID.PressurePlates: case TileID.Explosives: case TileID.Timers: case TileID.LandMine: case TileID.MetalBars: case TileID.BeachPiles: 
-                case TileID.HoneyDrip: case TileID.LavaDrip: case TileID.SandDrip: case TileID.WaterDrip: {
+                case TileID.HoneyDrip: case TileID.LavaDrip: case TileID.SandDrip: case TileID.WaterDrip: case TileID.WeightedPressurePlate: case TileID.ProjectilePressurePad: {
 
                         result = Place1x1(i, j, type, ref undo, style);
                         WorldGen.SquareTileFrame(i, j);
@@ -726,7 +733,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                 case TileID.JuliaButterflyJar: case TileID.BlueJellyfishBowl: case TileID.GreenJellyfishBowl: case TileID.PinkJellyfishBowl: case TileID.ShipInABottle: case TileID.FireworksBox:
                 case TileID.Kegs: case TileID.ChineseLanterns: case TileID.Safes: case TileID.SkullLanterns: case TileID.TrashCan: case TileID.Candelabras: case TileID.CrystalBall: case TileID.DiscoBall:
                 case TileID.Sinks: case TileID.PlatinumCandelabra: case TileID.AmmoBox: case TileID.Detonator: case TileID.Heart: case TileID.GoldButterflyCage: case TileID.FakeContainers: case TileID.BeeHive:
-                case TileID.FakeContainers2: {
+                case TileID.FakeContainers2: case TileID.TrapdoorOpen: {
 
                         result = Place2x2(i, j, (ushort)type, style, ref undo);
                         break;

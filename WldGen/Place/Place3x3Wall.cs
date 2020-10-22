@@ -41,7 +41,18 @@ namespace NeoDraw.WldGen.Place {
 				style -= 36;
 			}
 
-			int num4 = style * 54;
+			if (type == 440) {
+
+				if (style > 6) {
+
+					style -= 7;
+					num3 = 1;
+
+				}
+
+			}
+
+			int frameX = style * 54;
 			int num5 = num3 * 54;
 
 			for (int k = leftSide; k < leftSide + 3; k++) {
@@ -52,7 +63,7 @@ namespace NeoDraw.WldGen.Place {
 
 					Main.tile[k, l].active(true);
 					Main.tile[k, l].type = type;
-					Main.tile[k, l].frameX = (short)(num4 + 18 * (k - leftSide));
+					Main.tile[k, l].frameX = (short)(frameX + 18 * (k - leftSide));
 					Main.tile[k, l].frameY = (short)(num5 + 18 * (l - top));
 
 				}

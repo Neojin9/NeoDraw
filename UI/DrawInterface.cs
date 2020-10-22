@@ -129,8 +129,8 @@ namespace NeoDraw.UI {
         private static readonly int[] wideLineCompatible = { TileID.PixelBox };
 
         private static readonly int[] superCover = {
-            TileID.Chain, TileID.Rope, TileID.SilkRope, TileID.VineRope, TileID.WebRope, TileID.ConveyorBeltLeft, TileID.ConveyorBeltRight, TileID.MinecartTrack, TileID.SillyStreamerBlue,
-            TileID.SillyStreamerGreen, TileID.SillyStreamerPink
+            TileID.Chain, TileID.Rope, TileID.SilkRope, TileID.VineRope, TileID.WebRope, TileID.ConveyorBeltLeft, TileID.ConveyorBeltRight,// TileID.MinecartTrack,
+            TileID.SillyStreamerBlue, TileID.SillyStreamerGreen, TileID.SillyStreamerPink
         };
 
         private static readonly int[] styleDown = {
@@ -2668,7 +2668,7 @@ DoneTesting:;
                                 if (CurrentTab == Tabs.Tiles)
                                     DrawPlacingTile(sb);
 
-                                if (NeoDraw.TileToCreate == null || !Main.tileFrameImportant[(int)NeoDraw.TileToCreate])
+                                if ((NeoDraw.TileToCreate == null || !Main.tileFrameImportant[(int)NeoDraw.TileToCreate]) && NeoDraw.TileToCreate.GetValueOrDefault(-1) != TileID.Cactus)
                                     sb.DrawRectangle(new Vector2((Neo.TileTargetX - (int)Math.Floor(BrushSize / 2f)) * 16 - Main.screenPosition.X, (Neo.TileTargetY - (int)Math.Floor(BrushSize / 2f)) * 16 - Main.screenPosition.Y), new Vector2(BrushSize * 16), Color.Black * Main.cursorAlpha, 3);
 
                             }
@@ -7920,6 +7920,9 @@ DoneTesting:;
             if (Main.gameMenu || Main.gameInactive || Main.mapFullscreen)
                 return;
 
+            int x = Neo.TileTargetX;
+            int y = Neo.TileTargetY;
+
             int tileToCreate = NeoDraw.TileToCreate ?? -1;
 
             if (tileToCreate == -1)
@@ -7960,8 +7963,8 @@ DoneTesting:;
 
             Texture2D tileTexture = Main.tileTexture[tileToCreate];
 
-            float xToDrawAt = (Neo.TileTargetX * 16f - Main.screenPosition.X) - (tod.Origin.X * 16);
-            float yToDrawAt = (Neo.TileTargetY * 16f - Main.screenPosition.Y) - (tod.Origin.Y * 16) + tod.DrawYOffset;
+            float xToDrawAt = (x * 16f - Main.screenPosition.X) - (tod.Origin.X * 16);
+            float yToDrawAt = (y * 16f - Main.screenPosition.Y) - (tod.Origin.Y * 16) + tod.DrawYOffset;
 
             int placeStyleX = _placeStyle;
             int placeStyleY = 0;
@@ -7977,17 +7980,68 @@ DoneTesting:;
 
                         placeStyleY = _placeStyle;
 
-                        Tile tileLeft = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY];
-                        Tile tileRight = Main.tile[Neo.TileTargetX + 1, Neo.TileTargetY];
+                        Tile tileAbove = Main.tile[x, y - 1];
+                        Tile tileBelow = Main.tile[x, y + 1];
+                        Tile tileLeft = Main.tile[x - 1, y];
+                        Tile tileRight = Main.tile[x + 1, y];
 
-                        if (tileRight.active() && Main.tileSolid[tileRight.type]) {
-                            placeStyleX = 2;
+                        xToDrawAt -= 2;
+
+                        if (tileBelow.active() && Main.tileSolid[tileBelow.type]) {
+                            placeStyleX = 0;
+                            if (tileAbove.active() && Main.tileSolid[tileAbove.type])
+                                yToDrawAt += 4;
                         }
                         else if (tileLeft.active() && Main.tileSolid[tileLeft.type]) {
                             placeStyleX = 1;
+                            if (tileAbove.active() && Main.tileSolid[tileAbove.type])
+                                yToDrawAt += 4;
                         }
-                        else {
+                        else if (tileRight.active() && Main.tileSolid[tileRight.type]) {
+                            placeStyleX = 2;
+                            if (tileAbove.active() && Main.tileSolid[tileAbove.type])
+                                yToDrawAt += 4;
+                        }
+
+                        if (Main.keyState.PressingAlt())
+                            placeStyleX += 3;
+
+                        break;
+
+                    }
+                case TileID.ProjectilePressurePad: {
+
+                        if (Main.tile[x, y + 1] == null)
+                            Main.tile[x, y + 1] = new Tile();
+
+                        if (Main.tile[x, y - 1] == null)
+                            Main.tile[x, y - 1] = new Tile();
+
+                        if (Main.tile[x - 1, y] == null)
+                            Main.tile[x - 1, y] = new Tile();
+
+                        if (Main.tile[x + 1, y] == null)
+                            Main.tile[x + 1, y] = new Tile();
+
+                        if (Main.tile[x, y + 1].active() && WorldGen.SolidTile(x, y + 1)) {
+                            xToDrawAt -= 2;
                             placeStyleX = 0;
+
+                        }
+                        else if (Main.tile[x, y - 1].active() && WorldGen.SolidTile(x, y - 1)) {
+
+                            placeStyleX = 1;
+
+                        }
+                        else if (Main.tile[x - 1, y].active() && WorldGen.SolidTile(x - 1, y)) {
+
+                            placeStyleX = 2;
+
+                        }
+                        else if (Main.tile[x + 1, y].active() && WorldGen.SolidTile(x + 1, y)) {
+
+                            placeStyleX = 3;
+
                         }
 
                         break;
@@ -7995,8 +8049,17 @@ DoneTesting:;
                     }
                 case TileID.ScorpionCage:
                 case TileID.BlackScorpionCage:
-                case TileID.GrasshopperCage:
+                case TileID.GrasshopperCage: {
+
+                        yToDrawAt -= 2;
+
+                        break;
+
+                    }
                 case TileID.GeyserTrap: {
+
+                        if ((!WorldGen.SolidTile2(x, y + 1) || !WorldGen.SolidTile2(x + 1, y + 1)) && (WorldGen.SolidTile2(x, y - 1) && WorldGen.SolidTile2(x + 1, y - 1)))
+                            placeStyleX += 2;
 
                         yToDrawAt -= 2;
                         break;
@@ -8005,14 +8068,14 @@ DoneTesting:;
                 case TileID.Signs:
                 case TileID.AnnouncementBox: {
 
-                        Tile tileAbove1 = Main.tile[Neo.TileTargetX, Neo.TileTargetY - 2];
-                        Tile tileAbove2 = Main.tile[Neo.TileTargetX + 1, Neo.TileTargetY - 2];
-                        Tile tileBelow1 = Main.tile[Neo.TileTargetX, Neo.TileTargetY + 1];
-                        Tile tileBelow2 = Main.tile[Neo.TileTargetX + 1, Neo.TileTargetY + 1];
-                        Tile tileLeft1 = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY];
-                        Tile tileLeft2 = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY - 1];
-                        Tile tileRight1 = Main.tile[Neo.TileTargetX + 2, Neo.TileTargetY];
-                        Tile tileRight2 = Main.tile[Neo.TileTargetX + 2, Neo.TileTargetY - 1];
+                        Tile tileAbove1 = Main.tile[x, y - 2];
+                        Tile tileAbove2 = Main.tile[x + 1, y - 2];
+                        Tile tileBelow1 = Main.tile[x, y + 1];
+                        Tile tileBelow2 = Main.tile[x + 1, y + 1];
+                        Tile tileLeft1 = Main.tile[x - 1, y];
+                        Tile tileLeft2 = Main.tile[x - 1, y - 1];
+                        Tile tileRight1 = Main.tile[x + 2, y];
+                        Tile tileRight2 = Main.tile[x + 2, y - 1];
 
                         if (tileBelow1.active() && Main.tileSolid[tileBelow1.type] && !tileBelow1.topSlope() &&
                             tileBelow2.active() && Main.tileSolid[tileBelow2.type] && !tileBelow2.topSlope()) {
@@ -8044,7 +8107,7 @@ DoneTesting:;
                     }
                 case TileID.Coral: {
 
-                        xToDrawAt -= 3;
+                        xToDrawAt -= 4;
                         break;
 
                     }
@@ -8075,7 +8138,20 @@ DoneTesting:;
                         break;
 
                     }
-                case TileID.Statues:
+                case TileID.Statues: {
+
+                        if (_placeStyle > 54) {
+                            placeStyleX -= 55;
+                            placeStyleY++;
+                        }
+
+                        //if (Main.keyState.PressingAlt()) // TODO: Re-add this for v1.4
+                        //    placeStyleY += 3;
+
+                        xToDrawAt += 16;
+                        break;
+
+                    }
                 case TileID.WaterFountain:
                 case TileID.SeaweedPlanter:
                 case TileID.AlphabetStatues:
@@ -8106,12 +8182,12 @@ DoneTesting:;
                 case TileID.LunarMonolith: {
 
                         xToDrawAt += 16;
-                        yToDrawAt += 4;
+                        //yToDrawAt += 2;
                         break;
 
                     }
                 case TileID.PlatinumCandelabra:
-                case TileID.FishBowl: {
+                case TileID.FishBowl: case TileID.GoldButterflyCage: case TileID.WeightedPressurePlate: {
 
                         yToDrawAt += 2;
                         break;
@@ -8119,12 +8195,12 @@ DoneTesting:;
                     }
                 case TileID.Lever: {
 
-                        yToDrawAt += 1;
+                        //yToDrawAt += 1;
 
-                        Tile topLeft = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY - 1];
-                        Tile topRight = Main.tile[Neo.TileTargetX, Neo.TileTargetY - 1];
-                        Tile bottomLeft = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY];
-                        Tile bottomRight = Main.tile[Neo.TileTargetX, Neo.TileTargetY];
+                        Tile topLeft = Main.tile[x - 1, y - 1];
+                        Tile topRight = Main.tile[x, y - 1];
+                        Tile bottomLeft = Main.tile[x - 1, y];
+                        Tile bottomRight = Main.tile[x, y];
 
                         if (topLeft == null)
                             topLeft = new Tile();
@@ -8140,10 +8216,10 @@ DoneTesting:;
 
                         bool flag = true;
 
-                        if (!Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY + 1].nactive() || (!WorldGen.SolidTile2(Neo.TileTargetX - 1, Neo.TileTargetY + 1) && !Main.tileTable[Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY + 1].type]))
+                        if (!Main.tile[x - 1, y + 1].nactive() || (!WorldGen.SolidTile2(x - 1, y + 1) && !Main.tileTable[Main.tile[x - 1, y + 1].type]))
                             flag = false;
 
-                        if (!Main.tile[Neo.TileTargetX, Neo.TileTargetY + 1].nactive() || (!WorldGen.SolidTile2(Neo.TileTargetX, Neo.TileTargetY + 1) && !Main.tileTable[Main.tile[Neo.TileTargetX, Neo.TileTargetY + 1].type]))
+                        if (!Main.tile[x, y + 1].nactive() || (!WorldGen.SolidTile2(x, y + 1) && !Main.tileTable[Main.tile[x, y + 1].type]))
                             flag = false;
 
                         if (!flag && (topLeft.wall > 0 && topRight.wall > 0 && bottomLeft.wall > 0 && bottomRight.wall > 0)) {
@@ -8155,13 +8231,13 @@ DoneTesting:;
                     }
                 case TileID.Switches: {
 
-                        Tile tileBelow = Main.tile[Neo.TileTargetX, Neo.TileTargetY + 1];
-                        Tile tileLeft1 = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY];
-                        Tile tileLeft2 = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY - 1];
-                        Tile tileLeft3 = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY + 1];
-                        Tile tileRight1 = Main.tile[Neo.TileTargetX + 2, Neo.TileTargetY];
-                        Tile tileRight2 = Main.tile[Neo.TileTargetX + 2, Neo.TileTargetY - 1];
-                        Tile tileRight3 = Main.tile[Neo.TileTargetX + 2, Neo.TileTargetY + 1];
+                        Tile tileBelow = Main.tile[x, y + 1];
+                        Tile tileLeft1 = Main.tile[x - 1, y];
+                        Tile tileLeft2 = Main.tile[x - 1, y - 1];
+                        Tile tileLeft3 = Main.tile[x - 1, y + 1];
+                        Tile tileRight1 = Main.tile[x + 2, y];
+                        Tile tileRight2 = Main.tile[x + 2, y - 1];
+                        Tile tileRight3 = Main.tile[x + 2, y + 1];
 
                         if (
 
@@ -8170,7 +8246,7 @@ DoneTesting:;
                                !TileID.Sets.NotReallySolid[tileLeft1.type] &&
                                tileLeft1.slope() == 0 &&
                                (
-                                   WorldGen.SolidTile(Neo.TileTargetX - 1, Neo.TileTargetY) ||
+                                   WorldGen.SolidTile(x - 1, y) ||
                                    tileLeft1.type == 124 ||
                                    (
                                        tileLeft1.type == 5 &&
@@ -8191,7 +8267,7 @@ DoneTesting:;
                                !TileID.Sets.NotReallySolid[tileRight1.type] &&
                                tileRight1.slope() == 0 &&
                                (
-                                   WorldGen.SolidTile(Neo.TileTargetX + 1, Neo.TileTargetY) ||
+                                   WorldGen.SolidTile(x + 1, y) ||
                                    tileRight1.type == 124 ||
                                    (
                                        tileRight1.type == 5 &&
@@ -8209,14 +8285,14 @@ DoneTesting:;
 
                                tileBelow.nactive() &&
                                !tileBelow.halfBrick() &&
-                               WorldGen.SolidTile(Neo.TileTargetX, Neo.TileTargetY + 1) &&
+                               WorldGen.SolidTile(x, y + 1) &&
                                tileBelow.slope() == 0
                            ) {
 
                             placeStyleX = 0;
 
                         }
-                        else if (Main.tile[Neo.TileTargetX, Neo.TileTargetY].wall > 0) {
+                        else if (Main.tile[x, y].wall > 0) {
 
                             placeStyleX = 3;
 
@@ -8227,10 +8303,10 @@ DoneTesting:;
                     }
                 case TileID.ExposedGems: {
 
-                        Tile tileAbove = Main.tile[Neo.TileTargetX, Neo.TileTargetY - 1];
-                        Tile tileBelow = Main.tile[Neo.TileTargetX, Neo.TileTargetY + 1];
-                        Tile tileLeft = Main.tile[Neo.TileTargetX - 1, Neo.TileTargetY];
-                        Tile tileRight = Main.tile[Neo.TileTargetX + 2, Neo.TileTargetY];
+                        Tile tileAbove = Main.tile[x, y - 1];
+                        Tile tileBelow = Main.tile[x, y + 1];
+                        Tile tileLeft = Main.tile[x - 1, y];
+                        Tile tileRight = Main.tile[x + 2, y];
 
                         if (tileBelow.active() && Main.tileSolid[tileBelow.type]) {
                             placeStyleY = 0;
@@ -8250,11 +8326,11 @@ DoneTesting:;
                     }
                 case TileID.SmallPiles: {
 
-                        yToDrawAt += 1;
+                        yToDrawAt += 2;
 
                         SpriteEffects se = SpriteEffects.None;
 
-                        if (Neo.TileTargetX % 2 != 0)
+                        if (x % 2 != 0)
                             se = SpriteEffects.FlipHorizontally;
 
                         if (placeStyleX > 71) {
@@ -8447,9 +8523,6 @@ DoneTesting:;
                 case TileID.Stalactite: {
 
                         placeStyleX = placeStyleY = -1;
-
-                        int x = Neo.TileTargetX;
-                        int y = Neo.TileTargetY;
 
                         int height = _placeStyle == 0 ? 2 : 1;
 
@@ -8678,7 +8751,7 @@ DoneTesting:;
                     }
                 case TileID.Chairs: {
 
-                        yToDrawAt += 1;
+                        //yToDrawAt += 1;
                         break;
 
                     }
@@ -8706,9 +8779,24 @@ DoneTesting:;
                     }
                 case TileID.OpenDoor: {
 
+                        if (_placeStyle > 35) {
+                            placeStyleX += 2;
+                            placeStyleY -= 36;
+                        }
+
                         if (Main.keyState.PressingAlt()) {
                             placeStyleX++;
                             xToDrawAt -= 16;
+                        }
+
+                        break;
+
+                    }
+                case TileID.ClosedDoor: {
+
+                        if (_placeStyle > 35) {
+                            placeStyleX += 3;
+                            placeStyleY -= 36;
                         }
 
                         break;
@@ -8723,15 +8811,82 @@ DoneTesting:;
                         break;
 
                     }
+                case TileID.Platforms: case TileID.TeamBlockBluePlatform: case TileID.TeamBlockGreenPlatform: case TileID.TeamBlockPinkPlatform: case TileID.TeamBlockRedPlatform: case TileID.TeamBlockWhitePlatform: case TileID.TeamBlockYellowPlatform: {
+
+                        placeStyleX = 5;
+
+                        break;
+
+                    }
+                case TileID.PlanterBox: {
+
+                        if (Main.tile[x - 1, y] == null)
+                            Main.tile[x - 1, y] = new Tile();
+
+                        if (Main.tile[x + 1, y] == null)
+                            Main.tile[x + 1, y] = new Tile();
+
+                        Tile tileLeft = Main.tile[x - 1, y];
+                        Tile tileRight = Main.tile[x + 1, y];
+
+                        if (tileLeft.type == TileID.PlanterBox && tileRight.type == TileID.PlanterBox) {
+                            placeStyleX += 1;
+                        }
+                        else if (tileLeft.type == TileID.PlanterBox) {
+                            placeStyleX += 2;
+                        }
+                        else if (tileRight.type == TileID.PlanterBox) {
+
+                        }
+                        else {
+                            placeStyleX += 3;
+                        }
+
+                        break;
+
+                    }
+                case TileID.SillyBalloonTile: {
+
+                        placeStyleX = _placeStyle * 2;
+
+                        if (Main.keyState.PressingAlt())
+                            placeStyleX++;
+
+                        break;
+
+                    }
+                case TileID.GemLocks: {
+
+                        if (_placeStyle > 6) {
+
+                            placeStyleX -= 7;
+                            placeStyleY++;
+
+                        }
+
+                        break;
+
+                    }
+                case TileID.TrapdoorOpen: {
+
+                        if (Main.keyState.PressingAlt()) {
+                            placeStyleX++;
+                            yToDrawAt += 16;
+                        }
+
+                        break;
+
+                    }
 
             }
 
             SpriteEffects spriteEffects = SpriteEffects.None;
 
-            if ((tileToCreate == TileID.Plants || tileToCreate == TileID.CorruptPlants || tileToCreate == TileID.HallowedPlants || tileToCreate == TileID.JunglePlants ||
+            if ((tileToCreate == TileID.Plants || tileToCreate == TileID.CorruptPlants || tileToCreate == TileID.HallowedPlants || tileToCreate == TileID.JunglePlants || tileToCreate == TileID.Bottles ||
                 tileToCreate == TileID.MushroomPlants || tileToCreate == TileID.FleshWeeds || tileToCreate == TileID.Coral || tileToCreate == TileID.DyePlants || tileToCreate == TileID.LightningBuginaBottle ||
-                tileToCreate == TileID.Plants2 || tileToCreate == TileID.JunglePlants2 || tileToCreate == TileID.HallowedPlants2 || tileToCreate == TileID.PeaceCandle || tileToCreate == TileID.Books)
-                && Neo.TileTargetX % 2 != 0)
+                tileToCreate == TileID.BloomingHerbs || tileToCreate == TileID.ImmatureHerbs || tileToCreate == TileID.MatureHerbs || tileToCreate == TileID.Banners || tileToCreate == TileID.Lampposts || tileToCreate == TileID.Lamps ||
+                tileToCreate == TileID.Plants2 || tileToCreate == TileID.JunglePlants2 || tileToCreate == TileID.HallowedPlants2 || tileToCreate == TileID.PeaceCandle || tileToCreate == TileID.Books || tileToCreate == TileID.FireflyinaBottle)
+                && x % 2 != 0)
                 spriteEffects = SpriteEffects.FlipHorizontally;
 
             if (tileToCreate == TileID.HoneyDrip || tileToCreate == TileID.LavaDrip || tileToCreate == TileID.SandDrip || tileToCreate == TileID.WaterDrip) {
