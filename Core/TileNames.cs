@@ -180,14 +180,33 @@ namespace NeoDraw.Core {
                 "Metal", "Cactus", "Ebonwood", "Flesh", "Glass", "Frozen", "Rich Mahogany", "Pearlwood", "Lihzahrd", "Skyware", "Spooky", "Honey", "Steampunk", "Living Wood", "Shadewood", "Bone", "Dynasty",
                 "Palm", "Mushroom", "Boreal", "Slime", "Blue Dungeon", "Green Dungeon", "Pink Dungeon", "Pumpkin", "Obsidian", "Golden", "Martian", "Meteorite", "Granite", "Marble", "Crystal" });
             SubTileNames.Add(TileID.Banners,               new List<string> { 
-                "Red", "Green", "Blue", "Yellow", "Ankh", "Snake", "Omega", "World", "Sun", "Gravity", "Marching Bones", "Necromantic", "Rusted Company", "Ragged", "Molten", "Diabolic", "Hellbound",
-                "Hell Hammer", "Helltower", "Lost Hopes of Man", "Obsidian", "Lava Erupts", "Angler Fish", "Angry Nimbus", "Anomura Fungus", "Antlion", "Arapaima", "Armored Skeleton", "Bat", "Bird",
-                "Black Recluse", "Blood Feeder", "Blood Jelly", "Blood Crawler", "Bone Serpent", "Bunny", "Chaos Elemental", "Mimic", "Clown", "Corrupt Bunny", "Corrupt Goldfish", "Crab", "Crimera",
-                "Crimson Axe", "Cursed Hammer", "Demon", "Demon Eye", "Derpling", "Eater of Souls", "Enchanted Sword", "Zombie Eskimo", "Face Monster", "Floaty Gross", "Flying Fish", "Flying Snake",
-                "Frankenstein", "Fungi Bulb", "Fungo Fish", "Gastropod", "Goblin Archer", "Goblin Sorcerer", "Goblin Scout", "Goblin Thief", "Goblin Warrior", "Goldfish", "Harpy", "Hellbat", "Herpling",
-                "Hornet", "Ice Elemental", "Icy Merman", "Fire Imp", "Jellyfish", "Jungle Creeper", "Lihzahrd", "Man Eater", "Meteor Head", "Moth", "Mummy", "Mushi Ladybug", "Parrot Banner", "Pigron",
-                "Piranha", "Pirate", "Pixie", "Raincoat Zombie", "Reaper", "Shark", "Skeleton", "Skeleton Mage", "Slime", "Snow Flinx", "Spider", "Spore Zombie", "Swamp Thing", "Tortoise", "Toxic Sludge",
-                "Umbrella Slime", "Unicorn", "Vampire", "Vulture", "Nymph", "Werewolf", "Wolf", "World Feeder", "Worm", "Wraith", "Wyvern", "Zombie", "Angry Trapper", "Armored Viking" /* End of top row */ });
+                "Red",              "Green",        "Blue",           "Yellow",          "Ankh",           "Snake",           "Omega",           "World",            "Sun",            "Gravity",
+                "Marching Bones",   "Necromantic",  "Rusted Company", "Ragged",          "Molten",         "Diabolic",        "Hellbound",       "Hell Hammer",      "Helltower",      "Lost Hopes of Man",
+                "Obsidian",         "Lava Erupts",  "Angler Fish",    "Angry Nimbus",    "Anomura Fungus", "Antlion",         "Arapaima",        "Armored Skeleton", "Cave Bat",       "Bird",
+                "Black Recluse",    "Blood Feeder", "Blood Jelly",    "Blood Crawler",   "Bone Serpent",   "Bunny",           "Chaos Elemental", "Mimic",            "Clown",          "Corrupt Bunny",
+                "Corrupt Goldfish", "Crab",         "Crimera",        "Crimson Axe",     "Cursed Hammer",  "Demon",           "Demon Eye",       "Derpling",         "Eater of Souls", "Enchanted Sword",
+                "Frozen Zombie",    "Face Monster", "Floaty Gross",   "Flying Fish",     "Flying Snake",   "Frankenstein",    "Fungi Bulb",      "Fungo Fish",       "Gastropod",      "Goblin Thief",
+                "Goblin Sorcerer",  "Goblin Peon",  "Goblin Archer",  "Goblin Warrior",  "Goldfish",       "Harpy",           "Hellbat",         "Herpling",         "Hornet",         "Ice Elemental",
+                "Icy Merman",       "Fire Imp",     "Blue Jellyfish", "Jungle Creeper",  "Lihzahrd",       "Man Eater",       "Meteor Head",     "Moth",             "Mummy",          "Mushi Ladybug",
+                "Parrot Banner",    "Pigron",       "Piranha",        "Pirate Deckhand", "Pixie",          "Raincoat Zombie", "Reaper",          "Shark",            "Skeleton",       "Skeleton Mage",
+                "Slime",            "Snow Flinx",   "Spider",         "Spore Zombie",    "Swamp Thing",    "Tortoise",        "Toxic Sludge",    "Umbrella Slime",   "Unicorn",        "Vampire",
+                "Vulture",          "Nymph",        "Werewolf",       "Wolf",            "World Feeder",   "Worm",            "Wraith",          "Wyvern",           "Zombie",         "Angry Trapper",
+                "Armored Viking", /* End of top row */
+
+                "Black Slime",          "Blue Armored Bones",     "Blue Cultist Archer",   "Lunatic Devotee",        "Blue Cultist Fighter", "Bone Lee",           "Clinger",                "Cochineal Beetle", "Corrupt Penguin",  "Corrupt Slime",
+                "Corruptor",            "Crimslime",              "Cursed Skull",          "Cyan Beetle",            "Devourer",             "Diabolist",          "Doctor Bones",           "Dungeon Slime",    "Dungeon Spirit",   "Elf Archer",
+                "Elf Copter",           "Eyezor",                 "Flocko",                "Ghost",                  "Giant Bat",            "Giant Cursed Skull", "Giant Flying Fox",       "Gingerbread Man",  "Goblin Archer",    "Green Slime",
+                "Headless Horseman",    "Hell Armored Bones",     "Hellhound",             "Hoppin' Jack",           "Ice Bat",              "Ice Golem",          "Ice Slime",              "Ichor",            "Illuminant Bat",   "Illuminant Slime",
+                "Jungle Bat",           "Jungle Slime",           "Krampus",               "Lac Beetle",             "Lava Bat",             "Lava Slime",         "Martian Brainscrambler", "Martian Drone",    "Martian Engineer", "Martian Gigazapper",
+                "Martian Gray Grunt",   "Martian Officer",        "Martian Ray Gunner",    "Martian Scutlix Gunner", "Martian Tesla Turret", "Mister Stabby",      "Mother Slime",           "Necromancer",      "Nutcracker",       "Paladin",
+                "Penguin",              "Pinky",                  "Poltergeist",           "Possessed Armor",        "Present Mimic",        "Purple Slime",       "Ragged Caster",          "Rainbow",          "Raven",            "Red Slime",
+                "Rune Wizard",          "Rusty Armored Bones",    "Scarecrow",             "Scutlix",                "Skeleton Archer",      "Skeleton Commando",  "Skeleton Sniper",        "Slimer",           "Snatcher",         "Snow Balla",
+                "Snowman Gangsta",      "Spiked Ice Slime",       "Spiked Jungle Slime",   "Splinterling",           "Squid",                "Tactical Skeleton",  "The Groom",              "Tim",              "Undead Miner",     "Undead Viking",
+                "White Cultist Archer", "White Cultist Caster",   "White Cultist Fighter", "Yellow Slime",           "Yeti",                 "Zombie Elf",         "",                       "Salamander",       "Giant Shelly",     "Crawdad",
+                "Fritz",                "Creature from the Deep", "Dr. Man Fly",           "Mothron",                "Severed Hand",         "The Possessed",      "Butcher",                "Psycho",           "Deadly Sphere",    "Nailhead",
+                "Poisonous Spore"
+
+            });
             SubTileNames.Add(TileID.Lamps,                 new List<string> {
                 "Tiki Torch", "Cactus", "Ebonwood", "Flesh", "Glass", "Frozen", "Rich Mahogany", "Pearlwood", "Lihzahrd", "Skyware", "Spooky", "Honey", "Steampunk", "Living Wood", "Shadewood", "Golden",
                 "Bone", "Dynasty", "Palm", "Mushroom", "Boreal", "Slime", "Pumpkin", "Obsidian", "Blue Dungeon", "Green Dungeon", "Pink Dungeon", "Martian", "Meteorite", "Granite", "Marble", "Crystal" });

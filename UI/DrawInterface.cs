@@ -123,7 +123,7 @@ namespace NeoDraw.UI {
         };
 
         private static readonly int[] directional = {
-            TileID.OpenDoor, TileID.Chairs, TileID.Beds
+            TileID.OpenDoor, TileID.Chairs, TileID.Beds, TileID.Bathtubs
         };
 
         private static readonly int[] lineCompatible = {
@@ -8881,6 +8881,15 @@ DoneTesting:
                             yToDrawAt += 16;
                         }
 
+                        break;
+
+                    }
+                case TileID.Banners: {
+
+                        while (placeStyleX >= tod.StyleWrapLimit) {
+                            placeStyleY++;
+                            placeStyleX -= 111;
+                        }
                         break;
 
                     }

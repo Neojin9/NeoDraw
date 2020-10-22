@@ -6,6 +6,7 @@
 - Cursor aims properly while zoomed in
 - Will not try to Quick Swap to Eyedropper while drawing line or making selection
 - Additional Tile Compatibility
+-- 91  Banners: Addtional Sub Tile Selections (Still incomplete)
 -- 386 Trapdoor Open
 -- 387 Trapdoor Closed
 -- 412 Lunar Crafting Station

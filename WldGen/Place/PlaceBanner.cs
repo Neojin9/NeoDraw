@@ -12,15 +12,14 @@ namespace NeoDraw.WldGen.Place {
             if (!WorldGen.InWorld(x, y))
                 return false;
 
-            int frameX = style * 18;
             int frameY = 0;
 
-            if (style >= 90) {
-
-                frameX -= 1620;
+            while (style >= 111) { // Style Wrap Limit
+                style -= 111;
                 frameY += 54;
-
             }
+
+            int frameX = style * 18;
 
             if (Main.tile[x, y - 1] == null)
                 Main.tile[x, y - 1] = new Tile();
