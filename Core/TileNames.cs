@@ -49,12 +49,12 @@ namespace NeoDraw.Core {
 
             }
 
-            DisplayNames[3] = "Short Grass Plants";
-            DisplayNames[21] = "Chests";
-            DisplayNames[31] = "Orb / Heart";
-            DisplayNames[61] = "Short Jungle Plants";
-            DisplayNames[73] = "Tall Grass Plants";
-            DisplayNames[74] = "Tall Jungle Plants";
+            DisplayNames[3]   = "Short Grass Plants";
+            DisplayNames[21]  = "Chests";
+            DisplayNames[31]  = "Orb / Heart";
+            DisplayNames[61]  = "Short Jungle Plants";
+            DisplayNames[73]  = "Tall Grass Plants";
+            DisplayNames[74]  = "Tall Jungle Plants";
             DisplayNames[110] = "Short Hallowed Plants";
             DisplayNames[113] = "Tall Hallowed Plants";
             DisplayNames[201] = "Short Flesh Weeds";
@@ -341,7 +341,7 @@ namespace NeoDraw.Core {
                 "AND", "OR", "NAND", "NOR", "XOR", "XNOR" });
             SubTileNames.Add(TileID.LogicSensor,           new List<string> {
                 "Day", "Night", "Player Above", "Water", "Lava", "Honey", "Any" });
-            SubTileNames.Add(TileID.WirePipe, new List<string> {
+            SubTileNames.Add(TileID.WirePipe,              new List<string> {
                 "Left->Right", "Left->Up", "Left->Down" });
             SubTileNames.Add(TileID.WeightedPressurePlate, new List<string> { 
                 "Orange", "Cyan", "Purple", "Pink" });
@@ -353,11 +353,11 @@ namespace NeoDraw.Core {
                 "Biome - Crimson - Locked", "Biome - Hallowed - Locked", "Biome - Frozen - Locked", "Dynasty", "Honey", "Steampunk", "Palm Wood", "Mushroom", "Boreal", "Slime", "Green Dungeon",
                 "Green Dungeon - Locked", "Pink Dungeon", "Pink Dungeon - Locked", "Blue Dungeon", "Blue Dungeon - Locked", "Bone", "Cactus", "Flesh", "Obsidian", "Pumpkin", "Spooky", "Glass", "Martian",
                 "Meteorite", "Granite", "Marble", "Crystal", "Golden" });
-            SubTileNames.Add(TileID.PixelBox, new List<string> {
+            SubTileNames.Add(TileID.PixelBox,              new List<string> {
                 "Off", "On" });
             SubTileNames.Add(TileID.SillyBalloonTile,      new List<string> {
                 "Purple", "Green", "Pink" });
-            SubTileNames.Add(TileID.PartyPresent, new List<string> {
+            SubTileNames.Add(TileID.PartyPresent,          new List<string> {
                 "Dark Purple", "Pink", "Teal", "Purple", "Light Purple" });
             SubTileNames.Add(TileID.Containers2,           new List<string> {
                 "Crystal", "Golden"/*, "Spider", "Lesion", "Dead Man's", "Solar", "Vortex", "Nebula", "Stardust", "Golf", "Sandstone", "Bamboo", "Desert", "Desert - Locked"*/ });

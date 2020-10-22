@@ -216,7 +216,7 @@ namespace NeoDraw.UI {
         private static string SearchString;
 
         private static string _searchAppend = "|";
-        private static int _searchAppendCounter = 0;
+        private static int _searchAppendCounter;
 
         #endregion SearchBar Stuff
 
@@ -1133,16 +1133,7 @@ namespace NeoDraw.UI {
                 text3 = num6 < 30.0 ? "00" : "30";
             }
 
-            gpsText += string.Concat(new object[] {
-                        "\n",
-                        Lang.inter[34],
-                        ": ",
-                        num5,
-                        ":",
-                        text3,
-                        " ",
-                        text2
-                    });
+            gpsText += string.Concat("\n", Lang.inter[34], ": ", num5, ":", text3, " ", text2);
 
             List<string> list = new List<string>();
 
@@ -1389,9 +1380,9 @@ namespace NeoDraw.UI {
                 lines.Add("C. Width: " + tileData.CoordinateWidth);
 
                 string heightList = "";
-                for (int i = 0; i < tileData.CoordinateHeights.Length; i++) {
-                    heightList += tileData.CoordinateHeights[i] + ", ";
-                }
+
+                foreach (int height in tileData.CoordinateHeights)
+                    heightList += height + ", ";
 
                 lines.Add("C. Height: " + heightList);
                 lines.Add("C. Full Width: " + tileData.CoordinateFullWidth);
@@ -1464,9 +1455,9 @@ namespace NeoDraw.UI {
                 lines.Add("C. Width: " + tileData.CoordinateWidth);
 
                 string heightList = "";
-                for (int i = 0; i < tileData.CoordinateHeights.Length; i++) {
-                    heightList += tileData.CoordinateHeights[i] + ", ";
-                }
+
+                foreach (int height in tileData.CoordinateHeights)
+                    heightList += height + ", ";
 
                 lines.Add("C. Height: " + heightList);
                 lines.Add("C. Full Width: " + tileData.CoordinateFullWidth);
@@ -1742,7 +1733,7 @@ namespace NeoDraw.UI {
                 if (boxStyle != 0)
                     DrawTab(sb, 2 + ToolbarXoffset, pos - HoverBoxPadding + ToolbarYoffset, ListWidth - 20, ListItemHeight + HoverBoxPadding * 2, BoxAlpha, boxStyle);
 
-                Drawing.StringShadowed(sb, Main.fontMouseText, string.Format("{0}: ", listSource[index].ID.ToString("D3")), new Vector2(BoxPadding + ToolbarXoffset, pos + ToolbarYoffset), Color.LightGray * TextAlpha);
+                Drawing.StringShadowed(sb, Main.fontMouseText, $"{listSource[index].ID:D3}: ", new Vector2(BoxPadding + ToolbarXoffset, pos + ToolbarYoffset), Color.LightGray * TextAlpha);
 
                 if (listItem.Length > 25)
                     listItem = listItem.Substring(0, 24) + "...";
@@ -1956,7 +1947,7 @@ namespace NeoDraw.UI {
                 if (boxStyle != 0)
                     DrawTab(sb, 2 + ToolbarXoffset, pos - HoverBoxPadding + ToolbarYoffset, ListWidth - 20, ListItemHeight + HoverBoxPadding * 2, BoxAlpha, boxStyle);
 
-                Drawing.StringShadowed(sb, Main.fontMouseText, string.Format("{0}: ", index.ToString("D3")), new Vector2(BoxPadding + ToolbarXoffset, pos + ToolbarYoffset), Color.LightGray * TextAlpha);
+                Drawing.StringShadowed(sb, Main.fontMouseText, $"{index:D3}: ", new Vector2(BoxPadding + ToolbarXoffset, pos + ToolbarYoffset), Color.LightGray * TextAlpha);
 
                 string listItem;
 
@@ -2349,8 +2340,6 @@ namespace NeoDraw.UI {
 
             }
 
-DrawMessage:;
-
             Drawing.StringShadowed(sb, Main.fontMouseText, statusBarText, new Vector2(mainBarPosX + 8, barPosY + 9), Color.White);
 
             string currentTime = DateTime.Now.ToShortTimeString();
@@ -2525,7 +2514,7 @@ DrawMessage:;
 
                                                     sb.Draw(Square, new Rectangle((int)(pressurePlatePoint.X * 16 - Main.screenPosition.X), (int)(pressurePlatePoint.Y * 16 - Main.screenPosition.Y), 18, 18), Color.Brown * 0.15f);
 
-LavaTrapEnd:;
+LavaTrapEnd:
 
                                                     MouseText(sb, snippets.ToArray());
 
@@ -2570,7 +2559,7 @@ LavaTrapEnd:;
                                                         }
                                                     }
 
-DoneTesting:;
+DoneTesting:
 
                                                     if (mouseText != "")
                                                         MouseText(sb, mouseText);
@@ -3146,7 +3135,7 @@ DoneTesting:;
                             if (CurrentPaintMode == PaintMode.Paint && (NeoDraw.TileToCreate == null || !canFloodFill))
                                 return;
 
-                            StartFloodFill(Neo.TileTargetX, Neo.TileTargetY, Neo.TileTarget_Tile.type, CurrentPaintMode == PaintMode.Paint ? (int)NeoDraw.TileToCreate : -1);
+                            StartFloodFill(Neo.TileTargetX, Neo.TileTargetY, Neo.TileTarget_Tile.type, CurrentPaintMode == PaintMode.Paint ? NeoDraw.TileToCreate.GetValueOrDefault() : -1);
 
                             break;
 
@@ -3155,7 +3144,7 @@ DoneTesting:;
                             if (CurrentPaintMode == PaintMode.Paint && NeoDraw.WallToCreate == null)
                                 return;
 
-                            StartWallFloodFill(Neo.TileTargetX, Neo.TileTargetY, Neo.TileTarget_Tile.wall, CurrentPaintMode == PaintMode.Paint ? (int)NeoDraw.WallToCreate : 0);
+                            StartWallFloodFill(Neo.TileTargetX, Neo.TileTargetY, Neo.TileTarget_Tile.wall, CurrentPaintMode == PaintMode.Paint ? NeoDraw.WallToCreate.GetValueOrDefault() : 0);
 
                             break;
 
@@ -3167,7 +3156,7 @@ DoneTesting:;
                             if (CurrentPaintMode == PaintMode.Paint && NeoDraw.OtherToCreate == null)
                                 return;
 
-                            StartOtherFloodFill(Neo.TileTargetX, Neo.TileTargetY, Neo.TileTarget_Tile, CurrentPaintMode == PaintMode.Paint ? (int)NeoDraw.OtherToCreate : -1);
+                            StartOtherFloodFill(Neo.TileTargetX, Neo.TileTargetY, Neo.TileTarget_Tile, CurrentPaintMode == PaintMode.Paint ? NeoDraw.OtherToCreate.GetValueOrDefault() : -1);
 
                             break;
 
@@ -3329,12 +3318,12 @@ DoneTesting:;
                     if (Main.keyState.PressingShift()) { // Add points
 
 
-                        for (int i = 0; i < points.Count; i++) {
+                        foreach (Point point in points) {
 
-                            int hash = GetHash(points[i]);
+                            int hash = GetHash(point);
 
                             if (!SelectedPointsHash.Contains(hash)) {
-                                SelectedPoints.Add(points[i]);
+                                SelectedPoints.Add(point);
                                 SelectedPointsHash.Add(hash);
                             }
 
@@ -3343,12 +3332,12 @@ DoneTesting:;
                     }
                     else if (Main.keyState.PressingCtrl()) { // Remove points <---- Updated this 9/7 Hopefully it doesn't cause any issues
 
-                        for (int i = 0; i < points.Count; i++) {
+                        foreach (Point point in points) {
 
-                            int hash = GetHash(points[i]);
+                            int hash = GetHash(point);
 
                             if (SelectedPointsHash.Contains(hash)) {
-                                SelectedPoints.Remove(points[i]);
+                                SelectedPoints.Remove(point);
                                 SelectedPointsHash.Remove(hash);
                             }
 
@@ -3360,10 +3349,10 @@ DoneTesting:;
                         SelectedPoints.Clear();
                         SelectedPointsHash.Clear();
 
-                        for (int i = 0; i < points.Count; i++) {
+                        foreach (Point point in points) {
 
-                            SelectedPoints.Add(points[i]);
-                            SelectedPointsHash.Add(GetHash(points[i]));
+                            SelectedPoints.Add(point);
+                            SelectedPointsHash.Add(GetHash(point));
 
                         }
 
@@ -3383,12 +3372,12 @@ DoneTesting:;
 
                 if (Main.keyState.PressingShift()) { // Add points
 
-                    for (int i = 0; i < points.Count; i++) {
+                    foreach (Point point in points) {
 
-                        int hash = GetHash(points[i]);
+                        int hash = GetHash(point);
 
                         if (!SelectedPointsHash.Contains(hash)) {
-                            SelectedPoints.Add(points[i]);
+                            SelectedPoints.Add(point);
                             SelectedPointsHash.Add(hash);
                         }
 
@@ -3397,12 +3386,12 @@ DoneTesting:;
                 }
                 else if (Main.keyState.PressingCtrl()) { // Remove points <---- Updated this 9/7 Hopefully it doesn't cause any issues
 
-                    for (int i = 0; i < points.Count; i++) {
+                    foreach (Point point in points) {
 
-                        int hash = GetHash(points[i]);
+                        int hash = GetHash(point);
 
                         if (SelectedPointsHash.Contains(hash)) {
-                            SelectedPoints.Remove(points[i]);
+                            SelectedPoints.Remove(point);
                             SelectedPointsHash.Remove(hash);
                         }
 
@@ -3414,10 +3403,10 @@ DoneTesting:;
                     SelectedPoints.Clear();
                     SelectedPointsHash.Clear();
 
-                    for (int i = 0; i < points.Count; i++) {
+                    foreach (Point point in points) {
 
-                        SelectedPoints.Add(points[i]);
-                        SelectedPointsHash.Add(GetHash(points[i]));
+                        SelectedPoints.Add(point);
+                        SelectedPointsHash.Add(GetHash(point));
 
                     }
 
@@ -3967,13 +3956,7 @@ DoneTesting:;
 
                         Main.tile[x, y].liquid = 255;
 
-                        if (liquid == 0) {
-
-                            Main.tile[x, y].lava(false);
-                            Main.tile[x, y].honey(false);
-
-                        }
-                        else if (liquid == 1) {
+                        if (liquid == 1) {
 
                             Main.tile[x, y].lava(true);
                             Main.tile[x, y].honey(false);
@@ -3983,6 +3966,12 @@ DoneTesting:;
 
                             Main.tile[x, y].lava(false);
                             Main.tile[x, y].honey(true);
+
+                        }
+                        else {
+
+                            Main.tile[x, y].lava(false);
+                            Main.tile[x, y].honey(false);
 
                         }
 
@@ -4366,13 +4355,13 @@ DoneTesting:;
                     }
                 case StructureNames.LivingMahoganyTree: {
 
-                        GrowLivingTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo, TileID.LivingMahogany, TileID.LivingMahoganyLeaves, WallID.LivingWood, _specialStyle, Main.keyState.PressingAlt() ? true : false);
+                        GrowLivingTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo, TileID.LivingMahogany, TileID.LivingMahoganyLeaves, WallID.LivingWood, _specialStyle, Main.keyState.PressingAlt());
                         break;
 
                     }
                 case StructureNames.LivingTree: {
 
-                        GrowLivingTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo, TileID.LivingWood, TileID.LeafBlock, WallID.LivingWood, _specialStyle, Main.keyState.PressingAlt() ? true : false);
+                        GrowLivingTree(Neo.TileTargetX, Neo.TileTargetY, ref _undo, TileID.LivingWood, TileID.LeafBlock, WallID.LivingWood, _specialStyle, Main.keyState.PressingAlt());
                         break;
 
                     }
@@ -4755,7 +4744,7 @@ DoneTesting:;
                     }
                 case Tabs.Other: {
 
-                        switch (OthersList[(int)NeoDraw.OtherToCreate].Name) {
+                        switch (OtherToCreateName) {
 
                             case "Liquid": {
 
@@ -4915,12 +4904,9 @@ DoneTesting:;
             leftSide += x;
 
             int frameY = Main.tile[x, y].frameY / 18;
-            int style = 0;
 
-            while (frameY > 1) {
+            while (frameY > 1)
                 frameY -= 2;
-                style++;
-            }
 
             top -= frameY;
 
@@ -5412,16 +5398,16 @@ DoneTesting:;
 
         private static void StartWireFloodFill(int x, int y, int wireTypeToReplace, int newWireType) {
 
-            if (newWireType == 1 && Main.tile[x, y].wire() && newWireType != -1)
+            if (newWireType == 1 && Main.tile[x, y].wire())
                 return;
 
-            if (newWireType == 2 && Main.tile[x, y].wire2() && newWireType != -1)
+            if (newWireType == 2 && Main.tile[x, y].wire2())
                 return;
 
-            if (newWireType == 3 && Main.tile[x, y].wire3() && newWireType != -1)
+            if (newWireType == 3 && Main.tile[x, y].wire3())
                 return;
 
-            if (newWireType == 4 && Main.tile[x, y].wire4() && newWireType != -1)
+            if (newWireType == 4 && Main.tile[x, y].wire4())
                 return;
 
             _floodFillCounter = 0;
@@ -9047,8 +9033,9 @@ DoneTesting:;
 
                 if (CurrentTab == Tabs.Tiles || CurrentTab == Tabs.Structures) {
                     ushort tempWall = Main.tile[points[i].X + Neo.TileTargetX, points[i].Y + Neo.TileTargetY].wall;
-                    Main.tile[points[i].X + Neo.TileTargetX, points[i].Y + Neo.TileTargetY] = new Tile(CurrentSelection.GetTileAtIndex(i));
-                    Main.tile[points[i].X + Neo.TileTargetX, points[i].Y + Neo.TileTargetY].wall = tempWall;
+                    Main.tile[points[i].X + Neo.TileTargetX, points[i].Y + Neo.TileTargetY] = new Tile(CurrentSelection.GetTileAtIndex(i)) {
+                        wall = tempWall
+                    };
                 }
 
                 if (CurrentTab == Tabs.Walls || CurrentTab == Tabs.Structures)
@@ -9138,8 +9125,8 @@ DoneTesting:;
                     _currentSubStructure = NeoDraw.StructureToCreate.GetValueOrDefault();
                     SubStructureNames.Clear();
 
-                    if (StructureSubList.ContainsKey(StructuresList[NeoDraw.StructureToCreate.GetValueOrDefault()].Name)) // TODO: Protect this read from accessing out of bounds
-                        SubStructureNames.AddRange(StructureSubList[StructuresList[NeoDraw.StructureToCreate.GetValueOrDefault()].Name]); // TODO: Protect this read from accessing out of bounds
+                    if (StructureSubList.ContainsKey(StructureToCreateName))
+                        SubStructureNames.AddRange(StructureSubList[StructureToCreateName]);
 
                 }
 
@@ -9653,9 +9640,7 @@ DoneTesting:;
             if (baseColor == default)
                 baseColor = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
 
-            MouseText(sb, new TextSnippet[] { new TextSnippet(message, baseColor) });
-
-            return;
+            MouseText(sb, new[] { new TextSnippet(message, baseColor) });
 
         }
 
@@ -9807,7 +9792,7 @@ DoneTesting:;
 
                 try {
 
-                    if ((SearchBoxText != null || SearchString != null) && listItem.Name.ToLower().IndexOf((SearchBoxText == null ? SearchString : SearchBoxText).ToLower()) == -1)
+                    if ((SearchBoxText != null || SearchString != null) && listItem.Name.ToLower().IndexOf((SearchBoxText ?? SearchString).ToLower()) == -1)
                         continue;
 
                     if (!ListSorters[CurrentSorter[CurrentTab]].Allow(listItem))
@@ -9902,7 +9887,7 @@ DoneTesting:;
 
             Collision.SlopeCollision(vector, Main.LocalPlayer.velocity, Main.LocalPlayer.width, Main.LocalPlayer.height, Main.LocalPlayer.gravDir);
 
-            if (!Collision.SolidCollision(vector, Main.LocalPlayer.width, Main.LocalPlayer.height) || i >= 99) {
+            if (!Collision.SolidCollision(vector, Main.LocalPlayer.width, Main.LocalPlayer.height)) {
 
                 SetStatusBarTempMessage("No solid ground to spawn on.");
                 return false;
@@ -10208,7 +10193,7 @@ DoneTesting:;
 
             }
 
-            if (HurtTiles(targetPosition, Main.LocalPlayer.velocity, Main.LocalPlayer.width, Main.LocalPlayer.height).Y > 0f) { // TODO: Fix so you can teleport onto sand
+            if (HurtTiles(targetPosition, Main.LocalPlayer.velocity, Main.LocalPlayer.width, Main.LocalPlayer.height).Y > 0f) {
 
                 SetStatusBarTempMessage("Cannot teleport onto dangerous terrain.");
                 return false;
