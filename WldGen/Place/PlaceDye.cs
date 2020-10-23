@@ -13,70 +13,102 @@ namespace NeoDraw.WldGen.Place {
 			if (!WorldGen.InWorld(x, y))
 				return false;
 
-			if (style == 7) { // Orange Bloodroot
-				
-				if (!WorldGen.SolidTile(x, y - 1))
-					return false;
+			switch (style) {
 
-				if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y + 1) }))
-					return false;
+				case DyePlants.PinkPricklyPear: {
 
-			} else {
+						if (!Main.tile[x, y + 1].nactive() || Main.tile[x, y + 1].type != TileID.Cactus)
+							return false;
 
-				if (style == 6) { // Pink Prickly Pear
+						if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y - 1), new Point(x - 1, y), new Point(x + 1, y) }))
+							return false;
 
-					if (!Main.tile[x, y + 1].nactive() || Main.tile[x, y + 1].type != TileID.Cactus)
-						return false;
+						break;
 
-					if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y - 1), new Point(x - 1, y), new Point(x + 1, y) }))
-						return false;
+                    }
+				case DyePlants.OrangeBloodroot: {
 
-				} else if (WorldGen.SolidTile(x, y + 1)) {
+						if (!WorldGen.SolidTile(x, y - 1))
+							return false;
 
-					switch (style) {
+						if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y + 1) }))
+							return false;
 
-                        case 5:
+						break;
 
-							if (Main.tile[x, y].liquid != byte.MaxValue)
-								return false;
+                    }
+				default: {
 
-                            break;
+						if (!WorldGen.SolidTile(x, y + 1))
+							return false;
+						
+						switch (style) {
 
-                        case 8:
-						case 9:
-						case 10:
-						case 11:
+							case DyePlants.LimeKelp: {
 
-							break;
+                                    if (Main.tile[x, y].liquid != byte.MaxValue)
+                                        return false;
 
-						default:
+                                    break;
 
-							if (Main.tile[x, y].liquid != 0)
-								return false;
-							
-							if (style == 3 || style == 4)
-								if (Main.tile[x, y].wall != 0)
-									return false;
+                                }
+							case DyePlants.StrangePlantViolet:
+							case DyePlants.StrangePlantOrange:
+							case DyePlants.StrangePlantTeal:
+							case DyePlants.StrangePlantRed: {
 
-							break;
+                                    break;
 
-					}
+                                }
+							default: {
 
-					if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y - 1) }))
-						return false;
+                                    if (Main.tile[x, y].liquid != 0)
+                                        return false;
 
-				}
-				else {
-					return false;
-                }
+                                    if (style == 3 || style == 4)
+                                        if (Main.tile[x, y].wall != 0)
+                                            return false;
 
-			}
+                                    break;
+
+                                }
+
+						}
+
+						if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y - 1) }))
+							return false;
+
+						break;
+
+                    }
+
+            }
 
 			Neo.SetTile(x, y, 227, ref undo);
-			Main.tile[x, y].frameY = 0;
 			Main.tile[x, y].frameX = (short)(34 * style);
+			Main.tile[x, y].frameY = 0;
 
 			return true;
+
+		}
+
+		public static class DyePlants {
+
+			public const int TealMushroom        = 0;
+			public const int GreenMushroom       = 1;
+			public const int SkyBlueFlower       = 2;
+			public const int YellowMarigold      = 3;
+			public const int BlueBerries         = 4;
+			public const int LimeKelp            = 5;
+			public const int PinkPricklyPear     = 6;
+			public const int OrangeBloodroot     = 7;
+			public const int StrangePlantViolet  = 8;
+			public const int StrangePlantOrange  = 9;
+			public const int StrangePlantTeal    = 10;
+			public const int StrangePlantRed     = 11;
+			public const int PricklyPearCorrupt  = 12;
+			public const int PricklyPearHallowed = 13;
+			public const int PricklyPearCrimson  = 14;
 
 		}
 

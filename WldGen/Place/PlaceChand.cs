@@ -2,6 +2,7 @@
 using NeoDraw.Core;
 using NeoDraw.Undo;
 using Terraria;
+using Terraria.ID;
 
 namespace NeoDraw.WldGen.Place {
 
@@ -12,10 +13,10 @@ namespace NeoDraw.WldGen.Place {
 			if (!WorldGen.InWorld(x, y))
 				return false;
 
-			Point[] points = (type == 454 ? new Point[12] : new Point[9]);
+			Point[] points = (type == TileID.Pigronata ? new Point[12] : new Point[9]);
 			int k = 0;
 
-            int xOffset = (type == 454 ? 2 : 1);
+            int xOffset = (type == TileID.Pigronata ? 2 : 1);
 
 			for (int i = x - xOffset; i < x + 2; i++) {
 				for (int j = y; j < y + 3; j++) {
@@ -37,12 +38,12 @@ namespace NeoDraw.WldGen.Place {
 			if (!Neo.TileCut(points))
 				return false;
 
-			int num2 = style / 36 * 108;
-			int num3 = style * 18 * 3;
+			int frameX = style / 36 * 108;
+			int frameY = style * 18 * 3;
 
             for (int j = 0; j < 3; j++) {
 
-                if (type == 454)
+                if (type == TileID.Pigronata)
                     undo.Add(new ChangedTile(x - 2, y + j));
 
                 undo.Add(new ChangedTile(x - 1, y + j));
@@ -51,35 +52,37 @@ namespace NeoDraw.WldGen.Place {
 
 			}
 
-            if (type == 454) {
-                num2 += 18;
+            if (type == TileID.Pigronata) {
+                frameX += 18;
             }
-			else if (type == 34 && Main.keyState.PressingAlt()) {
-				num2 += 54;
+			else if (type == TileID.Chandeliers && Main.keyState.PressingAlt()) {
+				frameX += 54;
             }
 
             for (int l = 0; l < 3; l++) {
 
-                if (type == 454) {
+                if (type == TileID.Pigronata) {
+
                     Main.tile[x - 2, y + l].active(true);
-                    Main.tile[x - 2, y + l].frameY = (short)(num3 + 18 * l);
-                    Main.tile[x - 2, y + l].frameX = (short)(num2 - 18);
+                    Main.tile[x - 2, y + l].frameY = (short)(frameY + 18 * l);
+                    Main.tile[x - 2, y + l].frameX = (short)(frameX - 18);
                     Main.tile[x - 2, y + l].type   = type;
+
                 }
 
 				Main.tile[x - 1, y + l].active(true);
-                Main.tile[x - 1, y + l].frameY = (short)(num3 + 18 * l);
-                Main.tile[x - 1, y + l].frameX = (short)num2;
+                Main.tile[x - 1, y + l].frameY = (short)(frameY + 18 * l);
+                Main.tile[x - 1, y + l].frameX = (short)frameX;
                 Main.tile[x - 1, y + l].type   = type;
 
                 Main.tile[x, y + l].active(true);
-                Main.tile[x, y + l].frameY = (short)(num3 + 18 * l);
-				Main.tile[x, y + l].frameX = (short)(num2 + 18);
+                Main.tile[x, y + l].frameY = (short)(frameY + 18 * l);
+				Main.tile[x, y + l].frameX = (short)(frameX + 18);
                 Main.tile[x, y + l].type   = type;
 
                 Main.tile[x + 1, y + l].active(true);
-                Main.tile[x + 1, y + l].frameY = (short)(num3 + 18 * l);
-				Main.tile[x + 1, y + l].frameX = (short)(num2 + 36);
+                Main.tile[x + 1, y + l].frameY = (short)(frameY + 18 * l);
+				Main.tile[x + 1, y + l].frameX = (short)(frameX + 36);
                 Main.tile[x + 1, y + l].type   = type;
 
 			}

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using NeoDraw.Core;
 using Terraria;
+using Terraria.GameContent.Events;
 using Terraria.ID;
 
 
@@ -139,7 +140,16 @@ namespace NeoDraw.Undo {
 
                 if (Neo.IsTopLeft(x, y)) {
 
-                    if (TileID.Sets.BasicChest[Main.tile[x, y].type] || Main.tileContainer[Main.tile[x, y].type]) {
+                    ushort type = Main.tile[x, y].type;
+
+                    /*if (type == TileID.PartyMonolith) {
+                        
+                        if (Main.tile[x, y].frameY != 0 && !BirthdayParty.PartyIsUp) {
+                            BirthdayParty.ToggleManualParty();
+                        }
+
+                    }
+                    else*/ if (TileID.Sets.BasicChest[type] || Main.tileContainer[type]) {
 
                         int chestIndex = Chest.CreateChest(x, y);
 

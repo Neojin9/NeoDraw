@@ -36,7 +36,7 @@ namespace NeoDraw.WldGen.Place {
 				Main.tile[x, y].active(true);
 				Main.tile[x, y].type = (ushort)type;
 
-				if (type == TileID.Candles /*|| type == TileID.WaterCandle*/) { // TODO: Uncomment for v1.4
+				if (type == TileID.Candles /*|| type == TileID.WaterCandle || type == TileID.PeaceCandle*/ || type == TileID.PlatinumCandle) { // TODO: Uncomment for v1.4
 					Main.tile[x, y].frameX = (short)(Main.keyState.PressingAlt() ? 18 : 0);
 					Main.tile[x, y].frameY = (short)(style * 22);
 				} else {

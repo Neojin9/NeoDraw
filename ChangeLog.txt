@@ -5,6 +5,9 @@
 - Selection will now clear properly while Line Tool is selected
 - Cursor aims properly while zoomed in
 - Will not try to Quick Swap to Eyedropper while drawing line or making selection
+- Use ALT to place Un-lit version of a tile (i.e. Torches)
+- Use ALT to place tile facing other direction (i.e. Beds)
+- Statusbar now tells when holding ALT will change how a tile is placed
 - Additional Tile Compatibility
 -- 91  Banners: Addtional Sub Tile Selections (Still incomplete)
 -- 386 Trapdoor Open

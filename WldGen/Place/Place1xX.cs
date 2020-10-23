@@ -18,24 +18,50 @@ namespace NeoDraw.WldGen.Place {
 
 			int height = 3;
 
-			if (type == TileID.Lampposts) {
-				height = 6;
-			}
-			else if (type == TileID.TallGateClosed || type == TileID.TallGateOpen) {
-				height = 5;
+            switch (type) {
+
+                case TileID.Lampposts: {
+
+                        height = 6;
+
+                        if (Main.keyState.PressingAlt())
+                            frameX += 18;
+
+                        break;
+
+                    }
+                case TileID.TallGateClosed:
+                case TileID.TallGateOpen: {
+
+                        height = 5;
+
+                        break;
+
+                    }
+                case TileID.SillyBalloonTile: {
+                        
+                        frameX = style * 2 * 18;
+
+                        if (Main.keyState.PressingAlt())
+                            frameX += 18;
+
+                        frameY = 0;
+
+                        break;
+
+                    }
+                case TileID.Lamps: {
+
+                        if (Main.keyState.PressingAlt())
+                            frameX += 18;
+
+                        break;
+
+                    }
+
             }
-			else if (type == TileID.SillyBalloonTile) {
-				
-                frameX = style * 2 * 18;
 
-				if (Main.keyState.PressingAlt())
-					frameX += 18;
-
-				frameY = 0;
-
-            }
-
-			if (!WorldGen.SolidTile2(x, y + 1))
+            if (!WorldGen.SolidTile2(x, y + 1))
 				return false;
 
 			Point[] points = new Point[height];
@@ -52,9 +78,10 @@ namespace NeoDraw.WldGen.Place {
 				undo.Add(new ChangedTile(x, y - height + 1 + j));
 
 				Main.tile[x, y - height + 1 + j].active(true);
-				Main.tile[x, y - height + 1 + j].frameY = (short)(j * 18 + height * frameY);
-				Main.tile[x, y - height + 1 + j].frameX = (short)frameX;
-				Main.tile[x, y - height + 1 + j].type = type;
+
+                Main.tile[x, y - height + 1 + j].type   = type;
+                Main.tile[x, y - height + 1 + j].frameX = (short)frameX;
+                Main.tile[x, y - height + 1 + j].frameY = (short)(j * 18 + height * frameY);
 
 			}
 

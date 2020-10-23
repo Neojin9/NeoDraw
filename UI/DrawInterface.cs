@@ -122,11 +122,21 @@ namespace NeoDraw.UI {
             TileID.LivingUltrabrightFire, TileID.ChimneySmoke,     TileID.CrimtaneThorns, TileID.PixelBox,           TileID.SillyStreamerBlue, TileID.SillyStreamerGreen, TileID.SillyStreamerPink
         };
 
-        private static readonly int[] directional = {
-            TileID.OpenDoor, TileID.Chairs, TileID.Beds, TileID.Bathtubs
+        private static readonly int[] Directional = {
+            TileID.OpenDoor, TileID.Chairs, TileID.Beds, TileID.Bathtubs, /*TileID.Statues, */TileID.Mannequin, TileID.SnowballLauncher, TileID.Womannequin, TileID.SharpeningStation,
+            TileID.TargetDummy, TileID.TrapdoorOpen, TileID.SillyBalloonTile
         };
 
-        private static readonly int[] lineCompatible = {
+        public static readonly int[] Lightable = {
+            TileID.Torches, TileID.Candles, TileID.Chandeliers, TileID.Jackolanterns, TileID.HangingLanterns, /*TileID.WaterCandle, TileID.PeaceCandle, */TileID.Lampposts, TileID.Lamps, TileID.ChineseLanterns,
+            TileID.Candelabras, TileID.DiscoBall, TileID.PlatinumCandelabra, TileID.PlatinumCandle, TileID.Campfire, TileID.Fireplace
+        };
+
+        public static readonly int[] MultipleStates = {
+            TileID.Lever, TileID.Switches, TileID.BubbleMachine, TileID.LunarMonolith, TileID.GemLocks, TileID.SillyBalloonMachine, /*TileID.PartyMonolith*/
+        };
+
+        public static readonly int[] lineCompatible = {
             TileID.MinecartTrack, 427, 435, 436, 437, 438, 439, 445
         };
 
@@ -268,6 +278,8 @@ namespace NeoDraw.UI {
         public static List<string> SubStructureNames;
         public static List<string> SubTileNames;
 
+        public static List<Tuple<Point, int>> CheckedTiles;
+        public static List<Tuple<Point, int>> GoodTiles;
         public static List<Tuple<Point, int>> InvalidTiles;
 
         public static string ButtonWithFocus;
@@ -568,6 +580,8 @@ namespace NeoDraw.UI {
             SubStructureNames = new List<string>();
             SubOtherNames = new List<string>();
 
+            CheckedTiles = new List<Tuple<Point, int>>();
+            GoodTiles    = new List<Tuple<Point, int>>();
             InvalidTiles = new List<Tuple<Point, int>>();
 
             structures = new StructureMap();
@@ -645,8 +659,7 @@ namespace NeoDraw.UI {
             if (Pasting)
                 ShowPasteHighlight(sb);
 
-            if (InvalidTiles.Count > 0)
-                HighlightInvalidTiles(sb);
+            HandleTileHighlighting(sb);
 
             if (GridStyle > 0)
                 DrawLaserRuler(sb);
@@ -2296,15 +2309,21 @@ namespace NeoDraw.UI {
 
                         int type = NeoDraw.TileToCreate.GetValueOrDefault();
 
-                        if (directional.Contains(type)) {
+                        if (Directional.Contains(type)) {
 
                             statusBarText += " - Hold ALT to change tile direction.";
 
                         }
-                        else if (type == TileID.Torches || type == TileID.Candles || type == TileID.Chandeliers || type == TileID.Jackolanterns || type == TileID.HangingLanterns /*|| type == TileID.WaterCandle*/) { // TODO: Uncomment for v1.4
+                        else if (Lightable.Contains(type)) { // TODO: Uncomment for v1.4
 
                             statusBarText += " - Hold ALT to place unlit.";
 
+                        }
+                        else if (MultipleStates.Contains(type)) {
+                            statusBarText += " - Hold ALT to change tile state.";
+                        }
+                        else if (type == TileID.Timers || type == TileID.WaterFountain) {
+                            statusBarText += " - Hold ALT to place ON.";
                         }
 
                     }
@@ -7846,7 +7865,7 @@ DoneTesting:
                 canPlace = false;
                 mouseText = "Ground tile cannot grow a Tree.";
             }
-            else if (!EmptyTileCheck(startX - 2, startX + 2, startY - 13, startY - 1, 71, true)) {
+            else if (!EmptyTileCheck(startX - 1, startX + 1, startY - 13, startY - 1, 71, true)) {
                 mouseText = "Empty Tile Check Failed.";
                 canPlace = false;
             }
@@ -8168,6 +8187,22 @@ DoneTesting:
                 case TileID.PartyBundleOfBalloonTile: {
 
                         xToDrawAt += 16;
+
+                        if (tileToCreate == TileID.WaterFountain && Main.keyState.PressingAlt()) {
+                            placeStyleY = 1;
+                        }
+                        else if (tileToCreate == TileID.TargetDummy) {
+
+                            yToDrawAt++;
+
+                            if (Main.keyState.PressingAlt())
+                                placeStyleX = 1;
+
+                        }
+                        else if (tileToCreate == TileID.AlphabetStatues || tileToCreate == TileID.FishingCrate) {
+                            yToDrawAt++;
+                        }
+
                         break;
 
                     }
@@ -8189,14 +8224,22 @@ DoneTesting:
                 case TileID.LunarMonolith: {
 
                         xToDrawAt += 16;
-                        //yToDrawAt += 2;
+                        yToDrawAt += 1;
+
+                        if (Main.keyState.PressingAlt())
+                            placeStyleY++;
+
                         break;
 
                     }
                 case TileID.PlatinumCandelabra:
                 case TileID.FishBowl: case TileID.GoldButterflyCage: case TileID.WeightedPressurePlate: {
 
+                        if (tileToCreate == TileID.PlatinumCandelabra && Main.keyState.PressingAlt())
+                            placeStyleX++;
+
                         yToDrawAt += 2;
+
                         break;
 
                     }
@@ -8233,62 +8276,23 @@ DoneTesting:
                             placeStyleX = 2;
                         }
 
+                        if (Main.keyState.PressingAlt())
+                            placeStyleX++;
+
                         break;
 
                     }
                 case TileID.Switches: {
 
-                        Tile tileBelow = Main.tile[x, y + 1];
-                        Tile tileLeft1 = Main.tile[x - 1, y];
-                        Tile tileLeft2 = Main.tile[x - 1, y - 1];
-                        Tile tileLeft3 = Main.tile[x - 1, y + 1];
-                        Tile tileRight1 = Main.tile[x + 2, y];
-                        Tile tileRight2 = Main.tile[x + 2, y - 1];
-                        Tile tileRight3 = Main.tile[x + 2, y + 1];
+                        Tile tileBelow      = Main.tile[x, y + 1];
+                        Tile tileLeft       = Main.tile[x - 1, y];
+                        Tile tileLeftAbove  = Main.tile[x - 1, y - 1];
+                        Tile tileLeftBelow  = Main.tile[x - 1, y + 1];
+                        Tile tileRight      = Main.tile[x + 1, y];
+                        Tile tileRightAbove = Main.tile[x + 1, y - 1];
+                        Tile tileRightBelow = Main.tile[x + 1, y + 1];
 
                         if (
-
-                               tileLeft1.nactive() &&
-                               !tileLeft1.halfBrick() &&
-                               !TileID.Sets.NotReallySolid[tileLeft1.type] &&
-                               tileLeft1.slope() == 0 &&
-                               (
-                                   WorldGen.SolidTile(x - 1, y) ||
-                                   tileLeft1.type == 124 ||
-                                   (
-                                       tileLeft1.type == 5 &&
-                                       tileLeft2.type == 5 &&
-                                       tileLeft3.type == 5
-                                   )
-                               )
-
-                           ) {
-
-                            placeStyleX = 1;
-
-                        }
-                        else if (
-
-                               tileRight1.nactive() &&
-                               !tileRight1.halfBrick() &&
-                               !TileID.Sets.NotReallySolid[tileRight1.type] &&
-                               tileRight1.slope() == 0 &&
-                               (
-                                   WorldGen.SolidTile(x + 1, y) ||
-                                   tileRight1.type == 124 ||
-                                   (
-                                       tileRight1.type == 5 &&
-                                       tileRight2.type == 5 &&
-                                       tileRight3.type == 5
-                                   )
-                               )
-
-                           ) {
-
-                            placeStyleX = 2;
-
-                        }
-                        else if (
 
                                tileBelow.nactive() &&
                                !tileBelow.halfBrick() &&
@@ -8299,11 +8303,56 @@ DoneTesting:
                             placeStyleX = 0;
 
                         }
+                        else if (
+
+                               tileLeft.nactive() &&
+                               !tileLeft.halfBrick() &&
+                               !TileID.Sets.NotReallySolid[tileLeft.type] &&
+                               tileLeft.slope() == 0 &&
+                               (
+                                   WorldGen.SolidTile(x - 1, y) ||
+                                   tileLeft.type == 124 ||
+                                   (
+                                       tileLeft.type == 5 &&
+                                       tileLeftAbove.type == 5 &&
+                                       tileLeftBelow.type == 5
+                                   )
+                               )
+
+                           ) {
+
+                            placeStyleX = 1;
+
+                        }
+                        else if (
+
+                               tileRight.nactive() &&
+                               !tileRight.halfBrick() &&
+                               !TileID.Sets.NotReallySolid[tileRight.type] &&
+                               tileRight.slope() == 0 &&
+                               (
+                                   WorldGen.SolidTile(x + 1, y) ||
+                                   tileRight.type == 124 ||
+                                   (
+                                       tileRight.type == 5 &&
+                                       tileRightAbove.type == 5 &&
+                                       tileRightBelow.type == 5
+                                   )
+                               )
+
+                           ) {
+
+                            placeStyleX = 2;
+
+                        }
                         else if (Main.tile[x, y].wall > 0) {
 
                             placeStyleX = 3;
 
                         }
+
+                        if (Main.keyState.PressingAlt())
+                            placeStyleY = 1;
 
                         break;
 
@@ -8493,6 +8542,8 @@ DoneTesting:
 
                     }
                 case TileID.Painting3X3: {
+
+                        yToDrawAt++;
 
                         while (placeStyleX > 35) {
                             placeStyleX -= 36;
@@ -8769,18 +8820,49 @@ DoneTesting:
                         break;
 
                     }
+                case TileID.SillyBalloonMachine:
+                case TileID.BubbleMachine: {
+
+                        yToDrawAt++;
+
+                        if (Main.keyState.PressingAlt())
+                            placeStyleX = 1;
+
+                        break;
+
+                    }
                 case TileID.Beds:
                 case TileID.Candles:
+                case TileID.Candelabras:
                 case TileID.Chairs:
                 case TileID.Chandeliers:
+                case TileID.ChineseLanterns:
+                case TileID.DiscoBall:
+                case TileID.Fireplace:
                 case TileID.Jackolanterns:
                 case TileID.HangingLanterns:
+                case TileID.Lampposts:
+                case TileID.Lamps:
+                case TileID.SharpeningStation:
+                case TileID.SnowballLauncher:
                 //case TileID.WaterCandle: // TODO: Uncomment for v1.4
+                //case TileID.PeaceCandle: // TODO: Uncomment for v1.4
                 case TileID.Bathtubs: {
 
                         if (Main.keyState.PressingAlt())
                             placeStyleX = 1;
 
+                        if (tileToCreate == TileID.SharpeningStation || tileToCreate == TileID.Fireplace)
+                            yToDrawAt++;
+
+                        break;
+
+                    }
+                case TileID.Timers: {
+                        
+                        if (Main.keyState.PressingAlt())
+                            placeStyleY++;
+                        
                         break;
 
                     }
@@ -8811,6 +8893,8 @@ DoneTesting:
                     }
                 case TileID.Mannequin:
                 case TileID.Womannequin: {
+
+                        yToDrawAt++;
 
                         if (Main.keyState.PressingAlt())
                             placeStyleX++;
@@ -8864,12 +8948,10 @@ DoneTesting:
                     }
                 case TileID.GemLocks: {
 
-                        if (_placeStyle > 6) {
+                        yToDrawAt++;
 
-                            placeStyleX -= 7;
+                        if (Main.keyState.PressingAlt())
                             placeStyleY++;
-
-                        }
 
                         break;
 
@@ -8890,6 +8972,35 @@ DoneTesting:
                             placeStyleY++;
                             placeStyleX -= 111;
                         }
+                        break;
+
+                    }
+                case TileID.Campfire: {
+
+                        if (Main.keyState.PressingAlt())
+                            placeStyleY += 8;
+
+                        break;
+
+                    }
+                case TileID.Pumpkins:
+                case TileID.Painting2X3:
+                case TileID.Painting3X2:
+                case TileID.Painting6X4:
+                case TileID.Painting4X3: {
+
+                        yToDrawAt++;
+
+                        break;
+
+                    }
+                case TileID.PartyMonolith: {
+
+                        yToDrawAt++;
+
+                        //if (Main.keyState.PressingAlt())
+                        //    placeStyleY++;
+
                         break;
 
                     }
@@ -9615,6 +9726,13 @@ DoneTesting:
             RightDragging = Main.mouseRight && !Main.mouseRightRelease && RightClickHoldTime >= DragDelay;
 
             RightLongClick = !Main.mouseRight && !Main.mouseRightRelease && RightClickHoldTime >= DragDelay;
+
+        }
+
+        private static void HandleTileHighlighting(SpriteBatch sb) {
+
+            if (InvalidTiles.Count > 0)
+                HighlightInvalidTiles(sb);
 
         }
 

@@ -36,18 +36,18 @@ namespace NeoDraw.WldGen.Place {
             if (!Neo.TileCut(new[] { new Point(x, y), new Point(x, y + 1) }))
                 return false;
 
-            short num = (short)(style * 36);
+            short frameY = (short)(style * 36);
 
             undo.Add(new ChangedTile(x, y));
             undo.Add(new ChangedTile(x, y + 1));
 
             Main.tile[x, y].active(true);
-            Main.tile[x, y].frameY = num;
+            Main.tile[x, y].frameY = frameY;
             Main.tile[x, y].frameX = frameX;
             Main.tile[x, y].type = type;
 
             Main.tile[x, y + 1].active(true);
-            Main.tile[x, y + 1].frameY = (short)(num + 18);
+            Main.tile[x, y + 1].frameY = (short)(frameY + 18);
             Main.tile[x, y + 1].frameX = frameX;
             Main.tile[x, y + 1].type = type;
 

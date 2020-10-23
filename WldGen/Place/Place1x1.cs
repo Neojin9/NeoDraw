@@ -275,6 +275,11 @@ namespace NeoDraw.WldGen.Place {
                                         tile.frameX = (short)(style * 18);
                                         tile.frameY = 0;
 
+                                        if (type == TileID.Timers && Main.keyState.PressingAlt()) {
+                                            //tile.frameY = 18;
+                                            Wiring.HitSwitch(x, y);
+                                        }
+
                                         break;
 
                                     }

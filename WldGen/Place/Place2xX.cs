@@ -13,34 +13,68 @@ namespace NeoDraw.WldGen.Place {
 			if (!WorldGen.InWorld(x, y))
 				return false;
 
+			if (type == TileID.TargetDummy) {
+
+				if (Main.keyState.PressingAlt())
+					style = 1;
+
+            }
+
 			int frameX = style * 36;
 			int frameY = 0;
 			int height = 3;
 
-			if (type == TileID.WaterFountain) {
-				height = 4;
-			}
-			else if (type == TileID.GrandfatherClocks) {
-				height = 5;
-			}
+            switch (type) {
 
-			if (type == TileID.Statues && style == 34) { // Mushroom Statue
+                case TileID.WaterFountain: {
 
-				type = TileID.MushroomStatue;
-				style = 0;
-				frameX   = 0;
+                        height = 4;
 
-			}
+                        if (Main.keyState.PressingAlt())
+                            frameY = 72;
 
-			if (type == TileID.Statues) {
+                        break;
 
-				int num4 = style / 55;
-				frameX -= 1980 * num4;
-				frameY += 54 * num4;
+                    }
+                case TileID.GrandfatherClocks: {
 
-			}
+                        height = 5;
 
-			Point[] points = new Point[2 * height];
+                        break;
+
+                    }
+                case TileID.LunarMonolith: {
+
+                        if (Main.keyState.PressingAlt())
+                            frameY = 56;
+
+                        break;
+
+                    }
+                case TileID.Statues: {
+
+                        if (style == 34) { // Mushroom Statue
+
+                            type = TileID.MushroomStatue;
+                            style = 0;
+                            frameX = 0;
+
+                        }
+                        else {
+
+                            int row = style / 55;
+                            frameX -= 1980 * row;
+                            frameY += 54 * row;
+
+                        }
+
+                        break;
+
+                    }
+
+            }
+
+            Point[] points = new Point[2 * height];
 			int k = 0;
 
 			if (type == TileID.WarTableBanner) {
@@ -116,14 +150,14 @@ namespace NeoDraw.WldGen.Place {
 				undo.Add(new ChangedTile(x + 1, y - height + 1 + j));
 
 				Main.tile[x,     y - height + 1 + j].active(true);
-				Main.tile[x,     y - height + 1 + j].frameY = (short)(frameY + j * 18);
-				Main.tile[x,     y - height + 1 + j].frameX = (short)frameX;
 				Main.tile[x,     y - height + 1 + j].type = type;
+				Main.tile[x,     y - height + 1 + j].frameX = (short)frameX;
+				Main.tile[x,     y - height + 1 + j].frameY = (short)(frameY + j * 18);
 
 				Main.tile[x + 1, y - height + 1 + j].active(true);
-				Main.tile[x + 1, y - height + 1 + j].frameY = (short)(frameY + j * 18);
-				Main.tile[x + 1, y - height + 1 + j].frameX = (short)(frameX + 18);
 				Main.tile[x + 1, y - height + 1 + j].type = type;
+				Main.tile[x + 1, y - height + 1 + j].frameX = (short)(frameX + 18);
+				Main.tile[x + 1, y - height + 1 + j].frameY = (short)(frameY + j * 18);
 
 			}
 

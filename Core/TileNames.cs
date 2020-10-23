@@ -180,6 +180,7 @@ namespace NeoDraw.Core {
                 "Metal", "Cactus", "Ebonwood", "Flesh", "Glass", "Frozen", "Rich Mahogany", "Pearlwood", "Lihzahrd", "Skyware", "Spooky", "Honey", "Steampunk", "Living Wood", "Shadewood", "Bone", "Dynasty",
                 "Palm", "Mushroom", "Boreal", "Slime", "Blue Dungeon", "Green Dungeon", "Pink Dungeon", "Pumpkin", "Obsidian", "Golden", "Martian", "Meteorite", "Granite", "Marble", "Crystal" });
             SubTileNames.Add(TileID.Banners,               new List<string> { 
+                
                 "Red",              "Green",        "Blue",           "Yellow",          "Ankh",           "Snake",           "Omega",           "World",            "Sun",            "Gravity",
                 "Marching Bones",   "Necromantic",  "Rusted Company", "Ragged",          "Molten",         "Diabolic",        "Hellbound",       "Hell Hammer",      "Helltower",      "Lost Hopes of Man",
                 "Obsidian",         "Lava Erupts",  "Angler Fish",    "Angry Nimbus",    "Anomura Fungus", "Antlion",         "Arapaima",        "Armored Skeleton", "Cave Bat",       "Bird",
@@ -191,7 +192,7 @@ namespace NeoDraw.Core {
                 "Parrot Banner",    "Pigron",       "Piranha",        "Pirate Deckhand", "Pixie",          "Raincoat Zombie", "Reaper",          "Shark",            "Skeleton",       "Skeleton Mage",
                 "Slime",            "Snow Flinx",   "Spider",         "Spore Zombie",    "Swamp Thing",    "Tortoise",        "Toxic Sludge",    "Umbrella Slime",   "Unicorn",        "Vampire",
                 "Vulture",          "Nymph",        "Werewolf",       "Wolf",            "World Feeder",   "Worm",            "Wraith",          "Wyvern",           "Zombie",         "Angry Trapper",
-                "Armored Viking", /* End of top row */
+                "Armored Viking", // End of top row
 
                 "Black Slime",          "Blue Armored Bones",     "Blue Cultist Archer",   "Lunatic Devotee",        "Blue Cultist Fighter", "Bone Lee",           "Clinger",                "Cochineal Beetle", "Corrupt Penguin",  "Corrupt Slime",
                 "Corruptor",            "Crimslime",              "Cursed Skull",          "Cyan Beetle",            "Devourer",             "Diabolist",          "Doctor Bones",           "Dungeon Slime",    "Dungeon Spirit",   "Elf Archer",
@@ -204,7 +205,7 @@ namespace NeoDraw.Core {
                 "Snowman Gangsta",      "Spiked Ice Slime",       "Spiked Jungle Slime",   "Splinterling",           "Squid",                "Tactical Skeleton",  "The Groom",              "Tim",              "Undead Miner",     "Undead Viking",
                 "White Cultist Archer", "White Cultist Caster",   "White Cultist Fighter", "Yellow Slime",           "Yeti",                 "Zombie Elf",         "",                       "Salamander",       "Giant Shelly",     "Crawdad",
                 "Fritz",                "Creature from the Deep", "Dr. Man Fly",           "Mothron",                "Severed Hand",         "The Possessed",      "Butcher",                "Psycho",           "Deadly Sphere",    "Nailhead",
-                "Poisonous Spore"
+                "Poisonous Spore" // End of Second row 
 
             });
             SubTileNames.Add(TileID.Lamps,                 new List<string> {
@@ -365,7 +366,7 @@ namespace NeoDraw.Core {
             SubTileNames.Add(TileID.WeightedPressurePlate, new List<string> { 
                 "Orange", "Cyan", "Purple", "Pink" });
             SubTileNames.Add(TileID.GemLocks,              new List<string> {
-                "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Diamond", "Amber", "Ruby w/ Gem", "Sapphire", "Emerald w/ Gem", "Topaz w/ Gem", "Amethyst w/ Gem", "Diamond w/ Gem", "Amber w/ Gem" });
+                "Ruby", "Sapphire", "Emerald", "Topaz", "Amethyst", "Diamond", "Amber" });
             SubTileNames.Add(TileID.FakeContainers,        new List<string> {
                 "Wooden", "Gold", "Gold - Locked", "Shadow", "Shadow - Locked", "Barrel", "Trash Can", "Ebonwood", "Rich Mahogany", "Pearlwood", "Ivy", "Ice", "Living Wood", "Skyware", "Shadewood", 
                 "Web Covered", "Lihzahrd", "Water", "Biome - Jungle", "Biome - Corruption", "Biome - Crimson", "Biome - Hallowed", "Biome - Frozen", "Biome - Jungle - Locked", "Biome - Corruption - Locked",

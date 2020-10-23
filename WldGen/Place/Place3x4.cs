@@ -48,19 +48,19 @@ namespace NeoDraw.WldGen.Place {
 				undo.Add(new ChangedTile(x + 1, y + k));
 
 				Main.tile[x - 1, y + k].active(true);
-				Main.tile[x - 1, y + k].frameY = frameY;
+				Main.tile[x - 1, y + k].type   = type;
 				Main.tile[x - 1, y + k].frameX = (short)num;
-				Main.tile[x - 1, y + k].type = type;
+				Main.tile[x - 1, y + k].frameY = frameY;
 
 				Main.tile[x, y + k].active(true);
-				Main.tile[x, y + k].frameY = frameY;
+				Main.tile[x, y + k].type   = type;
 				Main.tile[x, y + k].frameX = (short)(num + 18);
-				Main.tile[x, y + k].type = type;
+				Main.tile[x, y + k].frameY = frameY;
 
 				Main.tile[x + 1, y + k].active(true);
-				Main.tile[x + 1, y + k].frameY = frameY;
+				Main.tile[x + 1, y + k].type   = type;
 				Main.tile[x + 1, y + k].frameX = (short)(num + 36);
-				Main.tile[x + 1, y + k].type = type;
+				Main.tile[x + 1, y + k].frameY = frameY;
 
 			}
 

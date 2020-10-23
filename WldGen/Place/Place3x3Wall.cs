@@ -2,6 +2,7 @@
 using NeoDraw.Core;
 using NeoDraw.Undo;
 using Terraria;
+using Terraria.ID;
 
 namespace NeoDraw.WldGen.Place {
 
@@ -34,26 +35,22 @@ namespace NeoDraw.WldGen.Place {
 			if (!Neo.TileCut(points))
 				return false;
 
-			int num3 = 0;
+			int row = 0;
 
 			while (style > 35) {
-				num3++;
+				row++;
 				style -= 36;
 			}
 
-			if (type == 440) {
+			if (type == TileID.GemLocks) {
 
-				if (style > 6) {
-
-					style -= 7;
-					num3 = 1;
-
-				}
+				if (Main.keyState.PressingAlt())
+					row = 1;
 
 			}
 
 			int frameX = style * 54;
-			int num5 = num3 * 54;
+			int frameY = row * 54;
 
 			for (int k = leftSide; k < leftSide + 3; k++) {
 
@@ -62,9 +59,10 @@ namespace NeoDraw.WldGen.Place {
 					undo.Add(new ChangedTile(k, l));
 
 					Main.tile[k, l].active(true);
-					Main.tile[k, l].type = type;
+
+					Main.tile[k, l].type   = type;
 					Main.tile[k, l].frameX = (short)(frameX + 18 * (k - leftSide));
-					Main.tile[k, l].frameY = (short)(num5 + 18 * (l - top));
+					Main.tile[k, l].frameY = (short)(frameY + 18 * (l - top));
 
 				}
 

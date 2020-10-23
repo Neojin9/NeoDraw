@@ -50,22 +50,25 @@ namespace NeoDraw.WldGen.Place {
 					case TileID.GoldMouseCage:
 					case TileID.GoldWormCage:
 					case 582:
-					case 619:
+					case 619: {
 
-						if (!WorldGen.SolidTile2(i, y + 1) && (!Main.tile[i, y + 1].nactive() || !Main.tileSolidTop[Main.tile[i, y + 1].type] || Main.tile[i, y + 1].frameY != 0))
-							return false;
-						
-						break;
+                            if (!WorldGen.SolidTile2(i, y + 1) && (!Main.tile[i, y + 1].nactive() || !Main.tileSolidTop[Main.tile[i, y + 1].type] || Main.tile[i, y + 1].frameY != 0))
+                                return false;
 
-					default:
+                            break;
 
-						if (type == TileID.DemonAltar && Main.tile[i, y + 1].type == 484)
-							return false;
+                        }
+					default: {
 
-						if (!WorldGen.SolidTile2(i, y + 1))
-							return false;
-						
-						break;
+                            if (type == TileID.DemonAltar && Main.tile[i, y + 1].type == 484)
+                                return false;
+
+                            if (!WorldGen.SolidTile2(i, y + 1))
+                                return false;
+
+                            break;
+
+                        }
 
 				}
 
@@ -81,13 +84,28 @@ namespace NeoDraw.WldGen.Place {
 
 			}
 
+			if (type == TileID.BubbleMachine || type == TileID.SharpeningStation || type == TileID.Fireplace) {
+
+				if (Main.keyState.PressingAlt())
+					style = 1;
+
+			}
+
 			short frameY = 0;
 
 			if (type == TileID.LargePiles2) {
+
 				if (style > 34) {
 					style -= 34;
 					frameY += 36;
                 }
+
+            }
+			else if (type == TileID.Campfire) {
+
+				if (Main.keyState.PressingAlt())
+					frameY = 36;
+
             }
 
 			short frameX = (short)(54 * style);
@@ -102,19 +120,19 @@ namespace NeoDraw.WldGen.Place {
 				undo.Add(new ChangedTile(x + 1, y));
 
 				Main.tile[x - 1, y].active(true);
-				Main.tile[x - 1, y].frameY = frameY;
+				Main.tile[x - 1, y].type   = type;
 				Main.tile[x - 1, y].frameX = frameX;
-				Main.tile[x - 1, y].type = type;
+				Main.tile[x - 1, y].frameY = frameY;
 
 				Main.tile[x, y].active(true);
-				Main.tile[x, y].frameY = frameY;
+				Main.tile[x, y].type   = type;
 				Main.tile[x, y].frameX = (short)(frameX + 18);
-				Main.tile[x, y].type = type;
+				Main.tile[x, y].frameY = frameY;
 
 				Main.tile[x + 1, y].active(true);
-				Main.tile[x + 1, y].frameY = frameY;
+				Main.tile[x + 1, y].type   = type;
 				Main.tile[x + 1, y].frameX = (short)(frameX + 36);
-				Main.tile[x + 1, y].type = type;
+				Main.tile[x + 1, y].frameY = frameY;
 
 				return true;
 
@@ -128,34 +146,34 @@ namespace NeoDraw.WldGen.Place {
 			undo.Add(new ChangedTile(x + 1, y    ));
 
 			Main.tile[x - 1, y - 1].active(true);
-			Main.tile[x - 1, y - 1].frameY = frameY;
+			Main.tile[x - 1, y - 1].type   = type;
 			Main.tile[x - 1, y - 1].frameX = frameX;
-			Main.tile[x - 1, y - 1].type = type;
+			Main.tile[x - 1, y - 1].frameY = frameY;
 
 			Main.tile[x, y - 1].active(true);
-			Main.tile[x, y - 1].frameY = frameY;
+			Main.tile[x, y - 1].type   = type;
 			Main.tile[x, y - 1].frameX = (short)(frameX + 18);
-			Main.tile[x, y - 1].type = type;
+			Main.tile[x, y - 1].frameY = frameY;
 
 			Main.tile[x + 1, y - 1].active(true);
-			Main.tile[x + 1, y - 1].frameY = frameY;
+			Main.tile[x + 1, y - 1].type   = type;
 			Main.tile[x + 1, y - 1].frameX = (short)(frameX + 36);
-			Main.tile[x + 1, y - 1].type = type;
+			Main.tile[x + 1, y - 1].frameY = frameY;
 
 			Main.tile[x - 1, y].active(true);
-			Main.tile[x - 1, y].frameY = (short)(frameY + 18);
+			Main.tile[x - 1, y].type   = type;
 			Main.tile[x - 1, y].frameX = frameX;
-			Main.tile[x - 1, y].type = type;
+			Main.tile[x - 1, y].frameY = (short)(frameY + 18);
 
 			Main.tile[x, y].active(true);
-			Main.tile[x, y].frameY = (short)(frameY + 18);
+			Main.tile[x, y].type   = type;
 			Main.tile[x, y].frameX = (short)(frameX + 18);
-			Main.tile[x, y].type = type;
+			Main.tile[x, y].frameY = (short)(frameY + 18);
 
 			Main.tile[x + 1, y].active(true);
-			Main.tile[x + 1, y].frameY = (short)(frameY + 18);
+			Main.tile[x + 1, y].type   = type;
 			Main.tile[x + 1, y].frameX = (short)(frameX + 36);
-			Main.tile[x + 1, y].type = type;
+			Main.tile[x + 1, y].frameY = (short)(frameY + 18);
 
 			return true;
 

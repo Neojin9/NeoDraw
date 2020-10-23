@@ -1,4 +1,7 @@
-﻿using Terraria;
+﻿using System;
+using Microsoft.Xna.Framework;
+using NeoDraw.UI;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace NeoDraw.WldGen {
@@ -13,7 +16,7 @@ namespace NeoDraw.WldGen {
 			for (int i = startX; i < endX + 1; i++) {
 
 				for (int j = startY; j < endY + 1; j++) {
-
+					DrawInterface.InvalidTiles.Add(new Tuple<Point, int>(new Point(i, j), 25));
 					if (!Main.tile[i, j].active())
 						continue;
 
@@ -25,8 +28,8 @@ namespace NeoDraw.WldGen {
 					if (ignoreID != -1 && type == ignoreID)
 						continue;
 
-					if (!TileLoader.IsSapling(ignoreID))
-						continue;
+					//if (!TileLoader.IsSapling(ignoreID))
+					//	continue;
 					
 					if (!TileLoader.IsSapling(type)) {
 

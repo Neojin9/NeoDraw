@@ -18,6 +18,7 @@ namespace NeoDraw.WldGen.Place {
 			int m = 0;
 
 			for (int i = leftSide; i < leftSide + 3; i++) {
+
 				for (int j = y; j < y + 2; j++) {
 
 					points[m++] = new Point(i, j);
@@ -26,13 +27,14 @@ namespace NeoDraw.WldGen.Place {
 						return false;
 
 				}
+
 			}
 
 			if (!Neo.TileCut(points))
 				return false;
 
-			int num2 = 0;
-			int num3 = style * 36;
+			int frameX = 0;
+			int frameY = style * 36;
 
 			for (int k = leftSide; k < leftSide + 3; k++) {
 
@@ -41,9 +43,9 @@ namespace NeoDraw.WldGen.Place {
 					undo.Add(new ChangedTile(k, l));
 
 					Main.tile[k, l].active(true);
-					Main.tile[k, l].type = type;
-					Main.tile[k, l].frameX = (short)(num2 + 18 * (k - leftSide));
-					Main.tile[k, l].frameY = (short)(num3 + 18 * (l - y));
+					Main.tile[k, l].type   = type;
+					Main.tile[k, l].frameX = (short)(frameX + 18 * (k - leftSide));
+					Main.tile[k, l].frameY = (short)(frameY + 18 * (l - y));
 
 				}
 

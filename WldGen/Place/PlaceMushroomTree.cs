@@ -39,7 +39,7 @@ namespace NeoDraw.WldGen.Place {
 				Main.tile[x - 1, y].type == 70 &&
 				Main.tile[x + 1, y].active()   &&
 				Main.tile[x + 1, y].type == 70 &&
-				EmptyTileCheck(x - 2, x + 2, y - 13, y - 1, 71)) {
+				EmptyTileCheck(x - 1, x + 1, y - 13, y - 1, 71)) {
 
 				int height = genRand.Next(4, 11);
 
@@ -89,7 +89,7 @@ namespace NeoDraw.WldGen.Place {
 					Main.tile[x, y - height].frameY = 36;
 				}
 
-				WorldGen.RangeFrame(x - 2, y - height - 1, x + 2, y + 1);
+				WorldGen.RangeFrame(x - 1, y - height - 1, x + 1, y + 1);
 
 				if (Main.netMode == NetmodeID.Server)
 					NetMessage.SendTileSquare(-1, x, (int)(y - height * 0.5), height + 1);

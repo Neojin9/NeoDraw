@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using NeoDraw.Core;
+using NeoDraw.UI;
 using NeoDraw.Undo;
 using Terraria;
 using Terraria.ID;
@@ -147,6 +149,15 @@ namespace NeoDraw.WldGen.Place {
 
 			}
 
+			int frameX = 0;
+
+			if (DrawInterface.Lightable.Contains(type) || DrawInterface.MultipleStates.Contains(type)) {
+
+				if (Main.keyState.PressingAlt())
+					frameX += 36;
+
+            }
+
 			for (int k = 0; k < 2; k++) {
 
 				for (int l = 0; l < 2; l++) {
@@ -154,9 +165,10 @@ namespace NeoDraw.WldGen.Place {
 					undo.Add(new ChangedTile(x + k, y + l));
 
                     Main.tile[x + k, y + l].active(true);
-                    Main.tile[x + k, y + l].frameX = (short)(k * 18);
+
+					Main.tile[x + k, y + l].type   = type;
+					Main.tile[x + k, y + l].frameX = (short)(frameX + k * 18);
                     Main.tile[x + k, y + l].frameY = (short)(style * frameHeight + l * 18);
-                    Main.tile[x + k, y + l].type = type;
 
 				}
 

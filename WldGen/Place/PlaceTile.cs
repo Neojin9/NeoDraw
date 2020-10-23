@@ -371,6 +371,10 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                             tile.active(active: true);
                             tile.type = (ushort)type;
                             WorldGen.SquareTileFrame(i, j);
+                            
+                            if (Main.keyState.PressingAlt()) {
+                                tile.frameY = 18;
+                            }
 
                         }
 
@@ -610,6 +614,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
 
                     }
                 
+                // PlaceOnTable1x1
                 case TileID.Bottles: case TileID.Candles: case TileID.PlatinumCandle: case TileID.PeaceCandle: case TileID.ClayPot: case TileID.WaterCandle: case TileID.Books: {
 
                         result = PlaceOnTable1x1(i, j, type, ref undo, style);
@@ -617,6 +622,8 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                         break;
 
                     }
+
+                // PlaceLogicTiles
                 case TileID.LogicGateLamp: case TileID.LogicGate: case TileID.LogicSensor: case TileID.WirePipe: case TileID.WireBulb: case TileID.PixelBox: {
 
                         result = PlaceLogicTiles(i, j, type, ref undo, style);
@@ -624,6 +631,8 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
                         break;
 
                     }
+
+                // Place2x1
                 case TileID.Anvils: case TileID.WorkBenches: case TileID.PiggyBank: case TileID.Bowls: case TileID.MythrilAnvil: case TileID.DjinnLamp: case TileID.GeyserTrap: case TileID.TrapdoorClosed: {
 
                         result = Place2x1(i, j, (ushort)type, ref undo, style);
@@ -632,6 +641,7 @@ namespace NeoDraw.WldGen.Place { // Updated Kindof 7/26/2020
 
                     }
 
+                // Direct Place
                 case TileID.Traps: case TileID.PlanterBox: {
 
                         if (!Neo.TileCut(i, j))

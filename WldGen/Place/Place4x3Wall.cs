@@ -44,7 +44,7 @@ namespace NeoDraw.WldGen.Place {
 					undo.Add(new ChangedTile(k, l));
 
 					Main.tile[k, l].active(true);
-					Main.tile[k, l].type = type;
+					Main.tile[k, l].type   = type;
 					Main.tile[k, l].frameX = (short)(num3 + 18 * (k - leftSide));
 					Main.tile[k, l].frameY = (short)(num4 + 18 * (l - top));
 

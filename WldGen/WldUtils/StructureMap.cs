@@ -27,6 +27,9 @@ namespace NeoDraw.WldGen.WldUtils { // Updated v1.4 7/23/2020
 				if (area.X < 0 || area.Y < 0 || area.X + area.Width > Main.maxTilesX - 1 || area.Y + area.Height > Main.maxTilesY - 1)
 					return false;
 
+				if (Main.keyState.PressingAlt())
+					return true;
+
 				Rectangle rectangle = new Rectangle(area.X - padding, area.Y - padding, area.Width + padding * 2, area.Height + padding * 2);
 
 				for (int i = 0; i < _protectedStructures.Count; i++)
@@ -41,13 +44,13 @@ namespace NeoDraw.WldGen.WldUtils { // Updated v1.4 7/23/2020
 
 							if (Main.tile[j, k].type >= TileNames.OriginalTileCount) {
 								DrawInterface.InvalidTiles.Add(new Tuple<Point, int>(new Point(j, k), 150));
-								DrawInterface.SetStatusBarTempMessage("Warning! Area contains modded tiles.");
+								DrawInterface.SetStatusBarTempMessage("Warning! Area contains modded tiles. Hold ALT while clicking to force placement.");
 								return false;
 							}
 
 							if (!validTiles[Main.tile[j, k].type]) {
 								DrawInterface.InvalidTiles.Add(new Tuple<Point, int>(new Point(j, k), 150));
-								DrawInterface.SetStatusBarTempMessage("Warning! Area contains invalid tiles.");
+								DrawInterface.SetStatusBarTempMessage("Warning! Area contains invalid tiles. Hold ALT while clicking to force placement.");
 								return false;
 							}
 

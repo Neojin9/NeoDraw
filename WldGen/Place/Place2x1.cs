@@ -27,18 +27,57 @@ namespace NeoDraw.WldGen.Place {
 			
 			bool flag = false;
 
-			if (type != TileID.DjinnLamp && type != TileID.PiggyBank && type != TileID.Bowls && type != TileID.TrapdoorClosed && WorldGen.SolidTile2(x, y + 1) && WorldGen.SolidTile2(x + 1, y + 1)) {
-				flag = true;
-			}
-			else if (type == TileID.GeyserTrap && WorldGen.SolidTile2(x, y - 1) && WorldGen.SolidTile2(x + 1, y - 1)) {
-				flag = true;
-				style = 2;
-			}
-            else if ((type == TileID.DjinnLamp || type == TileID.PiggyBank || type == TileID.Bowls) && Main.tile[x, y + 1].active() && Main.tile[x + 1, y + 1].active() && Main.tileTable[Main.tile[x, y + 1].type] && Main.tileTable[Main.tile[x + 1, y + 1].type]) {
-				flag = true;
-			}
-			else if (type == TileID.TrapdoorClosed && (Main.tile[x - 1, y].active() && WorldGen.SolidTile2(x - 1, y) && Main.tile[x + 2, y].active() && WorldGen.SolidTile2(x + 2, y))) {
-				flag = true;
+			switch (type) {
+
+				case TileID.GeyserTrap: {
+
+						if (WorldGen.SolidTile2(x, y + 1) &&
+							WorldGen.SolidTile2(x + 1, y + 1)) {
+							flag = true;
+						}
+						else if (WorldGen.SolidTile2(x, y - 1) &&
+							     WorldGen.SolidTile2(x + 1, y - 1)) {
+							flag = true;
+							style = 2;
+						}
+
+						break;
+
+                    }
+				case TileID.TrapdoorClosed: {
+
+						if (
+							Main.tile[x - 1, y].active() && WorldGen.SolidTile2(x - 1, y) &&
+							Main.tile[x + 2, y].active() && WorldGen.SolidTile2(x + 2, y)) {
+                            flag = true;
+                        }
+
+							break;
+
+                    }
+				case TileID.DjinnLamp:
+				case TileID.PiggyBank:
+				case TileID.Bowls: {
+
+						if (Main.tile[x, y + 1].active()     && Main.tileTable[Main.tile[x, y + 1].type] &&
+							Main.tile[x + 1, y + 1].active() && Main.tileTable[Main.tile[x + 1, y + 1].type]) {
+                            flag = true;
+                        }
+
+						break;
+
+                    }
+				default: {
+
+						if (WorldGen.SolidTile2(x, y + 1) &&
+							WorldGen.SolidTile2(x + 1, y + 1)) {
+							flag = true;
+						}
+
+						break;
+
+                    }
+
             }
 
 			if (flag) {

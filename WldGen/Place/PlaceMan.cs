@@ -26,10 +26,7 @@ namespace NeoDraw.WldGen.Place {
             if (!Neo.TileCut(points))
                 return false;
 
-            byte b = 0;
-
-            if (dir == 1)
-                b = 36;
+            byte frameX = (byte)(dir == 1 ? 36 : 0);
 
             undo.Add(new ChangedTile(i,     j - 2));
             undo.Add(new ChangedTile(i,     j - 1));
@@ -40,32 +37,32 @@ namespace NeoDraw.WldGen.Place {
 
             Main.tile[i, j - 2].active(true);
             Main.tile[i, j - 2].frameY = 0;
-            Main.tile[i, j - 2].frameX = b;
+            Main.tile[i, j - 2].frameX = frameX;
             Main.tile[i, j - 2].type = type;
 
             Main.tile[i, j - 1].active(true);
             Main.tile[i, j - 1].frameY = 18;
-            Main.tile[i, j - 1].frameX = b;
+            Main.tile[i, j - 1].frameX = frameX;
             Main.tile[i, j - 1].type = type;
 
             Main.tile[i, j].active(true);
             Main.tile[i, j].frameY = 36;
-            Main.tile[i, j].frameX = b;
+            Main.tile[i, j].frameX = frameX;
             Main.tile[i, j].type = type;
 
             Main.tile[i + 1, j - 2].active(true);
             Main.tile[i + 1, j - 2].frameY = 0;
-            Main.tile[i + 1, j - 2].frameX = (byte)(18 + b);
+            Main.tile[i + 1, j - 2].frameX = (byte)(18 + frameX);
             Main.tile[i + 1, j - 2].type = type;
 
             Main.tile[i + 1, j - 1].active(true);
             Main.tile[i + 1, j - 1].frameY = 18;
-            Main.tile[i + 1, j - 1].frameX = (byte)(18 + b);
+            Main.tile[i + 1, j - 1].frameX = (byte)(18 + frameX);
             Main.tile[i + 1, j - 1].type = type;
 
             Main.tile[i + 1, j].active(true);
             Main.tile[i + 1, j].frameY = 36;
-            Main.tile[i + 1, j].frameX = (byte)(18 + b);
+            Main.tile[i + 1, j].frameX = (byte)(18 + frameX);
             Main.tile[i + 1, j].type = type;
 
             return true;
@@ -90,10 +87,7 @@ namespace NeoDraw.WldGen.Place {
             if (!Neo.TileCut(points))
                 return false;
 
-            byte frameX = 0;
-
-            if (dir == 1)
-                frameX = 36;
+            byte frameX = (byte)(dir == 1 ? 36 : 0);
 
             undo.Add(new ChangedTile(i, j - 2));
             undo.Add(new ChangedTile(i, j - 1));

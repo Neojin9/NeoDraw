@@ -13,10 +13,10 @@ namespace NeoDraw.WldGen.Place {
 
 			UnifiedRandom genRand = WorldGen.genRand;
 
-			int num  = style / 36;
-			int num2 = style % 36;
-			int num3 = 54 * num;
-			int num4 = 54 * num2;
+			int column = style / 36; // Style Wrap Limit
+			int row    = style % 36;
+			int frameX = 54 * column;
+			int frameY = 54 * row;
 
 			try {
 
@@ -28,18 +28,18 @@ namespace NeoDraw.WldGen.Place {
 
 					Main.tile[i, j - 1].active(true);
 					Main.tile[i, j - 1].type = 10;
-					Main.tile[i, j - 1].frameY = (short)num4;
-					Main.tile[i, j - 1].frameX = (short)(num3 + genRand.Next(3) * 18);
+					Main.tile[i, j - 1].frameY = (short)frameY;
+					Main.tile[i, j - 1].frameX = (short)(frameX + genRand.Next(3) * 18);
 
 					Main.tile[i, j].active(true);
 					Main.tile[i, j].type = 10;
-					Main.tile[i, j].frameY = (short)(num4 + 18);
-					Main.tile[i, j].frameX = (short)(num3 + genRand.Next(3) * 18);
+					Main.tile[i, j].frameY = (short)(frameY + 18);
+					Main.tile[i, j].frameX = (short)(frameX + genRand.Next(3) * 18);
 
 					Main.tile[i, j + 1].active(true);
 					Main.tile[i, j + 1].type = 10;
-					Main.tile[i, j + 1].frameY = (short)(num4 + 36);
-					Main.tile[i, j + 1].frameX = (short)(num3 + genRand.Next(3) * 18);
+					Main.tile[i, j + 1].frameY = (short)(frameY + 36);
+					Main.tile[i, j + 1].frameX = (short)(frameX + genRand.Next(3) * 18);
 
 					return true;
 

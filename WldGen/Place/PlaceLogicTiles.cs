@@ -32,7 +32,8 @@ namespace NeoDraw.WldGen.Place {
 					undo.Add(new ChangedTile(x, y));
 
 					tile.active(true);
-					tile.type = (ushort)type;
+
+					tile.type   = (ushort)type;
 					tile.frameX = (short)(style * 18);
 					tile.frameY = 0;
 
@@ -40,31 +41,26 @@ namespace NeoDraw.WldGen.Place {
 
 				}
 
-			} else if (!tile.active()) {
-
-				undo.Add(new ChangedTile(x, y));
-
-				tile.active(true);
-				tile.type = (ushort)type;
-
-				if (type == TileID.PixelBox && style == 1) {
-					tile.frameX = 18;
-					tile.frameY = 0;
-				}
-				else if (type == TileID.WirePipe) {
-					tile.frameX = (short)(18 * style);
-					tile.frameY = 0;
-                }
-				else {
-					tile.frameX = 0;
-					tile.frameY = (short)(18 * style);
-				}
-
-				return true;
+				return false;
 
 			}
 
-			return false;
+			undo.Add(new ChangedTile(x, y));
+
+			tile.active(true);
+
+			tile.type = (ushort)type;
+
+			if (type == TileID.WirePipe || type == TileID.PixelBox) {
+				tile.frameX = (short)(18 * style);
+				tile.frameY = 0;
+			}
+			else {
+				tile.frameX = 0;
+				tile.frameY = (short)(18 * style);
+			}
+
+			return true;
 
 		}
 

@@ -53,27 +53,27 @@ namespace NeoDraw.WldGen.Place {
 			undo.Add(new ChangedTile(x - 1, y    ));
 			undo.Add(new ChangedTile(x,     y    ));
 
-			short num2 = (short)(36 * style);
+			short frameX = (short)(36 * style);
 
 			Main.tile[x - 1, y - 1].active(true);
-			Main.tile[x - 1, y - 1].frameY = frameY;
-			Main.tile[x - 1, y - 1].frameX = num2;
 			Main.tile[x - 1, y - 1].type = type;
+			Main.tile[x - 1, y - 1].frameX = frameX;
+			Main.tile[x - 1, y - 1].frameY = frameY;
 
 			Main.tile[x, y - 1].active(true);
+			Main.tile[x, y - 1].type   = type;
+			Main.tile[x, y - 1].frameX = (short)(frameX + 18);
 			Main.tile[x, y - 1].frameY = frameY;
-			Main.tile[x, y - 1].frameX = (short)(num2 + 18);
-			Main.tile[x, y - 1].type = type;
 
 			Main.tile[x - 1, y].active(true);
+			Main.tile[x - 1, y].type   = type;
+			Main.tile[x - 1, y].frameX = frameX;
 			Main.tile[x - 1, y].frameY = (short)(frameY + 18);
-			Main.tile[x - 1, y].frameX = num2;
-			Main.tile[x - 1, y].type = type;
 
 			Main.tile[x, y].active(true);
+			Main.tile[x, y].type   = type;
+			Main.tile[x, y].frameX = (short)(frameX + 18);
 			Main.tile[x, y].frameY = (short)(frameY + 18);
-			Main.tile[x, y].frameX = (short)(num2 + 18);
-			Main.tile[x, y].type = type;
 
 			return true;
 
