@@ -488,6 +488,8 @@ namespace NeoDraw.UI {
 
         public static bool AtRightEdgeOfWorld => Main.screenPosition.X > Main.rightWorld - Main.screenWidth - 900;
 
+        public static bool DoingFloodFill => _floodFillCounter > 0;
+
         public static byte CurrentBrushShape { get; set; } = BrushShape.Square;
 
         public static byte CurrentPaintMode { get; set; } = PaintMode.Paint;
@@ -4983,6 +4985,8 @@ DoneTesting:
                 NeoDraw.UndoManager.UndoPush(_undo);
                 _undo = null;
             }
+
+            _floodFillCounter = 0;
 
         }
 

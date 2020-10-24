@@ -106,7 +106,7 @@ namespace NeoDraw {
                 return false;
             }
 
-            if (type == TileID.Trees || type == TileID.PalmTree || type == 571 || type == 596 || type == 616 || (type >= 583 && type <= 589))
+            if (/*!DrawInterface.DoingFloodFill && */type == TileID.Trees || type == TileID.PalmTree || type == 571 || type == 596 || type == 616 || (type >= 583 && type <= 589))
                 DrawInterface.AddChangedTile(i, j);
 
             return true;
