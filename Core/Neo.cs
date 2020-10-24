@@ -952,6 +952,33 @@ namespace NeoDraw.Core {
 
         }
 
+        public static bool RangeTileCut(int startX, int endX, int startY, int endY) {
+
+            List<Point> points = new List<Point>();
+
+            if (startX > endX) {
+                int tempX = startX;
+                startX = endX;
+                endX = tempX;
+            }
+
+            if (startY > endY) {
+                int tempY = startY;
+                startY = endY;
+                endY = tempY;
+            }
+
+            for (int i = startX; i < endX + 1; i++)
+                for (int j = startY; j < endY + 1; j++)
+                    points.Add(new Point(i, j));
+
+            if (points.Count == 0)
+                return false;
+
+            return TileCut(points.ToArray());
+
+        }
+
         public static void SetActive(int x, int y, bool active) {
             Main.tile[x, y].active(active);
         }

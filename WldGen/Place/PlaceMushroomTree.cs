@@ -1,4 +1,5 @@
-﻿using NeoDraw.Undo;
+﻿using NeoDraw.Core;
+using NeoDraw.Undo;
 using Terraria;
 using Terraria.ID;
 using Terraria.Utilities;
@@ -10,98 +11,101 @@ namespace NeoDraw.WldGen.Place {
 
 		public static bool PlaceMushroomTree(int x, int y, ref UndoStep undo) { // GrowShroom
 
-			UnifiedRandom genRand = WorldGen.genRand;
+            if (!WorldGen.InWorld(x, y))
+                return false;
 
-			if (!WorldGen.InWorld(x, y))
-				return false;
+            const int MAX_HEIGHT = 11;
+            const int MIN_HEIGHT = 4;
 
-			while (
-				y < Main.maxTilesY &&
-				(
-					!Main.tile[x, y].active() ||
-					(
-						Main.tile[x, y].active() &&
-						Main.tileCut[Main.tile[x, y].type]
-					)
-				)
-			)
-				y++;
+            UnifiedRandom genRand = WorldGen.genRand;
 
-			if (Main.tile[x - 1, y - 1].lava() || Main.tile[x - 1, y - 1].lava() || Main.tile[x + 1, y - 1].lava())
-				return false;
-			
-			if (
-				Main.tile[x, y].nactive()      &&
-				!Main.tile[x, y].halfBrick()   &&
-				Main.tile[x, y].slope() == 0   &&
-				Main.tile[x, y].type == 70     &&
-				Main.tile[x - 1, y].active()   &&
-				Main.tile[x - 1, y].type == 70 &&
-				Main.tile[x + 1, y].active()   &&
-				Main.tile[x + 1, y].type == 70 &&
-				EmptyTileCheck(x - 1, x + 1, y - 13, y - 1, 71)) {
+            while (
+                y < Main.maxTilesY &&
+                (
+                    !Main.tile[x, y].active() ||
+                    (
+                        Main.tile[x, y].active() &&
+                        Main.tileCut[Main.tile[x, y].type]
+                    )
+                )
+            )
+                y++;
 
-				int height = genRand.Next(4, 11);
+            if (Main.tile[x - 1, y - 1].lava() || Main.tile[x - 1, y - 1].lava() || Main.tile[x + 1, y - 1].lava())
+                return false;
 
-				for (int j = y - height; j < y; j++) {
+            if (!Main.tile[x, y].nactive() || Main.tile[x, y].halfBrick() || Main.tile[x, y].slope() != 0)
+                return false;
 
-					undo.Add(new ChangedTile(x, j));
+            if (Main.tile[x, y].type != 70 ||
+                !Main.tile[x - 1, y].active() || Main.tile[x - 1, y].type != 70 ||
+                !Main.tile[x + 1, y].active() || Main.tile[x + 1, y].type != 70) {
+                return false;
+            }
 
-					Main.tile[x, j].frameNumber((byte)WorldGen.genRand.Next(3));
-					Main.tile[x, j].active(active: true);
-					Main.tile[x, j].type = 72;
+            if (!EmptyTileCheck(x - 1, x + 1, y - (MAX_HEIGHT + 1), y - 1, 71, true))
+                return false;
 
-					int styleY = genRand.Next(3);
+            if (!Neo.RangeTileCut(x - 1, x + 1, y - (MAX_HEIGHT + 1), y - 1))
+                return false;
 
-					if (styleY == 0) {
-						Main.tile[x, j].frameX = 0;
-						Main.tile[x, j].frameY = 0;
-					}
+            int height = genRand.Next(MIN_HEIGHT, MAX_HEIGHT);
 
-					if (styleY == 1) {
-						Main.tile[x, j].frameX = 0;
-						Main.tile[x, j].frameY = 18;
-					}
+            for (int j = y - height; j < y; j++) {
 
-					if (styleY == 2) {
-						Main.tile[x, j].frameX = 0;
-						Main.tile[x, j].frameY = 36;
-					}
+                undo.Add(new ChangedTile(x, j));
 
-				}
+                Main.tile[x, j].frameNumber((byte)WorldGen.genRand.Next(3));
+                Main.tile[x, j].active(active: true);
+                Main.tile[x, j].type = 72;
 
-				int styleX = genRand.Next(3);
+                int styleY = genRand.Next(3);
 
-				undo.Add(new ChangedTile(x, y - height));
+                if (styleY == 0) {
+                    Main.tile[x, j].frameX = 0;
+                    Main.tile[x, j].frameY = 0;
+                }
 
-				if (styleX == 0) {
-					Main.tile[x, y - height].frameX = 36;
-					Main.tile[x, y - height].frameY = 0;
-				}
+                if (styleY == 1) {
+                    Main.tile[x, j].frameX = 0;
+                    Main.tile[x, j].frameY = 18;
+                }
 
-				if (styleX == 1) {
-					Main.tile[x, y - height].frameX = 36;
-					Main.tile[x, y - height].frameY = 18;
-				}
+                if (styleY == 2) {
+                    Main.tile[x, j].frameX = 0;
+                    Main.tile[x, j].frameY = 36;
+                }
 
-				if (styleX == 2) {
-					Main.tile[x, y - height].frameX = 36;
-					Main.tile[x, y - height].frameY = 36;
-				}
+            }
 
-				WorldGen.RangeFrame(x - 1, y - height - 1, x + 1, y + 1);
+            int styleX = genRand.Next(3);
 
-				if (Main.netMode == NetmodeID.Server)
-					NetMessage.SendTileSquare(-1, x, (int)(y - height * 0.5), height + 1);
-				
-				return true;
+            undo.Add(new ChangedTile(x, y - height));
 
-			}
+            if (styleX == 0) {
+                Main.tile[x, y - height].frameX = 36;
+                Main.tile[x, y - height].frameY = 0;
+            }
 
-			return false;
+            if (styleX == 1) {
+                Main.tile[x, y - height].frameX = 36;
+                Main.tile[x, y - height].frameY = 18;
+            }
 
-		}
+            if (styleX == 2) {
+                Main.tile[x, y - height].frameX = 36;
+                Main.tile[x, y - height].frameY = 36;
+            }
 
-	}
+            WorldGen.RangeFrame(x - 1, y - height - 1, x + 1, y + 1);
+
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendTileSquare(-1, x, (int)(y - height * 0.5), height + 1);
+
+            return true;
+
+        }
+
+    }
 
 }

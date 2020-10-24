@@ -278,9 +278,9 @@ namespace NeoDraw.UI {
         public static List<string> SubStructureNames;
         public static List<string> SubTileNames;
 
-        public static List<Tuple<Point, int>> CheckedTiles;
-        public static List<Tuple<Point, int>> GoodTiles;
-        public static List<Tuple<Point, int>> InvalidTiles;
+        public static Dictionary<Point, int> CheckedTiles;
+        public static Dictionary<Point, int> GoodTiles;
+        public static Dictionary<Point, int> InvalidTiles;
 
         public static string ButtonWithFocus;
         public static string HoveredListItem = "";
@@ -580,9 +580,9 @@ namespace NeoDraw.UI {
             SubStructureNames = new List<string>();
             SubOtherNames = new List<string>();
 
-            CheckedTiles = new List<Tuple<Point, int>>();
-            GoodTiles    = new List<Tuple<Point, int>>();
-            InvalidTiles = new List<Tuple<Point, int>>();
+            CheckedTiles = new Dictionary<Point, int>();
+            GoodTiles    = new Dictionary<Point, int>();
+            InvalidTiles = new Dictionary<Point, int>();
 
             structures = new StructureMap();
 
@@ -2721,7 +2721,7 @@ DoneTesting:
                                 if (CurrentTab == Tabs.Tiles)
                                     DrawPlacingTile(sb);
 
-                                if (NeoDraw.TileToCreate == null || !Main.tileFrameImportant[(int)NeoDraw.TileToCreate])
+                                if (NeoDraw.TileToCreate == null || !Main.tileFrameImportant[NeoDraw.TileToCreate.GetValueOrDefault()])
                                     sb.DrawCircle(new Vector2(centerTarget.X + (_brushSize % 2 == 0 ? -8 : 0) - Main.screenPosition.X, centerTarget.Y + (_brushSize % 2 == 0 ? -8 : 0) - Main.screenPosition.Y), BrushSize * 8 + 8, 16, Color.Black * Main.cursorAlpha, 3f);
 
                             }
@@ -5837,6 +5837,42 @@ DoneTesting:
 
         }
 
+        public static void AddCheckedTile(int x, int y, int duration = 150) {
+
+            if (CheckedTiles == null)
+                CheckedTiles = new Dictionary<Point, int>();
+
+            Point location = new Point(x, y);
+
+            if (!CheckedTiles.ContainsKey(location))
+                CheckedTiles.Add(location, duration);
+            
+        }
+
+        public static void AddGoodTile(int x, int y, int duration = 150) {
+
+            if (GoodTiles == null)
+                GoodTiles = new Dictionary<Point, int>();
+
+            Point location = new Point(x, y);
+
+            if (!GoodTiles.ContainsKey(location))
+                GoodTiles.Add(location, duration);
+
+        }
+
+        public static void AddInvalidTile(int x, int y, int duration = 150) {
+
+            if (InvalidTiles == null)
+                InvalidTiles = new Dictionary<Point, int>();
+
+            Point location = new Point(x, y);
+
+            if (!InvalidTiles.ContainsKey(location))
+                InvalidTiles.Add(location, duration);
+
+        }
+
         public static void AddClickDelay(int time) {
 
             DateTime newClickDelay = DateTime.Now.AddMilliseconds(time);
@@ -7831,9 +7867,9 @@ DoneTesting:
             while (startY < Main.maxTilesY && (!Main.tile[startX, startY].active() || (Main.tile[startX, startY].active() && Main.tileCut[Main.tile[startX, startY].type])))
                 startY++;
 
-            Vector2 topLeft = new Vector2((startX - 1) * 16 - Main.screenPosition.X, (startY - (height - 1)) * 16 - Main.screenPosition.Y);
-            Vector2 topRight = new Vector2((startX + 1 + 1) * 16 - Main.screenPosition.X, (startY - (height - 1)) * 16 - Main.screenPosition.Y);
-            Vector2 botomLeft = new Vector2((startX - 1) * 16 - Main.screenPosition.X, (startY) * 16 - Main.screenPosition.Y);
+            Vector2 topLeft    = new Vector2((startX - 1) * 16 - Main.screenPosition.X,     (startY - (height + 1)) * 16 - Main.screenPosition.Y);
+            Vector2 topRight   = new Vector2((startX + 1 + 1) * 16 - Main.screenPosition.X, (startY - (height + 1)) * 16 - Main.screenPosition.Y);
+            Vector2 botomLeft  = new Vector2((startX - 1) * 16 - Main.screenPosition.X,     (startY) * 16 - Main.screenPosition.Y);
             Vector2 botomRight = new Vector2((startX + 1 + 1) * 16 - Main.screenPosition.X, (startY) * 16 - Main.screenPosition.Y);
 
             bool canPlace = true;
@@ -7865,7 +7901,7 @@ DoneTesting:
                 canPlace = false;
                 mouseText = "Ground tile cannot grow a Tree.";
             }
-            else if (!EmptyTileCheck(startX - 1, startX + 1, startY - 13, startY - 1, 71, true)) {
+            else if (!EmptyTileCheck(startX - 1, startX + 1, startY - (height + 1), startY - 1, 71, true)) {
                 mouseText = "Empty Tile Check Failed.";
                 canPlace = false;
             }
@@ -7876,10 +7912,10 @@ DoneTesting:
 
             Color boxColor = canPlace ? Color.Green : Color.Red;
 
-            sb.DrawLine(topLeft, topRight, boxColor, 2);
-            sb.DrawLine(topLeft, botomLeft, boxColor, 2);
-            sb.DrawLine(botomLeft, botomRight, boxColor, 2);
-            sb.DrawLine(topRight, botomRight, boxColor, 2);
+            sb.DrawLine(topLeft,   topRight,                      boxColor, 2);
+            sb.DrawLine(topLeft,   botomLeft + new Vector2(0, 2), boxColor, 2);
+            sb.DrawLine(botomLeft, botomRight,                    boxColor, 2);
+            sb.DrawLine(topRight,  botomRight,                    boxColor, 2);
 
             if (mouseText != "")
                 MouseText(sb, mouseText);
@@ -7889,16 +7925,16 @@ DoneTesting:
         private static void DrawPalmTreeOutline(SpriteBatch sb) {
 
             int width = 1;
-            int height = 31;
+            const int MAX_HEIGHT = 21;
 
             Point origin = new Point(Neo.TileTargetX, Neo.TileTargetY);
 
             while (origin.Y < Main.maxTilesY && (!Main.tile[origin.X, origin.Y].active() || (Main.tile[origin.X, origin.Y].active() && Main.tileCut[Main.tile[origin.X, origin.Y].type])))
                 origin.Y++;
 
-            Vector2 topLeft = new Vector2((origin.X - width) * 16 - Main.screenPosition.X, (origin.Y - (height - 1)) * 16 - Main.screenPosition.Y);
-            Vector2 topRight = new Vector2((origin.X + width + 1) * 16 - Main.screenPosition.X, (origin.Y - (height - 1)) * 16 - Main.screenPosition.Y);
-            Vector2 botomLeft = new Vector2((origin.X - width) * 16 - Main.screenPosition.X, (origin.Y) * 16 - Main.screenPosition.Y);
+            Vector2 topLeft    = new Vector2((origin.X - width) * 16 - Main.screenPosition.X,     (origin.Y - (MAX_HEIGHT + 1)) * 16 - Main.screenPosition.Y);
+            Vector2 topRight   = new Vector2((origin.X + width + 1) * 16 - Main.screenPosition.X, (origin.Y - (MAX_HEIGHT + 1)) * 16 - Main.screenPosition.Y);
+            Vector2 botomLeft  = new Vector2((origin.X - width) * 16 - Main.screenPosition.X,     (origin.Y) * 16 - Main.screenPosition.Y);
             Vector2 botomRight = new Vector2((origin.X + width + 1) * 16 - Main.screenPosition.X, (origin.Y) * 16 - Main.screenPosition.Y);
 
             bool canPlace = true;
@@ -7921,17 +7957,17 @@ DoneTesting:
                 canPlace = false;
                 mouseText = "Ground tile cannot grow a Palm Tree.";
             }
-            else if (!EmptyTileCheck(origin.X - width, origin.X + width, origin.Y - (height - 1), origin.Y - 1, 20, true)) {
+            else if (!EmptyTileCheck(origin.X - width, origin.X + width, origin.Y - (MAX_HEIGHT + 1), origin.Y - 1, 20, true)) {
                 canPlace = false;
                 mouseText = "Empty Tile Check Failed.";
             }
 
             Color boxColor = canPlace ? Color.Green : Color.Red;
 
-            sb.DrawLine(topLeft, topRight, boxColor, 2);
-            sb.DrawLine(topLeft, botomLeft, boxColor, 2);
+            sb.DrawLine(topLeft,   topRight,   boxColor, 2);
+            sb.DrawLine(topLeft,   botomLeft + new Vector2(0, 2),  boxColor, 2);
             sb.DrawLine(botomLeft, botomRight, boxColor, 2);
-            sb.DrawLine(topRight, botomRight, boxColor, 2);
+            sb.DrawLine(topRight,  botomRight, boxColor, 2);
 
             if (mouseText != "")
                 MouseText(sb, mouseText);
@@ -9324,9 +9360,9 @@ DoneTesting:
             if (Main.tile[origin.X, origin.Y].type == TileID.JungleGrass)
                 height += 5;
 
-            Vector2 topLeft = new Vector2((origin.X - (width / 2)) * 16 - Main.screenPosition.X, (origin.Y - (height - 1)) * 16 - Main.screenPosition.Y);
-            Vector2 topRight = new Vector2((origin.X + (width / 2) + 1) * 16 - Main.screenPosition.X, (origin.Y - (height - 1)) * 16 - Main.screenPosition.Y);
-            Vector2 botomLeft = new Vector2((origin.X - (width / 2)) * 16 - Main.screenPosition.X, (origin.Y) * 16 - Main.screenPosition.Y);
+            Vector2 topLeft    = new Vector2((origin.X - (width / 2)) * 16 - Main.screenPosition.X,     (origin.Y - (height + 1)) * 16 - Main.screenPosition.Y);
+            Vector2 topRight   = new Vector2((origin.X + (width / 2) + 1) * 16 - Main.screenPosition.X, (origin.Y - (height + 1)) * 16 - Main.screenPosition.Y);
+            Vector2 botomLeft  = new Vector2((origin.X - (width / 2)) * 16 - Main.screenPosition.X,     (origin.Y) * 16 - Main.screenPosition.Y);
             Vector2 botomRight = new Vector2((origin.X + (width / 2) + 1) * 16 - Main.screenPosition.X, (origin.Y) * 16 - Main.screenPosition.Y);
 
             bool canPlace = true;
@@ -9334,7 +9370,7 @@ DoneTesting:
 
             if (!Main.tile[origin.X, origin.Y].nactive()) {
                 canPlace = false;
-                mouseText = "Start Tile is nActive.";
+                mouseText = "Start Tile is not active.";
             }
             else if (!Main.tile[origin.X - 1, origin.Y].active() &&
                      !Main.tile[origin.X + 1, origin.Y].active()) {
@@ -9378,7 +9414,7 @@ DoneTesting:
                 canPlace = false;
                 mouseText = "Ground tile cannot grow a Tree.";
             }
-            else if (!EmptyTileCheck(origin.X - 2, origin.X + 2, origin.Y - height, origin.Y - 1, 20, true)) {
+            else if (!EmptyTileCheck(origin.X - 2, origin.X + 2, origin.Y - (height + 1), origin.Y - 1, 20, true)) {
                 canPlace = false;
                 mouseText = "Empty Tile Check Failed.";
             }
@@ -9386,7 +9422,7 @@ DoneTesting:
             Color boxColor = canPlace ? Color.Green : Color.Red;
 
             sb.DrawLine(topLeft, topRight, boxColor, 2);
-            sb.DrawLine(topLeft, botomLeft, boxColor, 2);
+            sb.DrawLine(topLeft, botomLeft + new Vector2(0, 2), boxColor, 2);
             sb.DrawLine(botomLeft, botomRight, boxColor, 2);
             sb.DrawLine(topRight, botomRight, boxColor, 2);
 
@@ -9731,8 +9767,14 @@ DoneTesting:
 
         private static void HandleTileHighlighting(SpriteBatch sb) {
 
+            //if (CheckedTiles.Count > 0)
+            //    HighlightInvalidTiles(sb, ref CheckedTiles, Color.Yellow);
+
+            if (GoodTiles.Count > 0)
+                HighlightInvalidTiles(sb, ref GoodTiles, Color.Green);
+
             if (InvalidTiles.Count > 0)
-                HighlightInvalidTiles(sb);
+                HighlightInvalidTiles(sb, ref InvalidTiles, Color.Red);
 
         }
 
@@ -9753,29 +9795,36 @@ DoneTesting:
 
         }
 
-        private static void HighlightInvalidTiles(SpriteBatch sb) {
+        private static void HighlightInvalidTiles(SpriteBatch sb, ref Dictionary<Point, int> tilesList, Color highlightColor) {
 
-            if (InvalidTiles == null || InvalidTiles.Count < 1)
+            if (tilesList == null || tilesList.Count < 1)
                 return;
 
-            List<Tuple<Point, int>> tempList = new List<Tuple<Point, int>>();
+            Dictionary<Point, int> tempList = new Dictionary<Point, int>();
 
-            foreach (Tuple<Point, int> invalidTile in InvalidTiles) {
+            foreach (KeyValuePair<Point, int> invalidTile in tilesList) {
 
-                Point tileLocation = invalidTile.Item1;
-                int showCount = invalidTile.Item2;
+                Point tileLocation = invalidTile.Key;
+                int showCount = invalidTile.Value;
 
-                Drawing.DrawBox(sb, tileLocation.X * 16f - Main.screenPosition.X - 16, tileLocation.Y * 16f - Main.screenPosition.Y - 16, 48, 48, Color.Red * 0.25f);
-                Drawing.DrawBox(sb, tileLocation.X * 16f - Main.screenPosition.X, tileLocation.Y * 16f - Main.screenPosition.Y, 16, 16, Color.Red * 0.85f);
+                //Drawing.DrawBox(sb, tileLocation.X * 16f - Main.screenPosition.X - 16, tileLocation.Y * 16f - Main.screenPosition.Y - 16, 48, 48, Color.Red * 0.25f);
+                //Drawing.DrawBox(sb, tileLocation.X * 16f - Main.screenPosition.X, tileLocation.Y * 16f - Main.screenPosition.Y, 16, 16, highlightColor * 0.25f);
 
+                if (highlightColor == Color.Red) {
+                    sb.Draw(GetTexture("Terraria/Cooldown"), new Vector2(tileLocation.X * 16f - Main.screenPosition.X, tileLocation.Y * 16f - Main.screenPosition.Y), null, Color.White * 0.25f, 0f, default, 0.5f, SpriteEffects.None, 1f);
+                }
+                else {
+                    sb.Draw(GetTexture("Terraria/Black_Tile"), new Vector2(tileLocation.X * 16f - Main.screenPosition.X, tileLocation.Y * 16f - Main.screenPosition.Y), null, highlightColor * 0.1f, 0f, default, 1f, SpriteEffects.None, 1f);
+                }
+                
                 showCount--;
 
                 if (showCount > 0)
-                    tempList.Add(new Tuple<Point, int>(tileLocation, showCount));
+                    tempList.Add(tileLocation, showCount);
 
             }
 
-            InvalidTiles = tempList;
+            tilesList = tempList;
 
         }
 
@@ -9883,6 +9932,10 @@ DoneTesting:
         }
 
         public static void Reset() {
+
+            CheckedTiles = new Dictionary<Point, int>();
+            GoodTiles    = new Dictionary<Point, int>();
+            InvalidTiles = new Dictionary<Point, int>();
 
             //DayNightOption = 0;
             TileFrameY = 0;

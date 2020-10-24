@@ -1,4 +1,5 @@
 ﻿using System;
+using NeoDraw.Core;
 using NeoDraw.Undo;
 using Terraria;
 using Terraria.ModLoader;
@@ -12,10 +13,13 @@ namespace NeoDraw.WldGen.Place {
 
         public static bool PlacePalmTree(int x, int y, ref UndoStep undo) {
 
-			UnifiedRandom genRand = WorldGen.genRand;
-
 			if (!WorldGen.InWorld(x, y))
 				return false;
+
+			const int MAX_HEIGHT = 21;
+			const int MIN_HEIGHT = 10;
+
+			UnifiedRandom genRand = WorldGen.genRand;
 
 			while (
 				y < Main.maxTilesY &&
@@ -37,10 +41,13 @@ namespace NeoDraw.WldGen.Place {
 			if (groundTile.type != TileID.Sand && groundTile.type != TileID.Crimsand && groundTile.type != TileID.Pearlsand && groundTile.type != TileID.Ebonsand && !TileLoader.CanGrowModPalmTree(groundTile.type))
 				return false;
 			
-			if (!EmptyTileCheck(x - 1, x + 1, y - 30, y - 1, 20, true))
+			if (!EmptyTileCheck(x - 1, x + 1, y - (MAX_HEIGHT + 1), y - 1, 20, true))
 				return false;
-			
-			int height = genRand.Next(10, 21);
+
+			if (!Neo.RangeTileCut(x - 1, x + 1, y - (MAX_HEIGHT + 1), y - 1))
+				return false;
+
+			int height = genRand.Next(MIN_HEIGHT, MAX_HEIGHT);
 			int num2   = genRand.Next(-8, 9);
 
 			num2 *= 2;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using NeoDraw.Core;
@@ -43,13 +42,13 @@ namespace NeoDraw.WldGen.WldUtils { // Updated v1.4 7/23/2020
 						if (Main.tile[j, k].active()) {
 
 							if (Main.tile[j, k].type >= TileNames.OriginalTileCount) {
-								DrawInterface.InvalidTiles.Add(new Tuple<Point, int>(new Point(j, k), 150));
+								DrawInterface.AddInvalidTile(j, k);
 								DrawInterface.SetStatusBarTempMessage("Warning! Area contains modded tiles. Hold ALT while clicking to force placement.");
 								return false;
 							}
 
 							if (!validTiles[Main.tile[j, k].type]) {
-								DrawInterface.InvalidTiles.Add(new Tuple<Point, int>(new Point(j, k), 150));
+								DrawInterface.AddInvalidTile(j, k);
 								DrawInterface.SetStatusBarTempMessage("Warning! Area contains invalid tiles. Hold ALT while clicking to force placement.");
 								return false;
 							}

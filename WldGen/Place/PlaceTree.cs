@@ -14,6 +14,9 @@ namespace NeoDraw.WldGen.Place {
             if (!WorldGen.InWorld(x, y))
                 return false;
 
+            const int MAX_HEIGHT = 17;
+            const int MIN_HEIGHT = 5;
+
             UnifiedRandom genRand = WorldGen.genRand;
 
 			while (
@@ -74,16 +77,16 @@ namespace NeoDraw.WldGen.Place {
 
                 byte color = Main.tile[x, y].color();
                 int halfWidth = 2;
-                int height = genRand.Next(5, 17);
+                int height = genRand.Next(MIN_HEIGHT, MAX_HEIGHT);
                 int heightWithTop = height + 4;
 
                 if (Main.tile[x, y].type == TileID.JungleGrass)
                     heightWithTop += 5;
 
-                if (Main.tile[x, y].type == TileID.MushroomGrass && (!EmptyTileCheck(x - halfWidth, x + halfWidth, y - heightWithTop, y - 3, 20, true) || !EmptyTileCheck(x - 1, x + 1, y - 2, y - 1, 20, true)))
+                if (Main.tile[x, y].type == TileID.MushroomGrass && (!EmptyTileCheck(x - halfWidth, x + halfWidth, y - (heightWithTop + 1), y - 3, 20, true) || !EmptyTileCheck(x - 1, x + 1, y - 2, y - 1, 20, true)))
                     return false;
 
-                if (!EmptyTileCheck(x - halfWidth, x + halfWidth, y - heightWithTop, y - 1, 20, true))
+                if (!EmptyTileCheck(x - halfWidth, x + halfWidth, y - (heightWithTop + 1), y - 1, 20, true))
                     return false;
 
                 bool flag  = false;
@@ -120,173 +123,206 @@ namespace NeoDraw.WldGen.Place {
 
                     switch (num5) {
 
-                        case 1:
+                        case 1: {
 
-                            switch (num4) {
+                                switch (num4) {
 
-                                case 0:
-                                    Main.tile[x, k].frameX = 0;
-                                    Main.tile[x, k].frameY = 66;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 0;
-                                    Main.tile[x, k].frameY = 88;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 0;
-                                    Main.tile[x, k].frameY = 110;
-                                    break;
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 0;
+                                            Main.tile[x, k].frameY = 66;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 0;
+                                            Main.tile[x, k].frameY = 88;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 0;
+                                            Main.tile[x, k].frameY = 110;
+                                            break;
+                                        }
 
-                            }
+                                }
 
-                            break;
-
-                        case 2:
-
-                            switch (num4) {
-
-                                case 0:
-                                    Main.tile[x, k].frameX = 22;
-                                    Main.tile[x, k].frameY = 0;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 22;
-                                    Main.tile[x, k].frameY = 22;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 22;
-                                    Main.tile[x, k].frameY = 44;
-                                    break;
+                                break;
 
                             }
+                        case 2: {
 
-                            break;
+                                switch (num4) {
 
-                        case 3:
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 22;
+                                            Main.tile[x, k].frameY = 0;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 22;
+                                            Main.tile[x, k].frameY = 22;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 22;
+                                            Main.tile[x, k].frameY = 44;
+                                            break;
+                                        }
 
-                            switch (num4) {
+                                }
 
-                                case 0:
-                                    Main.tile[x, k].frameX = 44;
-                                    Main.tile[x, k].frameY = 66;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 44;
-                                    Main.tile[x, k].frameY = 88;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 44;
-                                    Main.tile[x, k].frameY = 110;
-                                    break;
-
-                            }
-
-                            break;
-
-                        case 4:
-
-                            switch (num4) {
-
-                                case 0:
-                                    Main.tile[x, k].frameX = 22;
-                                    Main.tile[x, k].frameY = 66;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 22;
-                                    Main.tile[x, k].frameY = 88;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 22;
-                                    Main.tile[x, k].frameY = 110;
-                                    break;
+                                break;
 
                             }
+                        case 3: {
 
-                            break;
+                                switch (num4) {
 
-                        case 5:
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 44;
+                                            Main.tile[x, k].frameY = 66;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 44;
+                                            Main.tile[x, k].frameY = 88;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 44;
+                                            Main.tile[x, k].frameY = 110;
+                                            break;
+                                        }
 
-                            switch (num4) {
+                                }
 
-                                case 0:
-                                    Main.tile[x, k].frameX = 88;
-                                    Main.tile[x, k].frameY = 0;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 88;
-                                    Main.tile[x, k].frameY = 22;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 88;
-                                    Main.tile[x, k].frameY = 44;
-                                    break;
-
-                            }
-
-                            break;
-
-                        case 6:
-
-                            switch (num4) {
-
-                                case 0:
-                                    Main.tile[x, k].frameX = 66;
-                                    Main.tile[x, k].frameY = 66;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 66;
-                                    Main.tile[x, k].frameY = 88;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 66;
-                                    Main.tile[x, k].frameY = 110;
-                                    break;
+                                break;
 
                             }
+                        case 4: {
 
-                            break;
+                                switch (num4) {
 
-                        case 7:
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 22;
+                                            Main.tile[x, k].frameY = 66;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 22;
+                                            Main.tile[x, k].frameY = 88;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 22;
+                                            Main.tile[x, k].frameY = 110;
+                                            break;
+                                        }
 
-                            switch (num4) {
+                                }
 
-                                case 0:
-                                    Main.tile[x, k].frameX = 110;
-                                    Main.tile[x, k].frameY = 66;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 110;
-                                    Main.tile[x, k].frameY = 88;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 110;
-                                    Main.tile[x, k].frameY = 110;
-                                    break;
-
-                            }
-
-                            break;
-
-                        default:
-
-                            switch (num4) {
-
-                                case 0:
-                                    Main.tile[x, k].frameX = 0;
-                                    Main.tile[x, k].frameY = 0;
-                                    break;
-                                case 1:
-                                    Main.tile[x, k].frameX = 0;
-                                    Main.tile[x, k].frameY = 22;
-                                    break;
-                                case 2:
-                                    Main.tile[x, k].frameX = 0;
-                                    Main.tile[x, k].frameY = 44;
-                                    break;
+                                break;
 
                             }
+                        case 5: {
 
-                            break;
+                                switch (num4) {
+
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 88;
+                                            Main.tile[x, k].frameY = 0;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 88;
+                                            Main.tile[x, k].frameY = 22;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 88;
+                                            Main.tile[x, k].frameY = 44;
+                                            break;
+                                        }
+
+                                }
+
+                                break;
+
+                            }
+                        case 6: {
+
+                                switch (num4) {
+
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 66;
+                                            Main.tile[x, k].frameY = 66;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 66;
+                                            Main.tile[x, k].frameY = 88;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 66;
+                                            Main.tile[x, k].frameY = 110;
+                                            break;
+                                        }
+
+                                }
+
+                                break;
+
+                            }
+                        case 7: {
+
+                                switch (num4) {
+
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 110;
+                                            Main.tile[x, k].frameY = 66;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 110;
+                                            Main.tile[x, k].frameY = 88;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 110;
+                                            Main.tile[x, k].frameY = 110;
+                                            break;
+                                        }
+
+                                }
+
+                                break;
+
+                            }
+                        default: {
+
+                                switch (num4) {
+
+                                    case 0: {
+                                            Main.tile[x, k].frameX = 0;
+                                            Main.tile[x, k].frameY = 0;
+                                            break;
+                                        }
+                                    case 1: {
+                                            Main.tile[x, k].frameX = 0;
+                                            Main.tile[x, k].frameY = 22;
+                                            break;
+                                        }
+                                    case 2: {
+                                            Main.tile[x, k].frameX = 0;
+                                            Main.tile[x, k].frameY = 44;
+                                            break;
+                                        }
+
+                                }
+
+                                break;
+
+                            }
 
                     }
 
@@ -304,18 +340,21 @@ namespace NeoDraw.WldGen.Place {
 
                             switch (num4) {
 
-                                case 0:
-                                    Main.tile[x - 1, k].frameX = 44;
-                                    Main.tile[x - 1, k].frameY = 198;
-                                    break;
-                                case 1:
-                                    Main.tile[x - 1, k].frameX = 44;
-                                    Main.tile[x - 1, k].frameY = 220;
-                                    break;
-                                case 2:
-                                    Main.tile[x - 1, k].frameX = 44;
-                                    Main.tile[x - 1, k].frameY = 242;
-                                    break;
+                                case 0: {
+                                        Main.tile[x - 1, k].frameX = 44;
+                                        Main.tile[x - 1, k].frameY = 198;
+                                        break;
+                                    }
+                                case 1: {
+                                        Main.tile[x - 1, k].frameX = 44;
+                                        Main.tile[x - 1, k].frameY = 220;
+                                        break;
+                                    }
+                                case 2: {
+                                        Main.tile[x - 1, k].frameX = 44;
+                                        Main.tile[x - 1, k].frameY = 242;
+                                        break;
+                                    }
 
                             }
 
@@ -324,18 +363,21 @@ namespace NeoDraw.WldGen.Place {
 
                             switch (num4) {
 
-                                case 0:
-                                    Main.tile[x - 1, k].frameX = 66;
-                                    Main.tile[x - 1, k].frameY = 0;
-                                    break;
-                                case 1:
-                                    Main.tile[x - 1, k].frameX = 66;
-                                    Main.tile[x - 1, k].frameY = 22;
-                                    break;
-                                case 2:
-                                    Main.tile[x - 1, k].frameX = 66;
-                                    Main.tile[x - 1, k].frameY = 44;
-                                    break;
+                                case 0: {
+                                        Main.tile[x - 1, k].frameX = 66;
+                                        Main.tile[x - 1, k].frameY = 0;
+                                        break;
+                                    }
+                                case 1: {
+                                        Main.tile[x - 1, k].frameX = 66;
+                                        Main.tile[x - 1, k].frameY = 22;
+                                        break;
+                                    }
+                                case 2: {
+                                        Main.tile[x - 1, k].frameX = 66;
+                                        Main.tile[x - 1, k].frameY = 44;
+                                        break;
+                                    }
 
                             }
 
@@ -358,18 +400,21 @@ namespace NeoDraw.WldGen.Place {
 
                         switch (num4) {
 
-                            case 0:
-                                Main.tile[x + 1, k].frameX = 66;
-                                Main.tile[x + 1, k].frameY = 198;
-                                break;
-                            case 1:
-                                Main.tile[x + 1, k].frameX = 66;
-                                Main.tile[x + 1, k].frameY = 220;
-                                break;
-                            case 2:
-                                Main.tile[x + 1, k].frameX = 66;
-                                Main.tile[x + 1, k].frameY = 242;
-                                break;
+                            case 0: {
+                                    Main.tile[x + 1, k].frameX = 66;
+                                    Main.tile[x + 1, k].frameY = 198;
+                                    break;
+                                }
+                            case 1: {
+                                    Main.tile[x + 1, k].frameX = 66;
+                                    Main.tile[x + 1, k].frameY = 220;
+                                    break;
+                                }
+                            case 2: {
+                                    Main.tile[x + 1, k].frameX = 66;
+                                    Main.tile[x + 1, k].frameY = 242;
+                                    break;
+                                }
 
                         }
 
@@ -378,18 +423,21 @@ namespace NeoDraw.WldGen.Place {
 
                         switch (num4) {
 
-                            case 0:
-                                Main.tile[x + 1, k].frameX = 88;
-                                Main.tile[x + 1, k].frameY = 66;
-                                break;
-                            case 1:
-                                Main.tile[x + 1, k].frameX = 88;
-                                Main.tile[x + 1, k].frameY = 88;
-                                break;
-                            case 2:
-                                Main.tile[x + 1, k].frameX = 88;
-                                Main.tile[x + 1, k].frameY = 110;
-                                break;
+                            case 0: {
+                                    Main.tile[x + 1, k].frameX = 88;
+                                    Main.tile[x + 1, k].frameY = 66;
+                                    break;
+                                }
+                            case 1: {
+                                    Main.tile[x + 1, k].frameX = 88;
+                                    Main.tile[x + 1, k].frameY = 88;
+                                    break;
+                                }
+                            case 2: {
+                                    Main.tile[x + 1, k].frameX = 88;
+                                    Main.tile[x + 1, k].frameY = 110;
+                                    break;
+                                }
 
                         }
 
@@ -447,18 +495,21 @@ namespace NeoDraw.WldGen.Place {
 
                     switch (num4) {
 
-                        case 0:
-                            Main.tile[x + 1, y - 1].frameX = 22;
-                            Main.tile[x + 1, y - 1].frameY = 132;
-                            break;
-                        case 1:
-                            Main.tile[x + 1, y - 1].frameX = 22;
-                            Main.tile[x + 1, y - 1].frameY = 154;
-                            break;
-                        case 2:
-                            Main.tile[x + 1, y - 1].frameX = 22;
-                            Main.tile[x + 1, y - 1].frameY = 176;
-                            break;
+                        case 0: {
+                                Main.tile[x + 1, y - 1].frameX = 22;
+                                Main.tile[x + 1, y - 1].frameY = 132;
+                                break;
+                            }
+                        case 1: {
+                                Main.tile[x + 1, y - 1].frameX = 22;
+                                Main.tile[x + 1, y - 1].frameY = 154;
+                                break;
+                            }
+                        case 2: {
+                                Main.tile[x + 1, y - 1].frameX = 22;
+                                Main.tile[x + 1, y - 1].frameY = 176;
+                                break;
+                            }
 
                     }
 
@@ -476,18 +527,21 @@ namespace NeoDraw.WldGen.Place {
 
                     switch (num4) {
 
-                        case 0:
-                            Main.tile[x - 1, y - 1].frameX = 44;
-                            Main.tile[x - 1, y - 1].frameY = 132;
-                            break;
-                        case 1:
-                            Main.tile[x - 1, y - 1].frameX = 44;
-                            Main.tile[x - 1, y - 1].frameY = 154;
-                            break;
-                        case 2:
-                            Main.tile[x - 1, y - 1].frameX = 44;
-                            Main.tile[x - 1, y - 1].frameY = 176;
-                            break;
+                        case 0: {
+                                Main.tile[x - 1, y - 1].frameX = 44;
+                                Main.tile[x - 1, y - 1].frameY = 132;
+                                break;
+                            }
+                        case 1: {
+                                Main.tile[x - 1, y - 1].frameX = 44;
+                                Main.tile[x - 1, y - 1].frameY = 154;
+                                break;
+                            }
+                        case 2: {
+                                Main.tile[x - 1, y - 1].frameX = 44;
+                                Main.tile[x - 1, y - 1].frameY = 176;
+                                break;
+                            }
 
                     }
 
@@ -499,68 +553,81 @@ namespace NeoDraw.WldGen.Place {
 
                 switch (num6) {
 
-                    case 0:
+                    case 0: {
 
-                        switch (num4) {
+                            switch (num4) {
 
-                            case 0:
-                                Main.tile[x, y - 1].frameX = 88;
-                                Main.tile[x, y - 1].frameY = 132;
-                                break;
-                            case 1:
-                                Main.tile[x, y - 1].frameX = 88;
-                                Main.tile[x, y - 1].frameY = 154;
-                                break;
-                            case 2:
-                                Main.tile[x, y - 1].frameX = 88;
-                                Main.tile[x, y - 1].frameY = 176;
-                                break;
+                                case 0: {
+                                        Main.tile[x, y - 1].frameX = 88;
+                                        Main.tile[x, y - 1].frameY = 132;
+                                        break;
+                                    }
+                                case 1: {
+                                        Main.tile[x, y - 1].frameX = 88;
+                                        Main.tile[x, y - 1].frameY = 154;
+                                        break;
+                                    }
+                                case 2: {
+                                        Main.tile[x, y - 1].frameX = 88;
+                                        Main.tile[x, y - 1].frameY = 176;
+                                        break;
+                                    }
 
-                        }
+                            }
 
-                        break;
-
-                    case 1:
-
-                        switch (num4) {
-
-                            case 0:
-                                Main.tile[x, y - 1].frameX = 0;
-                                Main.tile[x, y - 1].frameY = 132;
-                                break;
-                            case 1:
-                                Main.tile[x, y - 1].frameX = 0;
-                                Main.tile[x, y - 1].frameY = 154;
-                                break;
-                            case 2:
-                                Main.tile[x, y - 1].frameX = 0;
-                                Main.tile[x, y - 1].frameY = 176;
-                                break;
+                            break;
 
                         }
+                    case 1: {
 
-                        break;
+                            switch (num4) {
 
-                    case 2:
+                                case 0: {
+                                        Main.tile[x, y - 1].frameX = 0;
+                                        Main.tile[x, y - 1].frameY = 132;
+                                        break;
+                                    }
+                                case 1: {
+                                        Main.tile[x, y - 1].frameX = 0;
+                                        Main.tile[x, y - 1].frameY = 154;
+                                        break;
+                                    }
+                                case 2: {
+                                        Main.tile[x, y - 1].frameX = 0;
+                                        Main.tile[x, y - 1].frameY = 176;
+                                        break;
+                                    }
 
-                        switch (num4) {
+                            }
 
-                            case 0:
-                                Main.tile[x, y - 1].frameX = 66;
-                                Main.tile[x, y - 1].frameY = 132;
-                                break;
-                            case 1:
-                                Main.tile[x, y - 1].frameX = 66;
-                                Main.tile[x, y - 1].frameY = 154;
-                                break;
-                            case 2:
-                                Main.tile[x, y - 1].frameX = 66;
-                                Main.tile[x, y - 1].frameY = 176;
-                                break;
+                            break;
 
                         }
+                    case 2: {
 
-                        break;
+                            switch (num4) {
+
+                                case 0: {
+                                        Main.tile[x, y - 1].frameX = 66;
+                                        Main.tile[x, y - 1].frameY = 132;
+                                        break;
+                                    }
+                                case 1: {
+                                        Main.tile[x, y - 1].frameX = 66;
+                                        Main.tile[x, y - 1].frameY = 154;
+                                        break;
+                                    }
+                                case 2: {
+                                        Main.tile[x, y - 1].frameX = 66;
+                                        Main.tile[x, y - 1].frameY = 176;
+                                        break;
+                                    }
+
+                            }
+
+                            break;
+
+                        }
 
                 }
 
@@ -572,18 +639,21 @@ namespace NeoDraw.WldGen.Place {
 
                     switch (num4) {
 
-                        case 0:
-                            Main.tile[x, y - height].frameX = 22;
-                            Main.tile[x, y - height].frameY = 198;
-                            break;
-                        case 1:
-                            Main.tile[x, y - height].frameX = 22;
-                            Main.tile[x, y - height].frameY = 220;
-                            break;
-                        case 2:
-                            Main.tile[x, y - height].frameX = 22;
-                            Main.tile[x, y - height].frameY = 242;
-                            break;
+                        case 0: {
+                                Main.tile[x, y - height].frameX = 22;
+                                Main.tile[x, y - height].frameY = 198;
+                                break;
+                            }
+                        case 1: {
+                                Main.tile[x, y - height].frameX = 22;
+                                Main.tile[x, y - height].frameY = 220;
+                                break;
+                            }
+                        case 2: {
+                                Main.tile[x, y - height].frameX = 22;
+                                Main.tile[x, y - height].frameY = 242;
+                                break;
+                            }
 
                     }
 
@@ -594,24 +664,27 @@ namespace NeoDraw.WldGen.Place {
 
                     switch (num4) {
 
-                        case 0:
-                            Main.tile[x, y - height].frameX = 0;
-                            Main.tile[x, y - height].frameY = 198;
-                            break;
-                        case 1:
-                            Main.tile[x, y - height].frameX = 0;
-                            Main.tile[x, y - height].frameY = 220;
-                            break;
-                        case 2:
-                            Main.tile[x, y - height].frameX = 0;
-                            Main.tile[x, y - height].frameY = 242;
-                            break;
+                        case 0: {
+                                Main.tile[x, y - height].frameX = 0;
+                                Main.tile[x, y - height].frameY = 198;
+                                break;
+                            }
+                        case 1: {
+                                Main.tile[x, y - height].frameX = 0;
+                                Main.tile[x, y - height].frameY = 220;
+                                break;
+                            }
+                        case 2: {
+                                Main.tile[x, y - height].frameX = 0;
+                                Main.tile[x, y - height].frameY = 242;
+                                break;
+                            }
 
                     }
 
                 }
 
-                WorldGen.RangeFrame(x - 2, y - height - 1, x + 2, y + 1);
+                WorldGen.RangeFrame(x - 2, y - (height + 1), x + 2, y + 1);
 
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendTileSquare(-1, x, (int)(y - height * 0.5), height + 1);
