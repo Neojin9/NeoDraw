@@ -3148,8 +3148,10 @@ DoneTesting:
                     }
                     else {
 
+                        Vector2 endPoint = default;
+
                         if (CurrentTab == Tabs.Tiles) {
-                            DrawLine();
+                            endPoint = DrawLine();
                         }
                         else if (CurrentTab == Tabs.Walls) {
                             DrawLineWall();
@@ -3158,7 +3160,7 @@ DoneTesting:
                             DrawLineOther();
                         }
 
-                        StartPoint = (Main.keyState.PressingAlt() || Main.keyState.PressingShift()) ? new Vector2(Neo.TileTargetX, Neo.TileTargetY) : default;
+                        StartPoint = (Main.keyState.PressingAlt() || Main.keyState.PressingShift()) ? endPoint : default;
 
                     }
 
@@ -3653,7 +3655,7 @@ DoneTesting:
 
         #region Draw Functions
 
-        private static void DrawLine() {
+        private static Vector2 DrawLine() {
 
             int type = NeoDraw.TileToCreate.GetValueOrDefault(-1);
 
@@ -3768,8 +3770,8 @@ DoneTesting:
 
                     for (int i = 0; i < points.Count; i++)
                         WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
-
-                    return;
+                    
+                    return points.Last().ToVector2() == StartPoint ? points.First().ToVector2() : points.Last().ToVector2();
 
                 }
                 else if (TreatLikeStairs) {
@@ -3870,7 +3872,7 @@ DoneTesting:
                     for (int i = 0; i < points.Count; i++)
                         WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
 
-                    return;
+                    return points.Last().ToVector2() == StartPoint ? points.First().ToVector2() : points.Last().ToVector2();
 
                 }
 
@@ -3903,6 +3905,8 @@ DoneTesting:
 
             for (int i = 0; i < points.Count; i++)
                 WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
+
+            return points.Last().ToVector2() == StartPoint ? points.First().ToVector2() : points.Last().ToVector2();
 
         }
 
