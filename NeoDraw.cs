@@ -314,6 +314,8 @@ namespace NeoDraw {
 
             DrawInterface.Reset();
 
+            Liquid.quickSettle = true;
+
             Main.GameZoomTarget = oldGameZoom;
             Main.inFancyUI = oldEditSign;
             Main.dayRate   = oldDayRate;
@@ -430,6 +432,8 @@ namespace NeoDraw {
         public static void OpenDrawMode() {
 
             Main.playerInventory = false;
+
+            Liquid.quickSettle = true;
 
             oldGameZoom = Main.GameZoomTarget;
             Main.GameZoomTarget = 1f;

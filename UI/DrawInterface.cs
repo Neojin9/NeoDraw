@@ -619,7 +619,7 @@ namespace NeoDraw.UI {
 
             if (Main.playerInventory)
                 return;
-
+            
             CheckIfScreenSizeChanged();
 
             HandleClickLogic();
