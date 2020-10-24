@@ -9262,7 +9262,7 @@ DoneTesting:
 
             bool checkHoverTop = false;
 
-            if (MouseXoverToolbar && Main.mouseY < SearchTop - TabHeight + ToolbarYoffset) {
+            if (MouseXoverToolbar && Main.mouseY > ToolbarYoffset && Main.mouseY < SearchTop - TabHeight + ToolbarYoffset) {
 
                 HoverLeftTopBox();
                 checkHoverTop = true;
@@ -9274,7 +9274,7 @@ DoneTesting:
 
             bool checkHoverMiddle = false;
 
-            if (MouseXoverToolbar && Main.mouseY >= SearchTop && Main.mouseY < MiddleListBottom) {
+            if (MouseXoverToolbar && Main.mouseY >= SearchTop + SearchBarHeight + ToolbarYoffset && Main.mouseY < MiddleListBottom + ToolbarYoffset) {
 
                 HoverLeftMiddleBox();
                 checkHoverMiddle = true;
@@ -9286,7 +9286,7 @@ DoneTesting:
 
             bool checkHoverTabs = false;
 
-            if (MouseXoverToolbar && Main.mouseY >= SearchTop - TabHeight && Main.mouseY < SearchTop) {
+            if (MouseXoverToolbar && Main.mouseY >= SearchTop - TabHeight + ToolbarYoffset && Main.mouseY < SearchTop + ToolbarYoffset) {
 
                 HoverTabs();
                 checkHoverTabs = true;
