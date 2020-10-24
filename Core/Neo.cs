@@ -28,6 +28,7 @@ namespace NeoDraw.Core {
     public class Neo {
 
         public static int TileTargetX {
+            
             get {
 
                 bool swapped = false;

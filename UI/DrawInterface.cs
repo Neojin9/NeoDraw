@@ -1353,7 +1353,7 @@ namespace NeoDraw.UI {
 
             string worldPos = $"Screen Pos: ({Main.mouseX}, {Main.mouseY})";
             string screenPos = $"Screen Pos: ({Main.mouseX + Main.screenPosition.X}, {Main.mouseY + Main.screenPosition.Y})";
-            string tilePos = $"Tile Pos: ({Neo.TileTarget_Vector.X}, {Neo.TileTarget_Vector.Y})";
+            string tilePos = $"Tile Pos: ({Neo.TileTargetX}, {Neo.TileTargetY})";
 
             lines.Add(tilePos);
             lines.Add(screenPos);
@@ -1376,7 +1376,7 @@ namespace NeoDraw.UI {
 
             lines.Add(tileFrameImportant);
             lines.Add($"FrameX: {tile.frameX}, FrameY: {tile.frameY}");
-            lines.Add($"IsTopLeft: {Neo.IsTopLeft(Neo.TileTarget_Vector.X, Neo.TileTarget_Vector.Y)}");
+            lines.Add($"IsTopLeft: {Neo.IsTopLeft(Neo.TileTargetX, Neo.TileTargetY)}");
 
             TOD tileData = TOD.GetTileData(tileType, 0);
 
@@ -1450,7 +1450,7 @@ namespace NeoDraw.UI {
 
             string worldPos = $"Screen Pos: ({Main.mouseX}, {Main.mouseY})";
             string screenPos = $"Screen Pos: ({Main.mouseX + Main.screenPosition.X}, {Main.mouseY + Main.screenPosition.Y})";
-            string tilePos = $"Tile Pos: ({Neo.TileTarget_Vector.X}, {Neo.TileTarget_Vector.Y})";
+            string tilePos = $"Tile Pos: ({Neo.TileTargetX}, {Neo.TileTargetY})";
 
             lines.Add(tilePos);
             lines.Add(screenPos);
@@ -2568,8 +2568,8 @@ LavaTrapEnd:
 
                                                     string mouseText = "";
 
-                                                    int xStart = (int)Neo.TileTarget_Vector.X;
-                                                    int yStart = (int)Neo.TileTarget_Vector.Y;
+                                                    int xStart = Neo.TileTargetX;
+                                                    int yStart = Neo.TileTargetY;
 
                                                     while (yStart + 1 < Main.maxTilesY && !WorldGen.SolidTile(xStart, yStart + 1))
                                                         yStart++;
@@ -7284,8 +7284,8 @@ DoneTesting:
         private static void DrawCactusOutline(SpriteBatch sb) {
 
             int height = 8;
-            int startX = (int)Neo.TileTarget_Vector.X;
-            int startY = (int)Neo.TileTarget_Vector.Y;
+            int startX = Neo.TileTargetX;
+            int startY = Neo.TileTargetY;
 
             while (startY < Main.maxTilesY && (!Main.tile[startX, startY].active() || (Main.tile[startX, startY].active() && Main.tileCut[Main.tile[startX, startY].type])))
                 startY++;
@@ -7865,8 +7865,8 @@ DoneTesting:
         private static void DrawMushroomTreeOutline(SpriteBatch sb) {
 
             int height = 11;
-            int startX = (int)Neo.TileTarget_Vector.X;
-            int startY = (int)Neo.TileTarget_Vector.Y;
+            int startX = Neo.TileTargetX;
+            int startY = Neo.TileTargetY;
 
             while (startY < Main.maxTilesY && (!Main.tile[startX, startY].active() || (Main.tile[startX, startY].active() && Main.tileCut[Main.tile[startX, startY].type])))
                 startY++;
