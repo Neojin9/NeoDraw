@@ -490,6 +490,8 @@ namespace NeoDraw {
 
             DrawInterface.SetStatusBarTempMessage("Draw Mode: On");
 
+            DrawInterface.UpdatePositions();
+
         }
 
         public static void Reset() {

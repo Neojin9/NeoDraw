@@ -10434,7 +10434,7 @@ DoneTesting:
 
         }
 
-        private static void UpdatePositions() {
+        public static void UpdatePositions() {
 
             CreateSliders();
             CreateButtons();
