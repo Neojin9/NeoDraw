@@ -4926,7 +4926,16 @@ DoneTesting:
                 ErasePot(x, y);
             }
             else {
+
+                bool miningHellstone = Main.tile[x, y].type == TileID.Hellstone;
+
                 WorldGen.KillTile(x, y, false, false, true);
+
+                if (miningHellstone) {
+                    Main.tile[x, y].liquid = 0;
+                    Main.tile[x, y].lava(false);
+                }
+
             }
 
             WorldGen.gen = false;
