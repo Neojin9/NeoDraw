@@ -22,6 +22,8 @@ namespace NeoDraw.Undo {
 
         #region Public Variables
 
+        public static bool ResetFramesInProgress;
+
         public int Count => _changedTiles.Count;
 
         public string  Action { get; }
@@ -99,24 +101,18 @@ namespace NeoDraw.Undo {
             if (Count <= 0)
                 return;
 
-            List<ChangedTile> changedTiles = _changedTiles;
+            ResetFramesInProgress = true;
 
-            try {
+            foreach (ChangedTile tile in _changedTiles) {
 
-                foreach (ChangedTile tile in changedTiles) {
+                WorldGen.SquareTileFrame(tile.Location.X, tile.Location.Y);
 
-                    WorldGen.SquareTileFrame(tile.Location.X, tile.Location.Y);
-                    //WorldGen.TileFrame(tile.Location.X, tile.Location.Y);
-
-                    if (wallToo)
-                        WorldGen.SquareWallFrame(tile.Location.X, tile.Location.Y);
-
-                }
+                if (wallToo)
+                    WorldGen.SquareWallFrame(tile.Location.X, tile.Location.Y);
 
             }
-            catch (System.InvalidOperationException) {
-                DrawInterface.SetStatusBarTempMessage("Don't forget to fix that tree Flood Fill issue.");
-            }
+
+            ResetFramesInProgress = false;
 
         }
 

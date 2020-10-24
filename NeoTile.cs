@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using NeoDraw.Core;
 using NeoDraw.UI;
+using NeoDraw.Undo;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -102,11 +103,10 @@ namespace NeoDraw {
             if (!NeoDraw.DrawMode || (!CaptureTileChanges && !CaptureTileFrames))
                 return true;
 
-            if (Main.autoPause) {
+            if (Main.autoPause)
                 return false;
-            }
 
-            if (/*!DrawInterface.DoingFloodFill && */type == TileID.Trees || type == TileID.PalmTree || type == 571 || type == 596 || type == 616 || (type >= 583 && type <= 589))
+            if (!UndoStep.ResetFramesInProgress && (type == TileID.Trees || type == TileID.PalmTree || type == 571 || type == 596 || type == 616 || (type >= 583 && type <= 589)))
                 DrawInterface.AddChangedTile(i, j);
 
             return true;
