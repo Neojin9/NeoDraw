@@ -111,7 +111,7 @@ namespace NeoDraw.UI {
         private static string statusBarTempMessage;
 
         private static Vector2 RulerStartPoint;
-        private static Vector2 StartPoint;
+        private static Point StartPoint;
 
         public static UndoStep _undo;
         private static UndoStep CurrentSelection;
@@ -2294,7 +2294,7 @@ namespace NeoDraw.UI {
                             lengthX = lengthY = "-";
                         }
                         else {
-                            lengthY = (1 + (int)Math.Max(Math.Abs(Neo.TileTargetX - StartPoint.X), Math.Abs(Neo.TileTargetY - StartPoint.Y))).ToString();
+                            lengthY = (1 + Math.Max(Math.Abs(Neo.TileTargetX - StartPoint.X), Math.Abs(Neo.TileTargetY - StartPoint.Y))).ToString();
                         }
 
                     }
@@ -3143,12 +3143,12 @@ DoneTesting:
 
                     if (StartPoint == default) {
 
-                        StartPoint = Neo.TileTarget_Vector;
+                        StartPoint = new Point(Neo.TileTargetX, Neo.TileTargetY);
 
                     }
                     else {
 
-                        Vector2 endPoint = default;
+                        Point endPoint = default;
 
                         if (CurrentTab == Tabs.Tiles) {
                             endPoint = DrawLine();
@@ -3350,7 +3350,7 @@ DoneTesting:
 
                 if (StartPoint == default) {
 
-                    StartPoint = Neo.TileTarget_Vector;
+                    StartPoint = new Point(Neo.TileTargetX, Neo.TileTargetY);
 
                 }
                 else {
@@ -3655,7 +3655,7 @@ DoneTesting:
 
         #region Draw Functions
 
-        private static Vector2 DrawLine() {
+        private static Point DrawLine() {
 
             int type = NeoDraw.TileToCreate.GetValueOrDefault(-1);
 
@@ -3771,7 +3771,7 @@ DoneTesting:
                     for (int i = 0; i < points.Count; i++)
                         WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
                     
-                    return points.Last().ToVector2() == StartPoint ? points.First().ToVector2() : points.Last().ToVector2();
+                    return points.Last() == StartPoint ? points.First() : points.Last();
 
                 }
                 else if (TreatLikeStairs) {
@@ -3872,7 +3872,7 @@ DoneTesting:
                     for (int i = 0; i < points.Count; i++)
                         WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
 
-                    return points.Last().ToVector2() == StartPoint ? points.First().ToVector2() : points.Last().ToVector2();
+                    return points.Last() == StartPoint ? points.First() : points.Last();
 
                 }
 
@@ -3906,7 +3906,7 @@ DoneTesting:
             for (int i = 0; i < points.Count; i++)
                 WorldGen.TileFrame(points[i].X, points[i].Y, true); //SquareTileFrame(points[i].X, points[i].Y, ref _undo);
 
-            return points.Last().ToVector2() == StartPoint ? points.First().ToVector2() : points.Last().ToVector2();
+            return points.Last() == StartPoint ? points.First() : points.Last();
 
         }
 
@@ -9482,15 +9482,15 @@ DoneTesting:
                 if (angle > -22.5 && angle < 22.5) {
 
                     angle = 0;
-                    target.Y = (int)StartPoint.Y;
+                    target.Y = StartPoint.Y;
 
                 }
                 else if (angle <= -22.5 && angle >= -67.5) {
 
                     angle = -45;
 
-                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
-                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+                    int deltaX = Math.Abs(target.X - StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - StartPoint.Y);
 
                     if (deltaX < deltaY) {
                         target.X += (deltaY - deltaX);
@@ -9504,8 +9504,8 @@ DoneTesting:
 
                     angle = 45;
 
-                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
-                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+                    int deltaX = Math.Abs(target.X - StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - StartPoint.Y);
 
                     if (deltaX < deltaY) {
                         target.X += (deltaY - deltaX);
@@ -9518,21 +9518,21 @@ DoneTesting:
                 else if (angle > 67.5 && angle < 112.5) {
 
                     angle = 90;
-                    target.X = (int)StartPoint.X;
+                    target.X = StartPoint.X;
 
                 }
                 else if (angle < -67.5 && angle > -112.5) {
 
                     angle = -90;
-                    target.X = (int)StartPoint.X;
+                    target.X = StartPoint.X;
 
                 }
                 else if (angle >= 112.5 && angle <= 157.5) {
 
                     angle = 135;
 
-                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
-                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+                    int deltaX = Math.Abs(target.X - StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - StartPoint.Y);
 
                     if (deltaX < deltaY) {
                         target.X -= (deltaY - deltaX);
@@ -9546,8 +9546,8 @@ DoneTesting:
 
                     angle = -135;
 
-                    int deltaX = Math.Abs(target.X - (int)StartPoint.X);
-                    int deltaY = Math.Abs(target.Y - (int)StartPoint.Y);
+                    int deltaX = Math.Abs(target.X - StartPoint.X);
+                    int deltaY = Math.Abs(target.Y - StartPoint.Y);
 
                     if (deltaX < deltaY) {
                         target.X -= (deltaY - deltaX);
@@ -9560,7 +9560,7 @@ DoneTesting:
                 else if (angle > 157.5 || angle < -157.5) {
 
                     angle = -180;
-                    target.Y = (int)StartPoint.Y;
+                    target.Y = StartPoint.Y;
 
                 }
 
@@ -9573,30 +9573,30 @@ DoneTesting:
                 if (angle >= -45 && angle < 45) {
 
                     if (supercover) {
-                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                        points.AddRange(BresenhamLineSuperCover(StartPoint.X, StartPoint.Y + j, target.X, target.Y + j));
                     }
                     else {
-                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                        points.AddRange(BresenhamLine(StartPoint.X, StartPoint.Y + j, target.X, target.Y + j));
                     }
                     
                 }
                 else if (angle <= -135 || angle >= 135) {
 
                     if (supercover) {
-                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                        points.AddRange(BresenhamLineSuperCover(StartPoint.X, StartPoint.Y + j, target.X, target.Y + j));
                     }
                     else {
-                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y + j, target.X, target.Y + j));
+                        points.AddRange(BresenhamLine(StartPoint.X, StartPoint.Y + j, target.X, target.Y + j));
                     }
                     
                 }
                 else {
 
                     if (supercover) {
-                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X + j, (int)StartPoint.Y, target.X + j, target.Y));
+                        points.AddRange(BresenhamLineSuperCover(StartPoint.X + j, StartPoint.Y, target.X + j, target.Y));
                     }
                     else {
-                        points.AddRange(BresenhamLine((int)StartPoint.X + j, (int)StartPoint.Y, target.X + j, target.Y));
+                        points.AddRange(BresenhamLine(StartPoint.X + j, StartPoint.Y, target.X + j, target.Y));
                     }
                     
                 }
@@ -9611,30 +9611,30 @@ DoneTesting:
                 if (angle >= -45 && angle < 45) {
 
                     if (supercover) {
-                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                        points.AddRange(BresenhamLineSuperCover(StartPoint.X, StartPoint.Y - k, target.X, target.Y - k));
                     }
                     else {
-                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                        points.AddRange(BresenhamLine(StartPoint.X, StartPoint.Y - k, target.X, target.Y - k));
                     }
                     
                 }
                 else if (angle <= -135 || angle >= 135) {
 
                     if (supercover) {
-                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                        points.AddRange(BresenhamLineSuperCover(StartPoint.X, StartPoint.Y - k, target.X, target.Y - k));
                     }
                     else {
-                        points.AddRange(BresenhamLine((int)StartPoint.X, (int)StartPoint.Y - k, target.X, target.Y - k));
+                        points.AddRange(BresenhamLine(StartPoint.X, StartPoint.Y - k, target.X, target.Y - k));
                     }
                     
                 }
                 else {
 
                     if (supercover) {
-                        points.AddRange(BresenhamLineSuperCover((int)StartPoint.X - k, (int)StartPoint.Y, target.X - k, target.Y));
+                        points.AddRange(BresenhamLineSuperCover(StartPoint.X - k, StartPoint.Y, target.X - k, target.Y));
                     }
                     else {
-                        points.AddRange(BresenhamLine((int)StartPoint.X - k, (int)StartPoint.Y, target.X - k, target.Y));
+                        points.AddRange(BresenhamLine(StartPoint.X - k, StartPoint.Y, target.X - k, target.Y));
                     }
                     
                 }
@@ -9685,10 +9685,10 @@ DoneTesting:
             if (StartPoint == default)
                 return new Tuple<List<Point>, Vector4>(new List<Point>(), default);
 
-            int minX = Math.Min(Neo.TileTargetX, (int)StartPoint.X);
-            int maxX = Math.Max(Neo.TileTargetX, (int)StartPoint.X);
-            int minY = Math.Min(Neo.TileTargetY, (int)StartPoint.Y);
-            int maxY = Math.Max(Neo.TileTargetY, (int)StartPoint.Y);
+            int minX = Math.Min(Neo.TileTargetX, StartPoint.X);
+            int maxX = Math.Max(Neo.TileTargetX, StartPoint.X);
+            int minY = Math.Min(Neo.TileTargetY, StartPoint.Y);
+            int maxY = Math.Max(Neo.TileTargetY, StartPoint.Y);
 
             List<Point> points = new List<Point>();
 
