@@ -3726,26 +3726,34 @@ DoneTesting:
 
                             if (wasDownRight) {
 
-                                Main.tile[prevX, prevY].halfBrick(false);
-                                Main.tile[prevX, prevY].slope(0);
+                                if (Main.tile[prevX, prevY].type == type) {
+                                    Main.tile[prevX, prevY].halfBrick(false);
+                                    Main.tile[prevX, prevY].slope(0);
+                                }
 
                             }
 
-                            Main.tile[curX, curY].halfBrick(false);
-                            Main.tile[curX, curY].slope(0);
+                            if (Main.tile[curX, curY].type == type) {
+                                Main.tile[curX, curY].halfBrick(false);
+                                Main.tile[curX, curY].slope(0);
+                            }
 
                         }
                         else {
 
                             if ((headingUp && headingLeft) || (headingDown && headingRight)) {
-                        
-                                Main.tile[prevX, prevY].halfBrick(false);
-                                Main.tile[prevX, prevY].slope(slope);
+
+                                if (Main.tile[prevX, prevY].type == type) {
+                                    Main.tile[prevX, prevY].halfBrick(false);
+                                    Main.tile[prevX, prevY].slope(slope);
+                                }
                         
                             }
 
-                            Main.tile[curX, curY].halfBrick(false);
-                            Main.tile[curX, curY].slope(slope);
+                            if (Main.tile[curX, curY].type == type) {
+                                Main.tile[curX, curY].halfBrick(false);
+                                Main.tile[curX, curY].slope(slope);
+                            }
 
                         }
 
