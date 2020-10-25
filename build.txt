@@ -1,4 +1,4 @@
 author = Neojin
 displayName = Neo Draw
 includePDB = true
-version = 0.1
+version = 0.2
