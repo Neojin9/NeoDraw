@@ -2700,7 +2700,7 @@ DoneTesting:
                                 if (CurrentTab == Tabs.Tiles)
                                     DrawPlacingTile(sb);
 
-                                if ((NeoDraw.TileToCreate == null || !Main.tileFrameImportant[(int)NeoDraw.TileToCreate]) && NeoDraw.TileToCreate.GetValueOrDefault(-1) != TileID.Cactus)
+                                if ((!Main.tileFrameImportant[NeoDraw.TileToCreate.GetValueOrDefault()] && NeoDraw.TileToCreate.GetValueOrDefault() != TileID.Cactus) || CurrentTab == Tabs.Walls)
                                     sb.DrawRectangle(new Vector2((Neo.TileTargetX - (int)Math.Floor(BrushSize / 2f)) * 16 - Main.screenPosition.X, (Neo.TileTargetY - (int)Math.Floor(BrushSize / 2f)) * 16 - Main.screenPosition.Y), new Vector2(BrushSize * 16), Color.Black * Main.cursorAlpha, 3);
 
                             }
