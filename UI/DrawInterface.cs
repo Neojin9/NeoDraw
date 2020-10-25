@@ -2303,7 +2303,8 @@ namespace NeoDraw.UI {
 
                     if (CurrentBrushShape == BrushShape.Line && StartPoint != default) {
 
-                        float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X)) * -1;
+                        //float angle = MathHelper.ToDegrees((float)Math.Atan2(Neo.TileTargetY - StartPoint.Y, Neo.TileTargetX - StartPoint.X)) * -1;
+                        float angle = GetLineAngle(new Point(Neo.TileTargetX, Neo.TileTargetY), StartPoint, Main.keyState.PressingCtrl());
                         statusBarText += " " + angle.ToString("F1") + "° - Hold CTRL to snap angle in 45° increments.";
 
                     }
@@ -2765,6 +2766,14 @@ DoneTesting:
                                 for (int i = 0; i < points.Count; i++) {
 
                                     Color color = new Color(0.24f, 0.8f, 0.9f, 0.5f) * 0.75f;
+
+                                    if (CurrentTab == Tabs.Tiles && CurrentPaintMode == PaintMode.Paint && TileID.Sets.Platforms[NeoDraw.TileToCreate.GetValueOrDefault()]) {
+
+                                        float angle = GetLineAngle(new Point(Neo.TileTargetX, Neo.TileTargetY), StartPoint, Main.keyState.PressingCtrl());
+
+                                        if ((angle < -45 && angle > -135) || (angle > 45 && angle < 135))
+                                            color = new Color(0.8f, 0.24f, 0.24f, 0.5f) * 0.75f;
+                                    }
 
                                     sb.Draw(value, Main.ReverseGravitySupport(points[i].ToVector2() * 16f - Main.screenPosition, 16f), new Rectangle(0, 0, 18, 18), color, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
 
@@ -9471,9 +9480,108 @@ DoneTesting:
 
         }
 
-        private static List<Point> GetLinePoints(bool supercover = false) {
+        private static float GetLineAngle(Point target, Point startPoint, bool snap = false) {
+            
+            float angle = MathHelper.ToDegrees((float)Math.Atan2(target.Y - startPoint.Y, target.X - startPoint.X));
 
+            if (snap) {
+
+                if (angle > -22.5 && angle < 22.5) {
+
+                    angle = 0;
+                    target.Y = startPoint.Y;
+
+                }
+                else if (angle <= -22.5 && angle >= -67.5) {
+
+                    angle = -45;
+
+                    int deltaX = Math.Abs(target.X - startPoint.X);
+                    int deltaY = Math.Abs(target.Y - startPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X += (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y -= (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle >= 22.5 && angle <= 67.5) {
+
+                    angle = 45;
+
+                    int deltaX = Math.Abs(target.X - startPoint.X);
+                    int deltaY = Math.Abs(target.Y - startPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X += (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y += (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle > 67.5 && angle < 112.5) {
+
+                    angle = 90;
+                    target.X = startPoint.X;
+
+                }
+                else if (angle < -67.5 && angle > -112.5) {
+
+                    angle = -90;
+                    target.X = startPoint.X;
+
+                }
+                else if (angle >= 112.5 && angle <= 157.5) {
+
+                    angle = 135;
+
+                    int deltaX = Math.Abs(target.X - startPoint.X);
+                    int deltaY = Math.Abs(target.Y - startPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X -= (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y += (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle <= -112.5 && angle >= -157.5) {
+
+                    angle = -135;
+
+                    int deltaX = Math.Abs(target.X - startPoint.X);
+                    int deltaY = Math.Abs(target.Y - startPoint.Y);
+
+                    if (deltaX < deltaY) {
+                        target.X -= (deltaY - deltaX);
+                    }
+                    else if (deltaY < deltaX) {
+                        target.Y -= (deltaX - deltaY);
+                    }
+
+                }
+                else if (angle > 157.5 || angle < -157.5) {
+
+                    angle = -180;
+                    target.Y = startPoint.Y;
+
+                }
+
+            }
+
+            return angle;
+
+        }
+
+        private static List<Point> GetLinePoints(bool supercover = false) {
+            
             Point target = new Point(Neo.TileTargetX, Neo.TileTargetY);
+
+            //float angle = GetLineAngle(target, StartPoint, Main.keyState.PressingCtrl());
 
             float angle = MathHelper.ToDegrees((float)Math.Atan2(target.Y - StartPoint.Y, target.X - StartPoint.X));
 
